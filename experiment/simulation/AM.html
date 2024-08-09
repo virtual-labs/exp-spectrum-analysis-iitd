@@ -7,6 +7,16 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
   <body>
+<div id = "container">
+    <h1>Instructions for Amplitude Modulation (AM)</h1>
+    <ul>
+        <li>Step 1: Click on 'Generate Message' button to generate input message signal</li>
+        <li>Step 2: Then click on 'Generate Carrier' button to generate carrier signal</li>
+		<li>Step 3: The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
+        <li>Step 4: Click on 'Generate Amplitude Modulated Signal' button to generate Amplitude Modulated Signal</li>
+    </ul>
+<br/>
+</div>		  
     <!-- sidebar and body -->
     <div class="flex min-h-[80vh]">
       <div class="px-6 pb-6 flex-1">
@@ -57,6 +67,7 @@
             <div
               class="z-10 absolute bg-black h-2 w-[80px] rounded-md top-[230px] -right-2"
             ></div>
+			
             <div class="flex justify-around p-8 gap-28">
               <!-- audio oscillator -->
               <div
@@ -79,20 +90,7 @@
                     <p class="text-[12px] font-medium">cos(wt)</p>
                   </div>
                 </div>
-                <div class="flex flex-col items-center">
-                  <p class="text-[13px] pb-1 text-center font-semibold">
-                    Message Frequency
-                  </p>
-                  <input
-                    id="messageFrequency"
-                    value="10"
-                    type="range"
-                    min="1"
-                    max="10000"
-                    onchange="handleMessageFrequencyChange()"
-                  />
-                  <div class="leading-none messageFrequencyDiv">1</div>
-                </div>
+
                 <div class="flex flex-col items-end">
                   <div class="flex flex-col items-start">
                     <div
@@ -107,14 +105,7 @@
                     <p class="text-[12px] font-medium">sin(wt)</p>
                   </div>
                 </div>
-                <div class="flex justify-center mt-6">
-                  <button
-                    onclick="generateMessageSignal()"
-                    class="bg-[#008000] py-1 px-3 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-                  >
-                    Generate
-                  </button>
-                </div>
+
               </div>
               <!-- adder -->
               <div
@@ -122,7 +113,7 @@
               >
                 <h5 class="text-center text-sm font-medium">ADDER</h5>
                 <div class="flex flex-col items-center">
-                  <p class="text-[13px] pb-1 text-center font-semibold">G:</p>
+                  <p class="text-[13px] pb-1 text-center font-semibold">G (Gain):</p>
                   <input
                     onchange="handleAChange()"
                     id="A"
@@ -143,7 +134,7 @@
                 </div>
                 <!--  -->
                 <div class="flex flex-col items-center">
-                  <p class="text-[13px] pb-1 text-center font-semibold">g:</p>
+                  <p class="text-[13px] pb-1 text-center font-semibold">g(DC):</p>
                   <input
                     onchange="handleBChange()"
                     type="range"
@@ -186,6 +177,7 @@
                   <div
                     class="h-[24px] w-[24px] bg-[#ffff00] rounded-full"
                   ></div>
+				  <p>Y</p>
                   <div class="flex flex-col items-center">
                     <div
                       class="h-[24px] w-[24px] bg-[#ffff00] rounded-full"
@@ -194,12 +186,7 @@
                   </div>
                 </div>
                 <div class="flex justify-center mt-8">
-                  <button
-                    onclick="generateAmplitudeModulatedSignal()"
-                    class="bg-[#008000] py-1 px-3 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-                  >
-                    Generate
-                  </button>
+
                 </div>
               </div>
             </div>
@@ -239,20 +226,7 @@
                 class="relative bg-[#a9a9a9] p-1 pt-0 border-4 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.6)] border-black w-[140px] h-[250px]"
               >
                 <h5 class="text-center text-sm font-medium">Master Signals</h5>
-                <div
-                  class="absolute top-[90px] flex flex-col items-center gap-y-1"
-                >
-                  <p class="text-[13px] pb-1 font-bold">Carrier Frequency:</p>
-                  <input
-                    id="carrierFrequency"
-                    value="100"
-                    type="range"
-                    min="1"
-                    max="10000"
-                    onchange="handleCarrierFrequencyChange()"
-                  />
-                  <div class="leading-none carrierFrequencyDiv">1</div>
-                </div>
+
                 <div class="flex flex-col items-end">
                   <div class="flex flex-col items-end">
                     <div
@@ -287,36 +261,314 @@
                     <p class="text-[12px] font-medium">GND</p>
                   </div>
                 </div>
-                <div class="flex justify-center mt-8">
-                  <button
-                    onclick="generateCarrierSignal()"
-                    class="bg-[#008000] py-1 px-3 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-                  >
-                    Generate
-                  </button>
-                </div>
+
               </div>
             </div>
           </div>
           <div class="flex flex-col grow-0 items-center">
-            <div class="bg-black">
-              <div class="w-[420px] h-[300px]">
-                <img
-                  class="w-[100%] h-[100%]"
-                  src="../images/AM_Tims.png"
-                  alt="am_tims"
-                />
-              </div>
-            </div>
+                  <div class="flex flex-col mb-2 items-center">
+                    <p class="text-[13px] pb-1 text-center font-bold">
+                      Message Frequency
+                    </p>
+                    <input
+                      id="messageFrequency"
+                      value="50"
+                      type="range"
+                      min="1"
+                      max="200"
+                      onchange="handleMessageFrequencyChange()"
+                    />
+                    <div class="leading-none messageFrequencyDiv">50</div>
+                    <button
+                      onclick="generateMessageSignal()"
+                      class="bg-[#008000] py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+                    >
+                      Generate Message
+                    </button>
+                  </div>
+				  
+				                    <!-- carrier frequency -->
+                  <div class="flex flex-col items-center">
+                    <p class="text-[13px] pb-1 font-bold">Carrier Frequency:</p>
+                    <input
+                      id="carrierFrequency"
+                      value="500"
+                      type="range"
+                      min="1"
+                      max="1000"
+                      onchange="handleCarrierFrequencyChange()"
+                    />
+                    <div class="leading-none carrierFrequencyDiv">500</div>
+                    <button
+                      onclick="generateCarrierSignal()"
+                      class="bg-[#008000] py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+                    >
+                      Generate Carrier
+                    </button>
+                  </div>
+				          <button
+            onclick="generateAmplitudeModulatedSignal()"
+            class="bg-[#008000] py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+        >
+            Generate Amplitude Modulated Signal
+        </button>
+		<br/>
+
+						        <button
+            onclick="createPlots()"
+            class="bg-[#008000] py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+        >
+            Perform AM Demodulation
+        </button>
+
             <div class="bg-red-50 plotSection">
               <div id="modulatedPlot" class="w-[600px] max-h-[450px]"></div>
               <div id="carrierPlot" class="w-[600px] max-h-[450px]"></div>
               <div id="messagePlot" class="w-[600px] max-h-[450px]"></div>
+
             </div>
           </div>
         </div>
+
+<br/>
+<br/>		
+<hr/>
+<br/>		
+<!----->
+<div id = "container">
+    <h1>Instructions for Amplitude Demodulation</h1>
+    <ul>
+        <li>Step 1: Tunable LPF's Cutoff frequency works in accordance with the Message frequency</li>
+		<li>Step 2: You can Demodulate the AM Signal clicking on the 'Perform AM Demodulation' button</li>
+		<li>Step 3: Click on the 'Show Frequency Spectrums' button to see spectrums of the message, AM modulated and demodulated signal</li>
+    </ul>
+</div>	
+        <div class="flex flex-shrink-0">
+          <div class="relative w-[700px] py-2">
+            <div
+              class="absolute bg-[#ff0000] h-[90px] w-2 rounded-md top-[170px] left-[220px]"
+            ></div>
+            <div
+              class="z-10 absolute bg-[#ff0000] h-2 w-[44px] rounded-md top-[254px] left-[184px]"
+            ></div>
+            <div
+              class="z-10 absolute bg-[#ff0000] h-2 w-[64px] rounded-md top-[170px] left-[224px]"
+            ></div>
+
+            <div
+              class="absolute bg-[#0000ff] h-[110px] w-2 rounded-md top-[170px] right-[236px]"
+            ></div>
+            <div
+              class="z-10 absolute bg-[#0000ff] h-2 w-[90px] rounded-md top-[170px] right-[236px]"
+            ></div>
+            <div
+              class="z-10 absolute bg-[#0000ff] h-2 w-[86px] rounded-md top-[272px] right-[158px]"
+            ></div>
+            <div
+              class="z-10 absolute bg-black h-2 w-[80px] rounded-md top-[272px] -right-2"
+            >
+            <p class="text-end pt-1 font-medium">CH2-B</p>
+            </div> 
+            <div class="absolute top-[100px] left-[50px]">
+                <p class="font-medium text-center my-2 text-[24px]">AM Signal</p>
+                <div>
+
+
+                    <!--  -->
+                  </div>
+            </div>
+            <div class="flex justify-end p-8 pr-12 gap-28">
+              <!-- utilities -->
+              <div
+                class="relative bg-[#a9a9a9] p-1 pt-0 border-4 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.6)] border-black w-[140px] h-[270px]"
+              >
+                <h5 class="text-center text-sm font-medium">UTILITIES</h5>
+                <div class="flex justify-between px-1 pt-1">
+                  <div class="flex flex-col items-center">
+                    <div
+                      class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                    ></div>
+                    <p class="text-[12px] font-medium">REF</p>
+                  </div>
+                  <div
+                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                  ></div>
+                </div>
+                <div class="flex justify-between px-1 pt-1">
+                  <div
+                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                  ></div>
+                  <div
+                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                  ></div>
+                </div>
+                <p class="text-sm text-center border-b border-black font-medium">
+                  COMPARATOR
+                </p>
+                <div class="flex justify-between px-1 pt-1">
+                  <div
+                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                  ></div>
+                  <div
+                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                  ></div>
+                </div>
+                <p class="text-sm text-center border-b border-black font-medium">
+                  RECTIFIER
+                </p>
+
+                <div class="flex justify-between px-1 pt-1">
+                  <div
+                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                  ></div>
+                  <div
+                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                  ></div>
+                </div>
+                <p class="text-sm text-center border-b border-black font-medium">
+                  DIODE + LPF
+                </p>
+
+                <div class="flex justify-between px-1 pt-1">
+                  <div
+                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                  ></div>
+                  <div
+                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                  ></div>
+                </div>
+                <p class="text-sm text-center border-b border-black font-medium">RC LPF</p>
+              </div>
+              <!-- TUNABLE LPF -->
+              <div
+                class="relative bg-[#a9a9a9] p-1 pt-0 border-4 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.6)] border-black w-[140px] h-[270px]"
+              >
+                <h5 class="text-center text-sm font-medium">TUNABLE LPF</h5>
+                <div class="flex mt-6 flex-col items-end">
+                  <div class="flex flex-col items-start">
+                    <div
+                      class="h-[24px] w-[24px] border-[5px] border-[#ff0000] bg-black rounded-full"
+                    ></div>
+                    <p class="text-[12px] font-medium">CLK</p>
+                  </div>
+                </div>
+                <div class="flex flex-col items-center justify-center gap-3">
+                  <div class="flex flex-col items-center">
+                    <div
+                      class="h-[26px] w-[26px] border-[4px] relative shadow-black shadow-lg border-black bg-[#ffff00] rounded-full"
+                    >
+                      <div
+                        class="w-1 h-2 absolute top-[50%] left-[40%] bg-black"
+                      ></div>
+                    </div>
+                    <p class="text-[12px] font-medium">TUNE</p>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <div
+                      class="h-[26px] w-[26px] relative border-[4px] shadow-black shadow-md border-black bg-[#ffff00] rounded-full"
+                    >
+                      <div
+                        class="w-1 h-2 absolute top-[50%] left-[40%] bg-black"
+                      ></div>
+                    </div>
+                    <p class="text-[12px] font-medium">GAIN</p>
+                  </div>
+                </div>
+                <!--  -->
+                <div
+                  class="flex items-center justify-between px-2 gap-8 absolute bottom-0 w-full"
+                >
+                  <div class="flex flex-col items-start">
+                    <div
+                      class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                    ></div>
+                    <p class="text-[12px] font-medium">IN</p>
+                  </div>
+                  <div class="flex flex-col items-start">
+                    <div
+                      class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
+                    ></div>
+                    <p class="text-[12px] font-medium">OUT</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col grow-0 items-center">
+            <div class="w-full my-3">
+              <div class="flex justify-between m-2">
+                <div class="flex flex-1 items-center gap-3">
+                  <p class="font-medium"></p>
+                  <input
+                    class="border px-1 w-[152px] py-1 rounded-sm border-black"
+                    type="number"
+                    id="cutoff"
+                    value="1"
+                  />
+                  <button
+                    class="bg-blue-500 text-white py-1 px-3  rounded-md hover:scale-105"
+                    onclick="createPlots()"
+                  >
+                    Perform AM Demodulation
+                  </button>
+				  		    <button class="bg-blue-500 text-white py-1 px-3  rounded-md hover:scale-105" id="plotButton">Show Frequency Spectrums</button>
+                </div>
+              </div>
+            </div>
+            <div class="bg-red-50 plotSection">
+              <div id="demodulatedPlot" class="w-[600px] max-h-[450px]"></div>
+              <div id="modulatedPlot" class="w-[600px] max-h-[450px]"></div>
+              <div id="messagePlot" class="w-[600px] max-h-[450px]"></div>
+            </div>
+          </div>
+        </div>
+		
+		
+		
+
+    <div class="plot-container">
+        <div id="message-signal" class="plot"></div>
+        <div id="sidebands" class="plot"></div>
+        <div id="demodulated-signal" class="plot"></div>
+    </div>
+<!----->
+
+
       </div>
     </div>
+	
+	
+	
+    <script>
+        function checkFrequencies() {
+            // Get values from input fields
+            let carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+            let messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+            
+            // Check the frequencies
+            if (carrierFrequency <= messageFrequency) {
+                alert("Carrier frequency should be greater than message frequency.");
+            } else {
+                console.log("Carrier frequency is greater than message frequency.");
+            }
+        }
+
+        // Function to attach event listeners to all buttons
+        function attachEventListeners() {
+            let buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', checkFrequencies);
+            });
+        }
+
+        // Attach event listeners when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', attachEventListeners);
+
+    </script>
+	
+	
+	
     <script>
       function handleMessageFrequencyChange() {
         const messageValue = parseFloat(
@@ -357,7 +609,7 @@
           alert("Please enter a valid frequency for the message signal.");
           return;
         }
-        var num_points = 10000;
+        var num_points = 100000;
         var x_values = linspace(0, 1, num_points);
         var message_signal = [];
 
@@ -387,7 +639,7 @@
           alert("Please enter a valid frequency for the carrier signal.");
           return;
         }
-        var num_points = 10000;
+        var num_points = 100000;
         var x_values = linspace(0, 1, num_points);
         var carrier_signal = x_values.map((x) =>
           Math.sin(2 * Math.PI * frequencyCarrier * x)
@@ -405,7 +657,7 @@
       function additional_processing_am(
         frequencyMessage,
         frequencyCarrier,
-        num_points = 10000
+        num_points = 100000
       ) {
         // Initialize arrays for x and y values
         var x_values = linspace(0, 1, num_points);
@@ -495,5 +747,317 @@
         Plotly.newPlot("modulatedPlot", modulatedData, modulatedLayout);
       }
     </script>
+	
+	
+<script>
+    /*
+        function handleMessageFrequencyChange() {
+        const messageValue = parseFloat(
+          document.getElementById("messageFrequency").value
+        );
+        document.querySelector(".messageFrequencyDiv").innerHTML = messageValue;
+      }
+      function handleCarrierFrequencyChange() {
+        const messageValue = parseFloat(
+          document.getElementById("amplitude").value
+        );
+        document.querySelector(".carrierFrequencyDiv").innerHTML = messageValue;
+      }
+    */
+
+    // JavaScript code for amplitude demodulation
+    function amplitudeDemodulation(frequency, amplitude, A1, B1, numPoints = 20000) {
+        const xValues = [];
+        const message = [];
+        const yValues = [];
+        const demodulatedSignal = [];
+
+        // Generate x values
+        for (let i = 0; i < numPoints; i++) {
+            xValues.push(i * (5 / (frequency * numPoints)));
+        }
+
+        // Generate y values
+        for (let i = 0; i < numPoints; i++) {
+            message.push(Math.sin(2 * Math.PI * frequency * xValues[i]));
+        }
+        
+        for (let i = 0; i < numPoints; i++) {
+            yValues.push((B1 + (A1 * Math.sin(2 * Math.PI * frequency * xValues[i]))) * Math.sin(2 * Math.PI * amplitude * xValues[i]));
+        }
+
+        // Amplitude Demodulation
+        for (let i = 0; i < numPoints; i++) {
+            demodulatedSignal.push(yValues[i] * Math.sin(2 * Math.PI * amplitude * xValues[i]));
+        }
+
+        // Low-pass filter to remove high-frequency components
+        const cutoffFrequency = parseFloat(document.getElementById('cutoff').value);
+        const filteredSignal = lowPassFilter(demodulatedSignal, cutoffFrequency);
+
+        // Add bias to the filtered signal
+        const bias = - 0.315 - 0.18 - 0.005;
+        const biasedSignal = filteredSignal.map(value => value + bias);
+
+        return { "x": xValues, "demodulated": biasedSignal, "message": message, "modulated": yValues };
+    }
+
+    // Low-pass filter function
+    function lowPassFilter(signal, cutoffFrequency) {
+        const filteredSignal = [];
+        // Implement your low-pass filter logic here
+        // Example: Applying moving average filter
+        const filterLength = 2000; // Filter length (adjust as needed)
+        for (let i = 0; i < signal.length; i++) {
+            let sum = 0;
+            const startIdx = Math.max(0, i - filterLength + 1);
+            for (let j = startIdx; j <= i; j++) {
+                sum += signal[j];
+            }
+            filteredSignal.push(sum / filterLength);
+        }
+        return filteredSignal;
+    }
+
+    // Function to create plots
+    function createPlots() {
+        var frequency = parseFloat(document.getElementById('messageFrequency').value);
+        var amplitude = parseFloat(document.getElementById('carrierFrequency').value);
+        var A1 = parseFloat(document.getElementById("A").value); //  parseFloat(document.getElementById('A1').value);
+        var B1 = parseFloat(document.getElementById("B").value); //  parseFloat(document.getElementById('B1').value);
+
+        var data = amplitudeDemodulation(frequency, amplitude, A1, B1);
+
+        // Plot demodulated signal
+        var demodulatedPlotDiv = document.getElementById('demodulatedPlot');
+        Plotly.newPlot(demodulatedPlotDiv, [{
+            x: data.x,
+            y: data.demodulated,
+            mode: 'lines',
+            name: 'Demodulated Signal',
+            line: {color: 'blue'}
+        }], {
+            title: 'Amplitude Demodulated Signal',
+            xaxis: {
+                title: 'Time'
+            },
+            yaxis: {
+                title: 'Amplitude'
+            }
+        });
+		            // Scroll to the plot area
+            document.getElementById('plotButton').scrollIntoView({ behavior: 'smooth' });
+        
+    }
+</script>
+
+	  
+    <script>
+        // Function to generate impulse response for message and demodulated signals
+        function generateImpulseResponse(messageFreq, carrierFreq, numPoints = 10000) {
+            const xValues = [];
+            const impulseResponses = {
+                message: new Array(numPoints).fill(0),
+                demodulated: new Array(numPoints).fill(0),
+            };
+
+            // Amplitudes
+            const ampMessage = 1;
+            const ampDemodulated = 0.315; // New amplitude for demodulated signal
+
+            // Determine frequency indices
+            const maxFreq = parseFloat(document.getElementById('carrierFrequency').value) + messageFreq + 1;
+            const freqResolution = maxFreq / numPoints;
+
+            const messageIndex = Math.round(messageFreq / freqResolution);
+
+            // Set impulse magnitudes
+            impulseResponses.message[messageIndex] = ampMessage;
+            impulseResponses.demodulated[messageIndex] = ampDemodulated; // Add demodulated impulse
+
+            // Generate frequency values
+            for (let i = 0; i < numPoints; i++) {
+                xValues.push(i * freqResolution);
+            }
+
+            return { xValues, impulseResponses };
+        }
+
+        // Function to generate impulse response for carrier and sidebands
+        function generateImpulseResponse1(messageFreq, carrierFreq, numPoints = 10000) {
+            const xValues = [];
+            const impulseResponses = {
+                carrier: new Array(numPoints).fill(0),
+                carrierMinusMessage: new Array(numPoints).fill(0),
+                carrierPlusMessage: new Array(numPoints).fill(0)
+            };
+
+            // Amplitudes
+            const ampCarrier = 1;
+            const aa = parseFloat(document.getElementById("A").value);
+            const bb = parseFloat(document.getElementById("B").value);
+            const ampCarrierMinusMessage = (bb / aa) / 2;
+            const ampCarrierPlusMessage = (bb / aa) / 2;
+
+            // Determine frequency indices
+            const maxFreq = parseFloat(document.getElementById('carrierFrequency').value) + messageFreq + 1;
+            const freqResolution = maxFreq / numPoints;
+
+            const carrierIndex = Math.round(carrierFreq / freqResolution);
+            const carrierMinusMessageIndex = Math.round((carrierFreq - messageFreq) / freqResolution);
+            const carrierPlusMessageIndex = Math.round((carrierFreq + messageFreq) / freqResolution);
+
+            // Set impulse magnitudes
+            impulseResponses.carrier[carrierIndex] = ampCarrier;
+            impulseResponses.carrierMinusMessage[carrierMinusMessageIndex] = ampCarrierMinusMessage;
+            impulseResponses.carrierPlusMessage[carrierPlusMessageIndex] = ampCarrierPlusMessage;
+
+            // Generate frequency values
+            for (let i = 0; i < numPoints; i++) {
+                xValues.push(i * freqResolution);
+            }
+
+            return { xValues, impulseResponses };
+        }
+
+        // Function to plot all signals
+        function plotImpulseResponses() {
+            const messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+            const carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+
+            const { xValues: xValuesMessage, impulseResponses: impulseResponsesMessage } = generateImpulseResponse(messageFrequency, carrierFrequency);
+            const { xValues: xValuesSidebands, impulseResponses: impulseResponsesSidebands } = generateImpulseResponse1(messageFrequency, carrierFrequency);
+
+            // Message Signal Plot
+            const messageTrace = {
+                x: xValuesMessage,
+                y: impulseResponsesMessage.message,
+                mode: 'lines+markers',
+                name: 'Message Signal',
+                line: { color: 'red' }
+            };
+
+            const messageLayout = {
+                title: 'Message Signal',
+                xaxis: { title: 'Frequency (Hz)' },
+                yaxis: { title: 'Magnitude' }
+            };
+
+            Plotly.newPlot('message-signal', [messageTrace], messageLayout);
+
+            // Sidebands and Carrier Plot
+            const sidebandTraces = [
+                {
+                    x: xValuesSidebands,
+                    y: impulseResponsesSidebands.carrier,
+                    mode: 'lines+markers',
+                    name: 'Carrier Signal',
+                    line: { color: 'blue' }
+                },
+                {
+                    x: xValuesSidebands,
+                    y: impulseResponsesSidebands.carrierMinusMessage,
+                    mode: 'lines+markers',
+                    name: 'Lower Sideband',
+                    line: { color: 'green' }
+                },
+                {
+                    x: xValuesSidebands,
+                    y: impulseResponsesSidebands.carrierPlusMessage,
+                    mode: 'lines+markers',
+                    name: 'Upper Sideband',
+                    line: { color: 'purple' }
+                }
+            ];
+
+            const sidebandLayout = {
+                title: 'Amplitude Modulated Signal',
+                xaxis: { title: 'Frequency (Hz)' },
+                yaxis: { title: 'Magnitude' }
+            };
+
+            Plotly.newPlot('sidebands', sidebandTraces, sidebandLayout);
+
+            // Demodulated Signal Plot
+            const demodulatedTrace = {
+                x: xValuesMessage,
+                y: impulseResponsesMessage.demodulated,
+                mode: 'lines+markers',
+                name: 'Demodulated Signal',
+                line: { color: 'orange' }
+            };
+
+            const demodulatedLayout = {
+                title: 'Demodulated Signal',
+                xaxis: { title: 'Frequency (Hz)' },
+                yaxis: { title: 'Magnitude' }
+            };
+
+            Plotly.newPlot('demodulated-signal', [demodulatedTrace], demodulatedLayout);
+        }
+
+        // Add event listener to the button
+        document.getElementById('plotButton').addEventListener('click', plotImpulseResponses);
+    </script>
+
+
+
+<style>
+#cutoff {
+display: none;
+}
+
+.container {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px 40px;
+    max-width: 1000px; /* Increased max-width to fit three plots side by side */
+    margin: 0 auto; /* Center the container */
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    font-size: 22px; /* Increased font size */
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #e0e7ff;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px; /* Set font size for list items */
+}
+
+li::before {
+    content: "✔";
+    color: #4caf50;
+    margin-right: 10px;
+}
+
+.plot-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Add space between plots */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    margin-bottom: 20px; /* Add space below the plots */
+}
+
+.plot {
+    flex: 1 1 calc(33.33% - 20px); /* Responsive width for three plots side by side */
+    min-width: 300px; /* Minimum width to ensure responsiveness */
+    height: 400px;
+}
+
+</style>  
+	  
   </body>
 </html>
