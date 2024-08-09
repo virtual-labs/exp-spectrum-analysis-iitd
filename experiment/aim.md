@@ -1,1 +1,1 @@
-### Aim of the experiment
+### To explore and analyze the principles of analog amplitude, frequency, and phase modulation and demodulation, along with spectrum analysis to understand their effects on signal properties and applications in communication systems
