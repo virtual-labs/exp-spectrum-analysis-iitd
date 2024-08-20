@@ -1,39 +1,175 @@
 {
-  "version": 2.0,
+  "version": "2.0",
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "Which of the following statements is true regarding Amplitude Modulation (AM)?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "The amplitude of the carrier signal is varied in accordance with the modulating signal.",
+        "b": "The frequency of the carrier signal is varied in accordance with the modulating signal.",
+        "c": "The phase of the carrier signal is varied in accordance with the modulating signal.",
+        "d": "The amplitude of the modulating signal is varied in accordance with the carrier signal."
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Correct: AM varies the amplitude of the carrier signal.",
+        "b": "Incorrect: This describes Frequency Modulation (FM).",
+        "c": "Incorrect: This describes Phase Modulation (PM).",
+        "d": "Incorrect: The modulating signal does not change its amplitude."
       },
       "correctAnswer": "a",
-      "difficulty": "beginner"
+      "difficulty": "intermediate"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "In Frequency Modulation (FM), what parameter of the carrier signal changes with the modulating signal?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Amplitude",
+        "b": "Frequency",
+        "c": "Phase",
+        "d": "None of the above"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect: FM does not vary the amplitude.",
+        "b": "Correct: FM varies the frequency of the carrier signal.",
+        "c": "Incorrect: This describes Phase Modulation (PM).",
+        "d": "Incorrect: FM does vary a parameter of the carrier signal."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the main advantage of using Phase Modulation (PM) over Amplitude Modulation (AM)?",
+      "answers": {
+        "a": "PM is less susceptible to noise.",
+        "b": "PM requires less bandwidth.",
+        "c": "PM is easier to implement.",
+        "d": "PM has a simpler demodulation process."
+      },
+      "explanations": {
+        "a": "Correct: PM is less susceptible to noise compared to AM.",
+        "b": "Incorrect: PM generally requires more bandwidth.",
+        "c": "Incorrect: PM is more complex to implement.",
+        "d": "Incorrect: PM's demodulation process is not simpler."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In which modulation technique does the bandwidth of the signal depend on the amplitude of the modulating signal?",
+      "answers": {
+        "a": "Amplitude Modulation (AM)",
+        "b": "Frequency Modulation (FM)",
+        "c": "Phase Modulation (PM)",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Incorrect: AM bandwidth does not depend on the modulating signal's amplitude.",
+        "b": "Correct: In FM, the bandwidth depends on the amplitude of the modulating signal.",
+        "c": "Incorrect: PM's bandwidth depends on the frequency of the modulating signal.",
+        "d": "Incorrect: There is a correct answer among the options."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which of the following correctly describes the relationship between carrier frequency and modulating signal in Amplitude Modulation (AM)?",
+      "answers": {
+        "a": "The carrier frequency remains constant.",
+        "b": "The carrier frequency varies with the modulating signal.",
+        "c": "The carrier frequency increases with the modulating signal.",
+        "d": "The carrier frequency decreases with the modulating signal."
+      },
+      "explanations": {
+        "a": "Correct: The carrier frequency remains constant in AM.",
+        "b": "Incorrect: The carrier frequency does not vary with the modulating signal.",
+        "c": "Incorrect: The carrier frequency does not increase with the modulating signal.",
+        "d": "Incorrect: The carrier frequency does not decrease with the modulating signal."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In Phase Modulation (PM), how is the modulating signal encoded?",
+      "answers": {
+        "a": "By varying the amplitude of the carrier signal.",
+        "b": "By varying the frequency of the carrier signal.",
+        "c": "By varying the phase of the carrier signal.",
+        "d": "By varying the power of the carrier signal."
+      },
+      "explanations": {
+        "a": "Incorrect: PM does not vary the amplitude.",
+        "b": "Incorrect: PM does not vary the frequency.",
+        "c": "Correct: PM varies the phase of the carrier signal.",
+        "d": "Incorrect: PM does not vary the power."
       },
       "correctAnswer": "c",
-      "difficulty": "beginner"
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the primary cause of distortion in an Amplitude Modulated (AM) signal?",
+      "answers": {
+        "a": "Noise interference",
+        "b": "Non-linearities in the modulating signal",
+        "c": "High modulation index",
+        "d": "Low carrier frequency"
+      },
+      "explanations": {
+        "a": "Incorrect: Noise interference is common, but not the primary cause.",
+        "b": "Correct: Non-linearities in the modulating signal cause distortion.",
+        "c": "Incorrect: High modulation index can cause overmodulation but not necessarily distortion.",
+        "d": "Incorrect: Low carrier frequency does not cause distortion."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What happens to the carrier signal's frequency in Frequency Modulation (FM) when the modulating signal increases in amplitude?",
+      "answers": {
+        "a": "It increases in frequency.",
+        "b": "It decreases in frequency.",
+        "c": "It remains constant.",
+        "d": "It increases or decreases depending on the modulating signal."
+      },
+      "explanations": {
+        "a": "Correct: The frequency of the carrier increases.",
+        "b": "Incorrect: It doesn't decrease with an increase in modulating signal.",
+        "c": "Incorrect: It does not remain constant.",
+        "d": "Incorrect: The frequency specifically increases with the increase in amplitude."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In a Phase Modulated (PM) system, if the frequency of the modulating signal increases, what effect does this have on the phase of the carrier signal?",
+      "answers": {
+        "a": "The phase changes more rapidly.",
+        "b": "The phase changes more slowly.",
+        "c": "The phase remains unchanged.",
+        "d": "The phase change becomes unpredictable."
+      },
+      "explanations": {
+        "a": "Correct: Higher frequency in the modulating signal causes rapid phase changes.",
+        "b": "Incorrect: The phase does not change more slowly.",
+        "c": "Incorrect: The phase is not unchanged.",
+        "d": "Incorrect: The phase change is predictable."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the significance of the modulation index in Amplitude Modulation (AM)?",
+      "answers": {
+        "a": "It determines the efficiency of the AM signal.",
+        "b": "It determines the bandwidth of the AM signal.",
+        "c": "It determines the power of the AM signal.",
+        "d": "It determines the distortion in the AM signal."
+      },
+      "explanations": {
+        "a": "Incorrect: Modulation index does not determine efficiency.",
+        "b": "Correct: Modulation index directly affects the bandwidth.",
+        "c": "Incorrect: Modulation index does not determine power.",
+        "d": "Incorrect: Modulation index is not directly related to distortion."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
     }
   ]
 }
