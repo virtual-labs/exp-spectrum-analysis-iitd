@@ -10,8 +10,6 @@
             line-height: 1.6;
             margin: 20px;
         }
-
-    
         ol {
             margin: 20px 0;
             padding-left: 20px;
