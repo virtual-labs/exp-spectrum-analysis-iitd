@@ -3,6 +3,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+		    <script type="text/javascript" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
     <title>Virtual Labs</title>
     <link rel="stylesheet" href="../css/vlabs-style.css" />
     <link rel="shortcut icon" href="../images/favicon.ico" />
@@ -160,6 +163,32 @@
           >
             Frequency Modulation
           </h2>
+		  
+		  <h3 class="text-[24px] font-semibold text-black">Theory :</h3>
+		  <p>
+        Frequency modulation (FM) is the process where the frequency of a carrier wave, denoted as \( c(t) \), 
+        is varied in accordance with the instantaneous amplitude of the modulating signal \( m(t) \). Unlike amplitude modulation, 
+        where the amplitude of the carrier wave is varied, in FM, the amplitude remains constant while the frequency changes. 
+        The modulated signal can be mathematically expressed as:
+    </p>
+    <p>
+        \( S(t) = A_c \cos\left[ 2\pi f_c t + 2\pi K_f \int m(\tau) d\tau \right] \)
+    </p>
+    <p>Where:</p>
+    <ul>
+        <li>\( A_c \) is the amplitude of the carrier signal.</li>
+        <li>\( f_c \) is the carrier frequency.</li>
+        <li>\( K_f \) is the frequency sensitivity of the modulator, defining how much the frequency of the carrier varies with the modulating signal.</li>
+        <li>\( m(t) \) is the modulating (baseband) signal.</li>
+        <li>\( \int m(\tau) d\tau \) represents the integral of the modulating signal, which determines the frequency deviation.</li>
+    </ul>
+    <p>
+        This expression shows that the instantaneous frequency of the carrier wave is proportional to the amplitude of the modulating signal. 
+        The carrier frequency \( f_c \) is shifted by an amount proportional to the modulating signal \( m(t) \), 
+        and this shift results in a frequency-modulated signal.
+    </p>
+
+		<br>					
           <div class="flex justify-center">
             <img src="../images/theory/fm1.png" alt="fm_mod_blockimg" />
           </div>
