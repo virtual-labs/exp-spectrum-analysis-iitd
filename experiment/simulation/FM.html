@@ -14,7 +14,8 @@
         <li>Step 2: Then click on 'Generate Carrier' button to generate carrier signal</li>
 		<li>Step 3: The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
         <li>Step 4: Click on 'Generate Frequency Modulated Signal' button to generate Frequency Modulated Signal</li>
-    </ul>
+        <li>Here, β represents the modulation index. The frequency spectrum is shown for a modulation index of 1</li>
+	</ul>
 <br/>
     <!-- sidebar and body -->
     <div class="flex min-h-[80vh]">
@@ -161,7 +162,7 @@
                   <!-- message frequency -->
                   <div class="flex flex-col mb-2 items-center">
                     <p class="text-[13px] pb-1 text-center font-bold">
-                      Message Frequency
+                      Message Frequency (Hz)
                     </p>
                     <input
                       id="messageFrequency"
@@ -181,7 +182,7 @@
                   </div>
                   <!-- carrier frequency -->
                   <div class="flex flex-col items-center">
-                    <p class="text-[13px] pb-1 font-bold">Carrier Frequency:</p>
+                    <p class="text-[13px] pb-1 font-bold">Carrier Frequency (Hz)</p>
                     <input
                       id="carrierFrequency"
                       value="10"
@@ -211,12 +212,18 @@
             onchange="handleKfChange()"
         />
         <div class="leading-none kfDiv" id="kfValue">50</div>
+		
+				<div align = "center">
+				<br/>
+				β =<input type = "text" id="modulationIndex" value = "50" readonly style="text-align: center;">
+				</div>
         <button
             onclick="createPlots()"
             class="bg-[#008000] py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
         >
             Generate Frequency Modulated Signal
         </button>
+
 		<br/>
 
 
@@ -688,6 +695,7 @@
           document.getElementById("messageFrequency").value
         );
         document.querySelector(".messageFrequencyDiv").innerHTML = messageValue;
+		updateModulationIndex();
       }
       function handleCarrierFrequencyChange() {
         const messageValue = parseFloat(
@@ -701,9 +709,20 @@ function handleKfChange() {
         document.getElementById("kf").value
     );
     document.getElementById("kfValue").innerHTML = kfValue;
+	updateModulationIndex();
 }
 
-	  
+	      function updateModulationIndex() {
+        const aValue = parseFloat(document.getElementById("kf").value) || 50;  // Default to 1 if empty
+        const messageValue = parseFloat(
+          document.getElementById("messageFrequency").value
+        );
+          const modulationIndex = aValue / messageValue;
+
+          // Update the modulation index input field
+          document.getElementById("modulationIndex").value = modulationIndex;
+        }
+        
       // Function for generating message signal
       function generateMessage() {
         var message_frequency = parseInt(
@@ -840,7 +859,7 @@ function handleKfChange() {
         var carrier_signal = x_values.map((x) =>
           Math.sin(2 * Math.PI * carrier_frequency * x)
         );
-
+/*
         var phase_deviation = new Array(numpoints).fill(0);
         for (var i = 1; i < numpoints; i++) {
           for (var j = 0; j <= i; j++) {
@@ -852,7 +871,18 @@ function handleKfChange() {
         var modulated_signal = x_values.map((x, i) =>
           Math.sin(2 * Math.PI * carrier_frequency * x + phase_deviation[i])
         );
+*/
+  // Phase Deviation Calculation
+  var phase_deviation = new Array(numpoints).fill(0);
+  for (var i = 1; i < numpoints; i++) {
+    phase_deviation[i] = phase_deviation[i - 1] + 
+      message_signal[i] * (kf / fs) * 2 * Math.PI; // Increment phase deviation
+  }
 
+  // Modulated Signal Calculation
+  var modulated_signal = x_values.map((x, i) =>
+    Math.sin(2 * Math.PI * carrier_frequency * x + phase_deviation[i])
+  );
         return {
           x: x_values,
           message: message_signal,
@@ -860,6 +890,7 @@ function handleKfChange() {
           modulated: modulated_signal,
         };
       }
+	  
     </script>
 	
 	
@@ -1027,6 +1058,9 @@ function handleKfChange() {
 
 	
 <script>
+	function log10(value) {
+    return Math.log(value) / Math.log(10);
+}
     function generateImpulseResponse(messageFreq, carrierFreq, numPoints = 10000) {
         const xValues = [];
         const impulseResponses = {
@@ -1034,8 +1068,8 @@ function handleKfChange() {
             demodulated: new Array(numPoints).fill(0),
         };
 
-        const ampMessage = 1;
-        const ampDemodulated = 0.5;
+        const ampMessage = 10*log10(0.5); //1;
+        const ampDemodulated = 10*log10(0.5); //0.5;
 
         const maxFreq = carrierFreq + messageFreq + 1;
         const freqResolution = maxFreq / numPoints;
@@ -1058,8 +1092,8 @@ function handleKfChange() {
         const { xValues, impulseResponses } = generateImpulseResponse(messageFrequency, carrierFrequency);
 
         const messageTrace = {
-            x: xValues,
-            y: impulseResponses.message,
+                x: [messageFrequency, messageFrequency],
+                y: [0, 10*log10(0.5)],
             mode: 'lines+markers',
             name: 'Message Signal',
             line: { color: 'red' }
@@ -1068,14 +1102,14 @@ function handleKfChange() {
         const messageLayout = {
             title: 'Message Signal',
             xaxis: { title: 'Frequency (Hz)' },
-            yaxis: { title: 'Magnitude' }
+            yaxis: { title: 'Normalized PSD (dB/Hz)' }
         };
 
         Plotly.newPlot('message-signal', [messageTrace], messageLayout);
 
         const demodulatedTrace = {
-            x: xValues,
-            y: impulseResponses.demodulated,
+                x: [messageFrequency, messageFrequency],
+                y: [0, 10*log10(0.5)],
             mode: 'lines+markers',
             name: 'Demodulated Signal',
             line: { color: 'orange' }
@@ -1084,7 +1118,7 @@ function handleKfChange() {
         const demodulatedLayout = {
             title: 'Demodulated Signal',
             xaxis: { title: 'Frequency (Hz)' },
-            yaxis: { title: 'Magnitude' }
+            yaxis: { title: 'Normalized PSD (dB/Hz)' }
         };
 
         Plotly.newPlot('demodulated-signal', [demodulatedTrace], demodulatedLayout);
@@ -1104,7 +1138,7 @@ function handleKfChange() {
             carrierFreq + 2 * messageFreq
         ];
 
-        const magnitudes = [0.115, 0.440, 0.765, 0.440, 0.115];
+        const magnitudes = [10*log10((0.115**2)/2), 10*log10((0.440**2)/2), 10*log10((0.765**2)/2), 10*log10((0.440**2)/2), 10*log10((0.115**2)/2)];
         const colors = ['blue', 'green', 'red', 'green', 'blue'];
 
         const labels = [
@@ -1137,8 +1171,8 @@ function handleKfChange() {
                 ],
             },
             yaxis: {
-                title: 'Magnitude',
-                range: [0, 1],
+                title: 'Normalized PSD (dB/Hz)',
+                //range: [0, 1],
             },
             legend: {
                 x: 1,
