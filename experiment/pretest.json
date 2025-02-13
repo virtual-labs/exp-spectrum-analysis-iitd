@@ -2,7 +2,7 @@
   "version": "2.0",
   "questions": [
     {
-      "question": "Which of the following statements is true regarding Amplitude Modulation (AM)?",
+      "question": "1. Which of the following statements is true regarding Amplitude Modulation (AM)?",
       "answers": {
         "a": "The amplitude of the carrier signal is varied in accordance with the modulating signal.",
         "b": "The frequency of the carrier signal is varied in accordance with the modulating signal.",
@@ -19,7 +19,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "In Frequency Modulation (FM), what parameter of the carrier signal changes with the modulating signal?",
+      "question": "2. In Frequency Modulation (FM), what parameter of the carrier signal changes with the modulating signal?",
       "answers": {
         "a": "Amplitude",
         "b": "Frequency",
@@ -36,7 +36,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "What is the main advantage of using Phase Modulation (PM) over Amplitude Modulation (AM)?",
+      "question": "3. What is the main advantage of using Phase Modulation (PM) over Amplitude Modulation (AM)?",
       "answers": {
         "a": "PM is less susceptible to noise.",
         "b": "PM requires less bandwidth.",
@@ -53,7 +53,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "In which modulation technique does the bandwidth of the signal depend on the amplitude of the modulating signal?",
+      "question": "4. In which modulation technique does the bandwidth of the signal depend on the amplitude of the modulating signal?",
       "answers": {
         "a": "Amplitude Modulation (AM)",
         "b": "Frequency Modulation (FM)",
@@ -70,7 +70,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "Which of the following correctly describes the relationship between carrier frequency and modulating signal in Amplitude Modulation (AM)?",
+      "question": "5. Which of the following correctly describes the relationship between carrier frequency and modulating signal in Amplitude Modulation (AM)?",
       "answers": {
         "a": "The carrier frequency remains constant.",
         "b": "The carrier frequency varies with the modulating signal.",
@@ -87,7 +87,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "In Phase Modulation (PM), how is the modulating signal encoded?",
+      "question": "6. In Phase Modulation (PM), how is the modulating signal encoded?",
       "answers": {
         "a": "By varying the amplitude of the carrier signal.",
         "b": "By varying the frequency of the carrier signal.",
@@ -104,7 +104,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "What is the primary cause of distortion in an Amplitude Modulated (AM) signal?",
+      "question": "7. What is the primary cause of distortion in an Amplitude Modulated (AM) signal?",
       "answers": {
         "a": "Noise interference",
         "b": "Non-linearities in the modulating signal",
@@ -121,7 +121,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "What happens to the carrier signal's frequency in Frequency Modulation (FM) when the modulating signal increases in amplitude?",
+      "question": "8. What happens to the carrier signal's frequency in Frequency Modulation (FM) when the modulating signal increases in amplitude?",
       "answers": {
         "a": "It increases in frequency.",
         "b": "It decreases in frequency.",
@@ -138,7 +138,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "In a Phase Modulated (PM) system, if the frequency of the modulating signal increases, what effect does this have on the phase of the carrier signal?",
+      "question": "9. In a Phase Modulated (PM) system, if the frequency of the modulating signal increases, what effect does this have on the phase of the carrier signal?",
       "answers": {
         "a": "The phase changes more rapidly.",
         "b": "The phase changes more slowly.",
@@ -155,7 +155,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "What is the significance of the modulation index in Amplitude Modulation (AM)?",
+      "question": "10. What is the significance of the modulation index in Amplitude Modulation (AM)?",
       "answers": {
         "a": "It determines the efficiency of the AM signal.",
         "b": "It determines the bandwidth of the AM signal.",
