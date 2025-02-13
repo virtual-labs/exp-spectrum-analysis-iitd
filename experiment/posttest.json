@@ -2,7 +2,7 @@
   "version": "2.0",
   "questions": [
     {
-      "question": "In Amplitude Modulation (AM), what happens when the modulation index exceeds 1, and what is the consequence of this condition?",
+      "question": "1. In Amplitude Modulation (AM), what happens when the modulation index exceeds 1, and what is the consequence of this condition?",
       "answers": {
         "a": "The carrier signal is under-modulated, resulting in reduced signal strength.",
         "b": "The carrier signal becomes over-modulated, leading to signal distortion.",
@@ -19,7 +19,7 @@
       "difficulty": "hard"
     },
     {
-      "question": "In Frequency Modulation (FM), how does the Carson's Rule help in determining the required bandwidth, and what are the implications of violating this rule?",
+      "question": "2. In Frequency Modulation (FM), how does the Carson's Rule help in determining the required bandwidth, and what are the implications of violating this rule?",
       "answers": {
         "a": "Carson's Rule predicts the bandwidth as twice the sum of the peak frequency deviation and modulating signal frequency. Violating it causes spectral overlap and interference.",
         "b": "Carson's Rule predicts the bandwidth as the product of the carrier frequency and modulation index. Violating it leads to signal clipping.",
@@ -36,7 +36,7 @@
       "difficulty": "hard"
     },
     {
-      "question": "What is the effect of non-linear amplification on a Phase Modulated (PM) signal, and how can this be mitigated?",
+      "question": "3. What is the effect of non-linear amplification on a Phase Modulated (PM) signal, and how can this be mitigated?",
       "answers": {
         "a": "Non-linear amplification causes amplitude distortion, which can be mitigated by using a limiter circuit.",
         "b": "Non-linear amplification causes phase distortion, which can be mitigated by pre-distortion techniques.",
@@ -53,7 +53,7 @@
       "difficulty": "hard"
     },
     {
-      "question": "In advanced Amplitude Modulation (AM) techniques, such as Single Sideband Suppressed Carrier (SSB-SC), what is the primary benefit, and what challenge does it introduce?",
+      "question": "4. In advanced Amplitude Modulation (AM) techniques, such as Single Sideband Suppressed Carrier (SSB-SC), what is the primary benefit, and what challenge does it introduce?",
       "answers": {
         "a": "The primary benefit is reduced bandwidth usage, but it introduces the challenge of carrier recovery at the receiver.",
         "b": "The primary benefit is increased power efficiency, but it introduces the challenge of signal distortion.",
@@ -70,7 +70,7 @@
       "difficulty": "hard"
     },
     {
-      "question": "How does the modulation index in Phase Modulation (PM) affect the spectral efficiency, and what trade-off does this introduce?",
+      "question": "5. How does the modulation index in Phase Modulation (PM) affect the spectral efficiency, and what trade-off does this introduce?",
       "answers": {
         "a": "Increasing the modulation index improves spectral efficiency but increases the required signal power.",
         "b": "Increasing the modulation index reduces spectral efficiency but increases the system's robustness to noise.",
@@ -87,7 +87,7 @@
       "difficulty": "hard"
     },
     {
-      "question": "In Frequency Modulation (FM), what is the relationship between modulation index and deviation ratio, and how does this impact the signal's resilience to noise?",
+      "question": "6. In Frequency Modulation (FM), what is the relationship between modulation index and deviation ratio, and how does this impact the signal's resilience to noise?",
       "answers": {
         "a": "A higher modulation index and deviation ratio increase the signal's resilience to noise but require more bandwidth.",
         "b": "A higher modulation index decreases the deviation ratio, reducing the signal's resilience to noise.",
@@ -104,7 +104,7 @@
       "difficulty": "hard"
     },
     {
-      "question": "In an Amplitude Modulated (AM) system, how does quadrature amplitude modulation (QAM) differ in complexity and performance compared to traditional AM, and what are the implications for signal transmission?",
+      "question": "7. In an Amplitude Modulated (AM) system, how does quadrature amplitude modulation (QAM) differ in complexity and performance compared to traditional AM, and what are the implications for signal transmission?",
       "answers": {
         "a": "QAM increases complexity but improves spectral efficiency, allowing more data to be transmitted within the same bandwidth.",
         "b": "QAM reduces complexity but decreases spectral efficiency, requiring more bandwidth for the same data rate.",
@@ -121,7 +121,7 @@
       "difficulty": "hard"
     },
     {
-      "question": "In advanced Frequency Modulation (FM) systems, such as wideband FM (WBFM), what is the effect of increasing the peak deviation on the signal's bandwidth and signal-to-noise ratio (SNR)?",
+      "question": "8. In advanced Frequency Modulation (FM) systems, such as wideband FM (WBFM), what is the effect of increasing the peak deviation on the signal's bandwidth and signal-to-noise ratio (SNR)?",
       "answers": {
         "a": "Increasing peak deviation increases bandwidth and improves SNR, but it may cause adjacent channel interference.",
         "b": "Increasing peak deviation reduces bandwidth but decreases SNR, leading to poor signal quality.",
@@ -138,7 +138,7 @@
       "difficulty": "hard"
     },
     {
-      "question": "What is the role of the Hilbert transform in the context of generating single sideband (SSB) signals, and how does it compare to traditional double sideband (DSB) AM?",
+      "question": "9. What is the role of the Hilbert transform in the context of generating single sideband (SSB) signals, and how does it compare to traditional double sideband (DSB) AM?",
       "answers": {
         "a": "The Hilbert transform is used to create the analytic signal, allowing the elimination of one sideband, making SSB more bandwidth-efficient than DSB.",
         "b": "The Hilbert transform is used to modulate the carrier signal directly, providing a more stable signal compared to DSB.",
@@ -155,7 +155,7 @@
       "difficulty": "hard"
     },
     {
-      "question": "In Phase Modulation (PM), what challenges are introduced by high data rate transmission, and how can these be addressed to maintain signal integrity?",
+      "question": "10. In Phase Modulation (PM), what challenges are introduced by high data rate transmission, and how can these be addressed to maintain signal integrity?",
       "answers": {
         "a": "High data rates increase phase jitter, which can be mitigated by using advanced error correction codes.",
         "b": "High data rates reduce phase noise, making the system more robust to interference.",
@@ -173,4 +173,3 @@
     }
   ]
 }
-
