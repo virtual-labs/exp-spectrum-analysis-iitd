@@ -547,44 +547,49 @@
 	
 	
 	
-    <script>
-	function updatem() {
-            // Get the values from the inputs
-            const input1Value = parseFloat(document.getElementById('A').value) || 1;
-            const input2Value = parseFloat(document.getElementById('B').value) || 1;
+<script>
+    function updatem() {
+        // Get the values from the inputs
+        const input1Value = parseFloat(document.getElementById('A').value) || 1;
+        const input2Value = parseFloat(document.getElementById('B').value) || 1;
 
-            // Calculate new value based on the selected mode
-            let resultff = input1Value / input2Value;
+        // Calculate new value based on the selected mode
+        let resultff = input1Value / input2Value;
 
-            // Update the result input field
-            document.getElementById('resultff').value = resultff;
-        }
-		
-        function checkFrequencies() {
-            // Get values from input fields
-            let carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
-            let messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+        // Update the result input field
+        document.getElementById('resultff').value = resultff;
+    }
+
+    function checkFrequencies() {
+        // Get values from input fields
+        let carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+        let messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+        
+        // Check the frequencies
+        if (carrierFrequency <= messageFrequency) {
+            alert("Carrier frequency should be greater than message frequency.");
             
-            // Check the frequencies
-            if (carrierFrequency <= messageFrequency) {
-                alert("Carrier frequency should be greater than message frequency.");
-            } else {
-                console.log("Carrier frequency is greater than message frequency.");
-            }
+            // Force a hard refresh after the alert is dismissed
+            setTimeout(() => {
+                window.location.href = window.location.href; // This forces a hard reload
+            }, 0); // Set a small delay to allow the alert to be dismissed first
+        } else {
+            console.log("Carrier frequency is greater than message frequency.");
         }
+    }
 
-        // Function to attach event listeners to all buttons
-        function attachEventListeners() {
-            let buttons = document.querySelectorAll('button');
-            buttons.forEach(button => {
-                button.addEventListener('click', checkFrequencies);
-            });
-        }
+    // Function to attach event listeners to all buttons
+    function attachEventListeners() {
+        let buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('click', checkFrequencies);
+        });
+    }
 
-        // Attach event listeners when the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', attachEventListeners);
+    // Attach event listeners when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', attachEventListeners);
+</script>
 
-    </script>
 	
 	
 	
