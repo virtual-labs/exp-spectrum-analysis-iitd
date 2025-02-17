@@ -538,31 +538,35 @@
 
 	<!------------------->
 	
-	    <script>
-        function checkFrequencies() {
-            // Get values from input fields
-            let carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
-            let messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+<script>
+    function checkFrequencies() {
+        // Get values from input fields
+        let carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+        let messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+        
+        // Check the frequencies
+        if (carrierFrequency <= messageFrequency) {
+            alert("Carrier frequency should be greater than message frequency.");
             
-            // Check the frequencies
-            if (carrierFrequency <= messageFrequency) {
-                alert("Carrier frequency should be greater than message frequency.");
-            } else {
-                console.log("Carrier frequency is greater than message frequency.");
-            }
+            // Perform a hard refresh after the alert is dismissed
+            window.location.reload(true);  // Hard refresh the page
+        } else {
+            console.log("Carrier frequency is greater than message frequency.");
         }
+    }
 
-        // Function to attach event listeners to all buttons
-        function attachEventListeners() {
-            let buttons = document.querySelectorAll('button');
-            buttons.forEach(button => {
-                button.addEventListener('click', checkFrequencies);
-            });
-        }
+    // Function to attach event listeners to all buttons
+    function attachEventListeners() {
+        let buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('click', checkFrequencies);
+        });
+    }
 
-        // Attach event listeners when the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', attachEventListeners);
-    </script>
+    // Attach event listeners when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', attachEventListeners);
+</script>
+
 	
     <script>
 		let Kp = parseFloat(
