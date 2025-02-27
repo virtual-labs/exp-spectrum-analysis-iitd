@@ -594,6 +594,12 @@
 	
 	
     <script>
+	        const rr = {
+            showLink: false,             
+            displaylogo: false,           
+            modeBarButtonsToRemove: ['sendDataToCloud'] 
+        };
+
       function handleMessageFrequencyChange() {
         const messageValue = parseFloat(
           document.getElementById("messageFrequency").value
@@ -674,7 +680,7 @@
           xaxis: { title: "Time (s)" },
           yaxis: { title: "Amplitude" },
         };
-        Plotly.newPlot("messagePlot", messageData, messageLayout);
+        Plotly.newPlot("messagePlot", messageData, messageLayout, rr);
       }
 
       // Function to generate the carrier signal
@@ -697,7 +703,7 @@
           xaxis: { title: "Time (s)" },
           yaxis: { title: "Amplitude" },
         };
-        Plotly.newPlot("carrierPlot", carrierData, carrierLayout);
+        Plotly.newPlot("carrierPlot", carrierData, carrierLayout, rr);
       }
 
       // Function to perform additional processing for amplitude modulation
@@ -771,7 +777,7 @@
           xaxis: { title: "Time (s)" },
           yaxis: { title: "Amplitude" },
         };
-        Plotly.newPlot("messagePlot", messageData, messageLayout);
+        Plotly.newPlot("messagePlot", messageData, messageLayout, rr);
 
         // Create plot data for carrier signal
         var carrierData = [{ x: result.x, y: result.carrier, type: "line" }];
@@ -791,7 +797,7 @@
           xaxis: { title: "Time (s)" },
           yaxis: { title: "Amplitude" },
         };
-        Plotly.newPlot("modulatedPlot", modulatedData, modulatedLayout);
+        Plotly.newPlot("modulatedPlot", modulatedData, modulatedLayout, rr);
       }
     </script>
 	
@@ -903,7 +909,7 @@
             yaxis: {
                 title: 'Amplitude'
             }
-        });
+        }, rr);
 		            // Scroll to the plot area
             document.getElementById('plotButton').scrollIntoView({ behavior: 'smooth' });
         
@@ -1005,7 +1011,7 @@
                 yaxis: { title: 'Normalized PSD (dB/Hz)' }
             };
 
-            Plotly.newPlot('message-signal', [messageTrace], messageLayout);
+            Plotly.newPlot('message-signal', [messageTrace], messageLayout, rr);
 
 // Sidebands and Carrier Plot
 const sidebandTraces = [
@@ -1076,7 +1082,7 @@ const sidebandLayout = {
     shapes: shapes // Add vertical lines to the layout
 };
 
-Plotly.newPlot('sidebands', sidebandTraces, sidebandLayout);
+Plotly.newPlot('sidebands', sidebandTraces, sidebandLayout, rr);
 
 
 
@@ -1095,7 +1101,7 @@ Plotly.newPlot('sidebands', sidebandTraces, sidebandLayout);
                 yaxis: { title: 'Normalized PSD (dB/Hz)' }
             };
 
-            Plotly.newPlot('demodulated-signal', [demodulatedTrace], demodulatedLayout);
+            Plotly.newPlot('demodulated-signal', [demodulatedTrace], demodulatedLayout, rr);
         }
 
         // Add event listener to the button
