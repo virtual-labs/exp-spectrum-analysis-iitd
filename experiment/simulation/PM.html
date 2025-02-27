@@ -569,6 +569,12 @@
 
 	
     <script>
+	        const rr = {
+            showLink: false,             
+            displaylogo: false,           
+            modeBarButtonsToRemove: ['sendDataToCloud'] 
+        };
+
 		let Kp = parseFloat(
         document.getElementById("kp").value
     );
@@ -678,7 +684,7 @@
               title: "Amplitude",
             },
           }
-        );
+        ,rr);
       }
 
       // Function to generate carrier signal
@@ -718,7 +724,7 @@
               title: "Amplitude",
             },
           }
-        );
+        ,rr);
       }
 
       // Function to create plots
@@ -763,7 +769,7 @@
               title: "Amplitude",
             },
           }
-        );
+        ,rr );
 
         // Plot carrier signal
         var carrierPlotDiv = document.getElementById("carrierPlot");
@@ -787,7 +793,7 @@
               title: "Amplitude",
             },
           }
-        );
+        , rr);
 
         // Plot phase-modulated signal
         var modulatedPlotDiv = document.getElementById("modulatedPlot");
@@ -811,7 +817,7 @@
               title: "Amplitude",
             },
           }
-        );
+        ,rr);
       }
     </script>
 	
@@ -899,7 +905,7 @@
         xaxis: { title: "Time" },
         yaxis: { title: "Amplitude" },
       };
-      Plotly.newPlot(plotId, [trace], layout);
+      Plotly.newPlot(plotId, [trace], layout, rr);
     }
 
     // Main function to perform phase demodulation
@@ -998,7 +1004,7 @@
                 }
             };
 
-            Plotly.newPlot('message-visualization', messageData, messageLayout);
+            Plotly.newPlot('message-visualization', messageData, messageLayout, rr);
 
             // Render Modulated Spectrum Visualization
             const frequencies = [
@@ -1053,7 +1059,7 @@
                 }
             };
 
-            Plotly.newPlot('modulated-spectrum-visualization', spectrumData, spectrumLayout);
+            Plotly.newPlot('modulated-spectrum-visualization', spectrumData, spectrumLayout, rr);
 
             // Render Demodulated Signal Visualization
             const demodulatedData = [{
@@ -1087,7 +1093,7 @@
                 }
             };
 
-            Plotly.newPlot('demodulated-visualization', demodulatedData, demodulatedLayout);
+            Plotly.newPlot('demodulated-visualization', demodulatedData, demodulatedLayout, rr);
 
             // Scroll into view
             document.getElementById('demodulated-visualization').scrollIntoView({ behavior: 'smooth' });

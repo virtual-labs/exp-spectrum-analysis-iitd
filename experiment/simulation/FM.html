@@ -694,6 +694,12 @@
 
 	
     <script>
+	        const rr = {
+            showLink: false,             
+            displaylogo: false,           
+            modeBarButtonsToRemove: ['sendDataToCloud'] 
+        };
+
       function handleMessageFrequencyChange() {
         const messageValue = parseFloat(
           document.getElementById("messageFrequency").value
@@ -763,7 +769,7 @@ function handleKfChange() {
               title: "Amplitude",
             },
           }
-        );
+        ,rr);
       }
 
       // Function for generating carrier signal
@@ -805,7 +811,7 @@ function handleKfChange() {
               title: "Amplitude",
             },
           }
-        );
+        ,rr);
       }
 
       // Function for frequency modulation
@@ -842,7 +848,7 @@ function handleKfChange() {
               title: "Amplitude",
             },
           }
-        );
+        , rr);
       }
 
       // Function for frequency modulation
@@ -995,7 +1001,7 @@ function handleKfChange() {
             yaxis: {title: 'Amplitude', range: [-1.5, 1.5]},
         };
 
-        Plotly.newPlot('plot2', [trace2], layout2);
+        Plotly.newPlot('plot2', [trace2], layout2, rr);
 
         // Custom unwrap function
         function customUnwrap(phase) {
@@ -1109,7 +1115,7 @@ function handleKfChange() {
             yaxis: { title: 'Normalized PSD (dB/Hz)' }
         };
 
-        Plotly.newPlot('message-signal', [messageTrace], messageLayout);
+        Plotly.newPlot('message-signal', [messageTrace], messageLayout, rr);
 
         const demodulatedTrace = {
                 x: [messageFrequency, messageFrequency],
@@ -1125,7 +1131,7 @@ function handleKfChange() {
             yaxis: { title: 'Normalized PSD (dB/Hz)' }
         };
 
-        Plotly.newPlot('demodulated-signal', [demodulatedTrace], demodulatedLayout);
+        Plotly.newPlot('demodulated-signal', [demodulatedTrace], demodulatedLayout, rr);
 
         plotModulatedSignalSpectrum(messageFrequency, carrierFrequency);
 
@@ -1187,7 +1193,7 @@ function handleKfChange() {
             }
         };
 
-        Plotly.newPlot('modulated-signal', data, layout);
+        Plotly.newPlot('modulated-signal', data, layout, rr);
     }
 
     // Add an event listener to the button
