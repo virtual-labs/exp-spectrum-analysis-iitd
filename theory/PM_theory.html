@@ -1,0 +1,425 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+			    <script type="text/javascript" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <title>Virtual Labs</title>
+    <link rel="stylesheet" href="../css/vlabs-style.css" />
+    <link rel="shortcut icon" href="../images/favicon.ico" />
+  </head>
+  <body>
+    <header class="border-b-orange-500 border-b-8">
+      <nav class="flex justify-between">
+        <button class="px-4 py-1 rounded-r-md border-r" onclick="showModal()">
+          <img class="w-[30px] h-[30px]" src="../images/menu.png" />
+        </button>
+        <div class="flex justify-center">
+          <a href="https://vlab.co.in" class="navbar-brand">
+            <img
+              src="../images/vlabs-color-small-moe.jpg"
+              alt="vlabs logo"
+              class="mx-4 px-4 max-md:w-[118px] max-md:h-[64px] py-2"
+            />
+          </a>
+        </div>
+        <div id="headerNavbar" class="flex items-center ml-auto max-md:hidden">
+          <ul
+            class="flex text-center text-[#2c98cd]"
+            style="font-family: Raleway, sans-serif"
+          >
+            <li class="px-2 m-1">
+              <a
+                class="mx-4 px-4 py-2 hover:bg-[#99cc3e] hover:underline hover:text-white rounded-lg"
+                href="https://vlab.co.in"
+                >HOME</a
+              >
+            </li>
+            <li class="px-2 m-1">
+              <a
+                class="mx-4 px-4 py-2 hover:bg-[#99cc3e] hover:underline hover:text-white rounded-lg"
+                href="https://vlab.co.in/participating-institutes"
+                >PARTNERS</a
+              >
+            </li>
+            <li class="px-2 m-1">
+              <a
+                class="mx-4 px-4 py-2 hover:bg-[#99cc3e] hover:underline hover:text-white rounded-lg"
+                href="https://vlab.co.in/contact-us"
+                >CONTACT</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- overlaynavbar -->
+      <div
+        class="overlaycontainer w-[100%] h-[100vh] bg-[#00000080] fixed top-[0%] -z-50 opacity-0"
+      ></div>
+      <div
+        class="overlaysignupform ease-in-out duration-100 fixed -top-[150%] left-[50%] -translate-x-1/2 z-50"
+      >
+        <div class="flex justify-center items-center px-4 h-[100vh] w-[100vw]">
+          <div
+            class="relative bg-white border border-solid border-[#00000033] rounded-md w-[498px] flex flex-col overflow-y-auto"
+          >
+            <div class="p-4 flex justify-between items-center border-b">
+              <div class="w-[87px] h-[50px] flex justify-center items-center">
+                <a href="https://vlab.co.in">
+                  <img
+                    src="../images/vlabs-color-small-moe.jpg"
+                    alt="vlabs logo"
+                    class="w-[71px] h-[40px]"
+                  />
+                </a>
+              </div>
+              <button class="w-[24px] h-[24px]" onclick="closeModal()">
+                <img src="../images/close.png" />
+              </button>
+            </div>
+            <div
+              class="p-4 flex flex-col text-[19.2px] font-bold text-[#3e6389]"
+            >
+              <div class="flex justify-center">
+                <a
+                  href="../index.html"
+                  class="p-2 hover:text-[#343a40] hover:underline"
+                >
+                  Aim
+                </a>
+              </div>
+              <div class="flex justify-center">
+                <a
+                  href="../theory.html"
+                  class="p-2 text-[#FF6600] hover:underline"
+                >
+                  Theory
+                </a>
+              </div>
+              <div class="flex justify-center">
+                <a
+                  href="../pretest.html"
+                  class="p-2 hover:text-[#343a40] hover:underline"
+                >
+                  Pretest
+                </a>
+              </div>
+              <div class="flex justify-center">
+                <a
+                  href="../procedure.html"
+                  class="p-2 hover:text-[#343a40] hover:underline"
+                >
+                  Procedure
+                </a>
+              </div>
+              <div class="flex justify-center">
+                <a
+                  href="../simulation.html"
+                  class="p-2 hover:text-[#343a40] hover:underline"
+                >
+                  Simulation
+                </a>
+              </div>
+              <div class="flex justify-center">
+                <a
+                  href="../posttest.html"
+                  class="p-2 hover:text-[#343a40] hover:underline"
+                >
+                  Posttest
+                </a>
+              </div>
+              <div class="flex justify-center">
+                <a
+                  href="../references.html"
+                  class="p-2 hover:text-[#343a40] hover:underline"
+                >
+                  References
+                </a>
+              </div>
+              <div class="flex justify-center">
+                <a
+                  href="../feedback.html"
+                  class="p-2 hover:text-[#343a40] hover:underline"
+                >
+                  Feedback
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- sidebar and body -->
+    <div class="flex min-h-[380px]">
+      <div class="maincontent px-8 pb-6 flex-1">
+        <div
+          class="w-full text-[19.2px] text-[#313636]"
+          style="font-family: Raleway, sans-serif"
+        >
+          <h2
+            class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
+          >
+            Phase Modulation and Demodulation
+          </h2>
+		  
+		  <h3 class="text-[24px] font-semibold text-black">Theory :</h3>
+		  <p>
+        Phase modulation (PM) is a modulation technique where the phase of a carrier wave is varied according to 
+        the instantaneous amplitude of the modulating signal \( m(t) \). Unlike frequency modulation, where the frequency 
+        of the carrier is altered, in PM, the phase of the carrier signal is shifted. The modulated signal can be mathematically expressed as:
+    </p>
+    <p>
+        \( S(t) = A_c \cos\left[ 2\pi f_c t + K_p m(t) \right] \)
+    </p>
+    <p>Where:</p>
+    <ul>
+        <li>\( A_c \) is the amplitude of the carrier signal.</li>
+        <li>\( f_c \) is the carrier frequency.</li>
+        <li>\( K_p \) is the phase sensitivity of the modulator, which determines how much the phase of the carrier is shifted in response to the modulating signal.</li>
+        <li>\( m(t) \) is the modulating (baseband) signal.</li>
+    </ul>
+    <p>
+        In phase modulation, the phase of the carrier signal \( \cos\left[ 2\pi f_c t \right] \) is shifted by an amount proportional to the modulating signal \( m(t) \), 
+        scaled by the phase sensitivity \( K_p \). The amount of phase shift is directly proportional to the amplitude of the modulating signal.
+    </p>
+		 <br> 
+          <div class="flex justify-center">
+            <img src="../images/theory/pm1.png" alt="pm_image"  class="h-[300px]"/>
+          </div>
+          <p class="mb-4 text-center font-semibold text-black">Figure 1</p>
+          <h3 class="text-[24px] font-semibold text-black">
+            Armstrong's Phase Modulator
+          </h3>
+          <p class="ml-3">
+            <span class="font-semibold">1. </span> For amplitude modulation,
+            defined as: AM = E.(1 + m.sinµt).sinωt …(i)
+            <br />
+            <span class="font-semibold">2. </span> This expression can be
+            expanded trigonometrically into the sum of two terms: <br />
+            AM = E.sinωt + E.m.sinμt.sinωt …(ii)
+            <br />
+            <span class="font-semibold">3. </span> In eqn.(ii) the two terms
+            involved with 'ω' are in phase. Now this relation can easily be
+            changed so that the two are at 90 degrees, or 'in quadrature'. This
+            is done by changing one of the sinωt terms to cosωt. The signal then
+            becomes what is sometimes called a quadrature modulated signal. It
+            is Armstrong`s signal. Thus: <br />
+            Armstrong`s signal = E.cosωt + E.m.sinμt.sinωt (iii)
+            <br />
+          </p>
+          <div class="flex justify-center">
+            <img src="../images/theory/pm2.png" alt="pm_image2" />
+          </div>
+          <p class="mb-4 text-center font-semibold text-black">
+            Fig 2: Phase modulation using DSBSC + carrier. (left) Phasor
+            Diagram, (right) amplitude spectrum
+          </p>
+          <h3 class="text-[24px] font-semibold text-black">Procedures</h3>
+          <p class="ml-3">
+            <span class="font-semibold">1. </span> Choose a message frequency of
+            about 1 kHz from the AUDIO OSCILLATOR
+            <br />
+            <span class="font-semibold">2. </span> Check that the oscilloscope
+            has triggered correctly, using the external trigger facility
+            connected to the message source. Set the sweep speed so that it is
+            displaying two or three periods of the message, on CH1-A, at the top
+            of the screen
+
+            <br />
+            <span class="font-semibold">3. </span> Rotate both g and G fully
+            anti-clockwise.
+            <br />
+            <span class="font-semibold">4. </span> Rotate g clockwise. Watch the
+            trace on CH2-A. A DSBSC will appear. Increase its amplitude to about
+            3 volts peak-to-peak. Adjust the trace so its peaks just touch grid
+            lines exactly a whole number of centimeters apart. This is for
+            experimental convenience; it will be matched by a similar adjustment
+            below.
+            <br />
+            <span class="font-semibold">5. </span> Remove the patching cord from
+            input g of the ADDER
+            <br />
+            <span class="font-semibold">6. </span> Rotate G clockwise. The
+            CARRIER will appear as a band across the screen. Increase its
+            amplitude until its peaks touch the same grid lines as did the peaks
+            of the DSBSC (the time base is too slow to give a hint of the fine
+            detail of the CARRIER; in any case, the synchronization is not
+            suitable).
+            <br />
+            <span class="font-semibold">7. </span> Replace the patch cord to g
+            of the ADDER. At the ADDER output there is now a DSBSC and a
+            CARRIER, each of exactly the same peak-to-peak amplitude, but of
+            unknown relative phase. Observe the envelope of this signal (CH2-A),
+            and compare its shape with that of the message (CH1-A), also being
+            displayed.
+            <br />
+            <span class="font-semibold">8. </span> Vary the phasing with the
+            front panel control on the PHASE SHIFTER until the almost sinusoidal
+            envelope (CH2-A) is of twice the frequency as that of the message
+            (CH1-A). The phase adjustment is complete when alternate envelope
+            peaks are of the same amplitude.
+            <br />
+            <span class="font-semibold">9. </span> Trim the front panel control
+            of the PHASE SHIFTER until adjacent peaks of the envelope are of
+            equal amplitude. To improve accuracy you can increase the
+            sensitivity of the oscilloscope to display the peaks only. Equating
+            heights of adjacent envelope peaks with the aid of an oscilloscope
+            is an acceptable method of achieving the quadrature condition. For
+            communication purposes the message distortion, as observed at the
+            receiver, due to any such phase error, will be found to be
+            negligible compared with the inherent distortion introduced by an
+            ideal Armstrong modulator.
+            <br />
+            <span class="font-semibold">10. </span> The envelope of Armstrong`s
+            signal is recovered, using an envelope detector, and is monitored
+            with a pair of headphones. For the in-phase condition this would be
+            a pure tone at message frequency. As the phase is rotated towards
+            the wanted 90 degrees difference it is very easy to detect, by ear,
+            when the fundamental component disappears (at µ rad/s, and initially
+            of large amplitude), leaving the component at 2µ rad/s, initially
+            small, but now large. This is the quadrature condition.
+            <br />
+            <span class="font-semibold">11. </span> Model an envelope detector,
+            using the RECTIFIER in the UTILITIES module, and the 3 kHz LPF in
+            the HEADPHONE AMPLIFIER module. Connect Armstrong`s signal to the
+            input of the envelope detector. Listen to the filter output (the
+            envelope) with headphones. Set the PHASE SHIFTER as far off the
+            quadrature condition as possible, and concentrate your mind on the
+            fundamental. Slowly vary the phase. You will hear the fundamental
+            amplitude reduce to zero, while the second harmonic of the message
+            appears. Notice how sensitive is the point at which the fundamental
+            disappears ! This is the quadrature condition.
+            <br />
+            <span class="font-semibold">12. </span> Set up for equal amplitudes
+            of DSBSC and carrier into the ADDER of the modulator (β = 1), and
+            confirm you have the quadrature condition. A message frequency of
+            about 1 kHz will be convenient for spectral measurements
+
+            <br />
+            <span class="font-semibold">13. </span> At the output of your
+            Armstrong modulator add the AMPLITUDE LIMITER (the CLIPPER in the
+            UTILITIES module) and filter (in the 100 kHz CHANNEL FILTERS
+            module).
+
+            <br />
+            <span class="font-semibold">14. </span>Model a WAVE ANALYSER, and
+            connect it to the filter output. There is no need to calibrate it;
+            you are interested in relative amplitudes.
+            <br />
+            <span class="font-semibold">15. </span> Set the phase deviation to
+            zero (by removing the DSBSC from the ADDER of the modulator).
+            Observe and sketch the waveform of the signals into and out of the
+            channel filter. Find the 100 kHz carrier component with the WAVE
+            ANALYSER. This, the unmodulated carrier, is your reference. For
+            convenience adjust the sensitivity of the SPECTRUM UTILITIES module
+            so the meter reads full scale.
+
+            <br />
+            <span class="font-semibold">16. </span> Replace the DSBSC to the
+            ADDER of the modulator. The carrier amplitude should drop to 84% of
+            the previous reading ,if you leave the meter switch on HOLD nothing
+            will happen. Search for the first pair of sidebands. They should be
+            at amplitudes of 38% of the unmodulated carrier.
+            <br />
+            <span class="font-semibold">17. </span> There are further sideband
+            pairs, but they are rather small, and will take care to find.
+            <br />
+            <span class="font-semibold">18. </span> You could repeat the
+            spectral measurements for β = 0.5 (which are also listed in Table
+            A-1).
+            <br />
+            <span class="font-semibold">19. </span> You were advised to look at
+            the signal from the filter when there was no modulation. Do this
+            again. Synchronize to the signal itself, and display ten or twenty
+            periods. Then add the modulation. You will see the right hand end of
+            the now modulated sine wave move in and out (the ‘oscillating
+            spring’ analogy), confirming the presence of frequency modulation
+            (there is no change to the amplitude). <br /><br />
+          </p>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+    <footer class="">
+      <div class="flex max-sm:flex-col text-white bg-[#111111] px-6">
+        <div class="flex-1 flex flex-col px-[15px]">
+          <span class="font-weight-bold vlabs-footer-sect-name pb-2 mb-3"
+            >Community Links</span
+          >
+          <a href="https://www.sakshat.ac.in/" class="text-light"
+            >Sakshat Portal</a
+          >
+          <a href="http://outreach.vlabs.ac.in/" class="text-light"
+            >Outreach Portal</a
+          >
+          <a href="https://vlab.co.in/faq" class="text-light"
+            >FAQ: Virtual Labs</a
+          >
+        </div>
+        <div class="flex-1 flex flex-col px-[15px]">
+          <span class="font-bold vlabs-footer-sect-name pb-2 mb-3"
+            >Contact Us</span
+          >
+          <span> Phone: General Information: 011-26582050 </span>
+          <span> Email: support@vlabs.ac.in </span>
+        </div>
+        <div class="flex-1 flex flex-col px-[15px]">
+          <span class="font-bold vlabs-footer-sect-name pb-2 mb-3"
+            >Follow Us</span
+          >
+          <div class="flex pb-2">
+            <a
+              class="p-2 mt-1 mr-2 rounded-full flex justify-center items-center"
+              style="background: #55acee"
+              href="https://twitter.com/TheVirtualLabs"
+            >
+              <img src="../images/twitter.png" alt="twitter" />
+            </a>
+            <a
+              class="p-2 mt-1 mr-2 flex rounded-full justify-center items-center"
+              style="background: #3b5998"
+              href="https://www.facebook.com/Virtual-Labs-IIT-Delhi-301510159983871/"
+            >
+              <img src="../images/facebook.png" alt="facebook" />
+            </a>
+            <a
+              class="p-2 mt-1 mr-2 flex rounded-full justify-center items-center"
+              style="background: #e52d27"
+              href="https://www.youtube.com/watch?v=asxRaOgk6a0"
+            >
+              <img src="../images/youtube.png" alt="youtube" />
+            </a>
+            <a
+              class="p-2 mt-1 mr-2 flex rounded-full justify-center items-center"
+              style="background: #2867b2"
+              href="https://in.linkedin.com/in/virtual-labs-008ba9136"
+            >
+              <img src="../images/linkedin.png" alt="linkedin" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="m-0 py-2 text-center text-white text-sm max-sm:text-[12px]"
+        style="font-family: 'Open Sans', sans-serif; background: #212121"
+      >
+        <a
+          class="text-[#007bff] hover:text-[#3273dc] hover:underline font-bold"
+          href="https://www.gnu.org/licenses/agpl-3.0.en.html"
+        >
+          AGPL 3.0
+        </a>
+        &nbsp;&amp;&nbsp;
+        <a
+          class="text-[#007bff] hover:text-[#3273dc] hover:underline font-bold"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        >
+          Creative Commons (CC BY-NC-SA 4.0)
+        </a>
+      </div>
+    </footer>
+    <script src="../js/toggleSidebar.js"></script>
+  </body>
+</html>
