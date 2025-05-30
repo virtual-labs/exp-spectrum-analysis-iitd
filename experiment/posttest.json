@@ -2,18 +2,18 @@
   "version": "2.0",
   "questions": [
     {
-      "question": "1. In Amplitude Modulation (AM), what happens when the modulation index exceeds 1, and what is the consequence of this condition?",
+      "question": "1. How does the modulation index affect the bandwidth requirement differently in Amplitude Modulation (AM), Frequency Modulation (FM), and Phase Modulation (PM)?",
       "answers": {
-        "a": "The carrier signal is under-modulated, resulting in reduced signal strength.",
-        "b": "The carrier signal becomes over-modulated, leading to signal distortion.",
-        "c": "The carrier signal phase changes unpredictably, causing phase errors.",
-        "d": "The carrier signal's frequency is reduced, leading to bandwidth narrowing."
+        "a": "In AM, bandwidth increases linearly with the modulation index, while in FM and PM, bandwidth is independent of it.",
+        "b": "In FM and PM, bandwidth increases nonlinearly with modulation index, whereas AM bandwidth remains constant for a given message frequency.",
+        "c": "In all three schemes, bandwidth increases exponentially with modulation index.",
+        "d": "FM and PM bandwidths decrease with increasing modulation index due to spectral compression."
       },
       "explanations": {
-        "a": "Incorrect: Under-modulation occurs when the modulation index is below 1.",
-        "b": "Correct: Over-modulation occurs when the modulation index exceeds 1, causing signal distortion.",
-        "c": "Incorrect: Phase errors are unrelated to the modulation index exceeding 1.",
-        "d": "Incorrect: The carrier signal's frequency is unaffected by the modulation index."
+        "a": "Incorrect: AM bandwidth is fixed at twice the message frequency regardless of modulation index.",
+        "b": "Correct: FM and PM have bandwidths that grow nonlinearly with modulation index (Carson's Rule), while AM's is constant.",
+        "c": "Incorrect: Bandwidth growth is not exponential in any of the schemes.",
+        "d": "Incorrect: There is no spectral compression with increasing modulation index; it causes more sidebands."
       },
       "correctAnswer": "b",
       "difficulty": "hard"

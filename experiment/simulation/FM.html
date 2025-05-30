@@ -17,148 +17,11 @@
         <li>Here, β represents the modulation index. The frequency spectrum is shown for a modulation index of 1</li>
 	</ul>
 <br/>
-    <!-- sidebar and body -->
-    <div class="flex min-h-[80vh]">
-      <div class="px-6 pb-6 flex-1">
-        <div class="flex flex-shrink-0">
-          <div class="relative w-[700px] py-2">
-            <div
-              class="z-10 absolute bg-[#0000ff] h-2 w-[170px] rounded-md top-[252px] left-[136px]"
-            ></div>
-            <div
-              class="absolute bg-[#ff0000] h-[128px] w-2 rounded-md top-[132px] right-[250px]"
-            ></div>
-            <div
-              class="z-10 absolute bg-[#ff0000] h-2 w-[80px] rounded-md top-[252px] right-[252px]"
-            ></div>
-            <div
-              class="z-10 absolute bg-[#ff0000] h-2 w-[90px] rounded-md top-[130px] right-[168px]"
-            ></div>
 
-            <div
-              class="z-10 absolute bg-[#ffff00] h-[200px] w-2 rounded-md top-[340px] left-[210px]"
-            ></div>
-            <div
-              class="z-10 absolute bg-[#ffff00] h-[88px] w-2 rounded-md top-[254px] left-[10px]"
-            ></div>
-
-            <div
-              class="z-10 absolute bg-[#ffff00] h-2 w-[68px] rounded-md top-[532px] left-[150px]"
-            ></div>
-            <div
-              class="z-10 absolute bg-[#ffff00] h-2 w-[65px] rounded-md top-[252px] left-[10px]"
-            ></div>
-            <div
-              class="z-10 absolute bg-[#ffff00] h-2 w-[208px] rounded-md top-[338px] left-[10px]"
-            ></div>
-            <div class="flex justify-between p-8 pb-20">
-              <!-- BUFFER AMPLIFIERS  -->
-              <div
-                class="relative bg-[#a9a9a9] p-1 pt-0 border-4 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.6)] border-black w-[140px] h-[250px]"
-              >
-                <h5 class="text-center text-sm font-medium">
-                  BUFFER AMPLIFIERS
-                </h5>
-                <div class="flex justify-around py-1">
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] bg-[#ffff00] flex justify-center items-center rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">A</p>
-                  </div>
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] bg-[#ffff00] flex justify-center items-center rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">k1.A</p>
-                  </div>
-                </div>
-                <div class="absolute bottom-0 w-full flex justify-around">
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] bg-[#ffff00] flex justify-center items-center rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">B</p>
-                  </div>
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] bg-[#ffff00] flex justify-center items-center rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">k2.B</p>
-                  </div>
-                </div>
-              </div>
-              <!-- vco -->
-              <div
-                class="relative bg-[#a9a9a9] p-1 pt-0 border-4 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.6)] border-black w-[140px] h-[250px]"
-              >
-                <h5 class="text-center text-sm font-medium">VCO</h5>
-                <div class="flex justify-around py-1">
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] bg-[#ff0000] flex justify-center items-center rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">DATA</p>
-                  </div>
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] bg-[#ff0000] flex justify-center items-center rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">TTL</p>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="flex absolute bottom-0 w-full justify-around">
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] flex justify-center items-center bg-[#ffff00] rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">Vin</p>
-                  </div>
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] flex justify-center items-center bg-[#ffff00] rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">sin(wt)</p>
-                  </div>
-                </div>
-				
-
-				
-                <div class="absolute -botttom-80">
-								<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<div class="flex mb-2 items-start gap-10">
+<div>
+<img src = ".\FM_Modulation.png" class="w-[40em] h-[20em]"/>
+</div>
                   <!-- message frequency -->
                   <div class="flex flex-col mb-2 items-center">
                     <p class="text-[13px] pb-1 text-center font-bold">
@@ -175,7 +38,7 @@
                     <div class="leading-none messageFrequencyDiv">1</div>
                     <button
                       onclick="generateMessage()"
-                      class="bg-[#008000] py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+                      class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
                     >
                       Generate Message
                     </button>
@@ -194,7 +57,7 @@
                     <div class="leading-none carrierFrequencyDiv">10</div>
                     <button
                       onclick="generateCarrier()"
-                      class="bg-[#008000] py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+                      class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
                     >
                       Generate Carrier
                     </button>
@@ -219,17 +82,24 @@
 				</div>
         <button
             onclick="createPlots()"
-            class="bg-[#008000] py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+            class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
         >
             Generate Frequency Modulated Signal
         </button>
 
 		<br/>
-
+    <button
+    id = "plotButton"
+            class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+            onclick="generateImpulseResponse()"
+          >
+            Show Frequency Spectrums
+          </button>
+          <br/>
 
 				        <button
             onclick="fmdemodulation()"
-            class="bg-[#008000] py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+            class="bg-gray-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
         >
             Perform FM Demodulation
         </button>
@@ -241,52 +111,7 @@
                 </div>
               </div>
               <!-- frequency counter -->
-              <div
-                class="relative bg-[#a9a9a9] p-1 pt-0 border-4 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.6)] border-black w-[170px] h-[250px]"
-              >
-                <h5 class="text-center text-sm font-medium">
-                  Frequency Counter
-                </h5>
-                <div class="flex flex-col pl-3 pt-[58px] pb-[53px]">
-                  <div
-                    class="h-[24px] w-[24px] flex justify-center items-center relative bg-[#ffff00] rounded-full"
-                  >
-                    <div class="h-[14px] w-[14px] bg-[#000] rounded-full"></div>
-                  </div>
-                  <p class="">ANALOG</p>
-                </div>
-                <div
-                  class="flex absolute items-center bottom-0 w-full justify-around"
-                >
-                  <div class="flex gap-1">
-                    <div class="flex flex-col items-center">
-                      <div
-                        class="h-[24px] w-[24px] flex justify-center items-center bg-[#ffff00] rounded-full"
-                      >
-                        <div
-                          class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                        ></div>
-                      </div>
-                      <p class="text-[12px] font-medium">TTL</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                      <div
-                        class="h-[24px] w-[24px] flex justify-center items-center bg-[#ffff00] rounded-full"
-                      >
-                        <div
-                          class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                        ></div>
-                      </div>
-                      <p class="text-[12px] font-medium">TTL Enable</p>
-                    </div>
-                  </div>
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[22px] w-[22px] border-4 border-black bg-[#ff0000] rounded-full"
-                    ></div>
-                    <p class="text-[12px] font-medium">reset</p>
-                  </div>
-                </div>
+
                 <!-- <div class="flex justify-center mt-8">
                                 <button onclick="generateAmplitudeModulatedSignal()"
                                     class="bg-[#008000] py-1 px-3 rounded-md hover:bg-[#0c9c0c] hover:scale-105">
@@ -296,48 +121,7 @@
               </div>
             </div>
             <div class="flex px-8 mt-6 mb-8 gap-20">
-              <!-- variable dc -->
-              <div
-                class="relative bg-[#a9a9a9] p-1 pt-0 border-4 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.6)] border-black w-[140px] h-[250px]"
-              >
-                <h5 class="text-center text-sm font-medium">Variable DC</h5>
-                <div class="flex mt-6 flex-col items-end">
-                  <div class="flex flex-col items-start">
-                    <div
-                      class="h-[24px] w-[24px] flex justify-center items-center bg-[#ff0000] rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">+5V</p>
-                  </div>
-                </div>
-
-                <!--  -->
-                <div class="flex flex-col items-end mt-10">
-                  <div class="flex flex-col items-start">
-                    <div
-                      class="h-[24px] w-[24px] flex justify-center items-center bg-[#ffff00] rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">DC</p>
-                  </div>
-                  <div class="flex flex-col items-start">
-                    <div
-                      class="h-[24px] w-[24px] flex justify-center items-center bg-[#00ff00] rounded-full"
-                    >
-                      <div
-                        class="h-[14px] w-[14px] bg-[#000] rounded-full"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">GND</p>
-                  </div>
-                </div>
-              </div>
+ 
               <!-- master signal -->
             </div>
           </div>
@@ -371,6 +155,14 @@
       </div>
     </div>
 
+    <br/><br/>
+
+    <div id="container1">
+      <div id="message-signal" class="plot-container1"></div>
+      <div id="modulated-signal" class="plot-container1"></div>
+      <div id="demodulated-signal" class="plot-container1"></div>
+  </div>
+
 	<br/><br/>		<br/><br/>
 		<hr/>
 		
@@ -382,244 +174,12 @@
 		<li>Step 3: Click on the 'Show Frequency Spectrums' button to see spectrums of the message, FM modulated and demodulated signal</li>
     </ul>
 </div>	
-	    <!-- sidebar and body -->
-    <div class="flex min-h-[80vh]">
-      <div class="px-6 pb-6 flex-1">
-        <div class="flex flex-shrink-0">
-          <div class="relative w-[700px] py-2">
-            <div
-              class="absolute bg-[#ff0000] h-[154px] w-2 rounded-md top-[125px] left-[300px]"
-            ></div>
-            <div
-              class="z-10 absolute bg-[#ff0000] h-2 w-[44px] rounded-md top-[122px] left-[264px]"
-            ></div>
-            <div
-              class="z-10 absolute bg-[#ff0000] h-2 w-[68px] rounded-md top-[272px] left-[300px]"
-            ></div>
-            <div
-              class="z-10 absolute bg-[#0000ff] h-2 w-[49px] rounded-md top-[166px] right-[5px]"
-            >
-              <p class="pt-1 text-sm text-end font-medium">Msg out</p>
-            </div>
-            <div
-              class="z-10 absolute bg-[#ffff00] h-2 w-[100px] rounded-md top-[272px] right-[144px]"
-            ></div>
-            <div
-              class="z-10 absolute bg-black h-2 w-[60px] rounded-md top-[76px] left-[120px]"
-            ></div>
-            <div
-              class="z-10 absolute bg-black h-2 w-[60px] rounded-md top-[122px] left-[120px]"
-            >
-              <p class="pt-1 text-sm absolute -top-[10px] -left-16 font-medium">
-                FM Input
-              </p>
-            </div>
-            <div class="absolute top-[150px] left-0">
-              <p class="font-medium text-center my-2 text-[24px]"></p>
-              <div>
-
-                <!--  -->
-              </div>
-            </div>
-            <div class="flex justify-end p-8 gap-12">
-              <!-- utilities -->
-              <div
-                class="relative bg-[#a9a9a9] p-1 pt-0 border-4 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.6)] border-black w-[140px] h-[270px]"
-              >
-                <h5 class="text-center text-sm font-medium">UTILITIES</h5>
-                <div class="flex justify-between px-1 pt-1">
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                    ></div>
-                    <p class="text-[12px] font-medium">REF</p>
-                  </div>
-                  <div
-                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                  ></div>
-                </div>
-                <div class="flex justify-between px-1 pt-1">
-                  <div
-                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                  ></div>
-                  <div
-                    class="h-[24px] w-[24px] border-[5px] border-[#ff0000] bg-black rounded-full"
-                  ></div>
-                </div>
-                <p
-                  class="text-sm text-center border-b border-black font-medium"
-                >
-                  COMPARATOR
-                </p>
-                <div class="flex justify-between px-1 pt-1">
-                  <div
-                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                  ></div>
-                  <div
-                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                  ></div>
-                </div>
-                <p
-                  class="text-sm text-center border-b border-black font-medium"
-                >
-                  RECTIFIER
-                </p>
-
-                <div class="flex justify-between px-1 pt-1">
-                  <div
-                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                  ></div>
-                  <div
-                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                  ></div>
-                </div>
-                <p
-                  class="text-sm text-center border-b border-black font-medium"
-                >
-                  DIODE + LPF
-                </p>
-
-                <div class="flex justify-between px-1 pt-1">
-                  <div
-                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                  ></div>
-                  <div
-                    class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                  ></div>
-                </div>
-                <p
-                  class="text-sm text-center border-b border-black font-medium"
-                >
-                  RC LPF
-                </p>
-              </div>
-              <!-- TWIN PULSE GENERATOR -->
-              <div
-                class="relative bg-[#a9a9a9] p-1 pt-0 border-4 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.6)] border-black w-[140px] h-[270px]"
-              >
-                <h5 class="text-center text-sm font-medium">
-                  TWIN PULSE GENERATOR
-                </h5>
-                <div class="flex mt-1 flex-col items-end">
-                  <div class="flex flex-col items-end">
-                    <div
-                      class="h-[20px] w-[20px] border-[5px] border-[#3a3939] shadow-md bg-[#5c1414] rounded-full"
-                    ></div>
-                    <p class="text-[12px] font-medium">ERROR</p>
-                  </div>
-                </div>
-                <div
-                  class="flex absolute right-0 top-[120px] flex-col items-end"
-                >
-                  <div class="flex flex-col items-end mr-1">
-                    <div
-                      class="h-[22px] w-[22px] border-[5px] border-[#ff0000] bg-black rounded-full"
-                    ></div>
-                    <p class="text-[12px] font-medium">Q2</p>
-                  </div>
-                </div>
-                <div class="flex flex-col items-center justify-center gap-8">
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[26px] w-[26px] border-[4px] relative shadow-black shadow-lg border-black bg-[#ffff00] rounded-full"
-                    >
-                      <div
-                        class="w-1 h-2 absolute top-[50%] left-[40%] bg-black"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">WIDTH</p>
-                  </div>
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[26px] w-[26px] relative border-[4px] shadow-black shadow-md border-black bg-[#ffff00] rounded-full"
-                    >
-                      <div
-                        class="w-1 h-2 absolute top-[50%] left-[40%] bg-black"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">DELAY</p>
-                  </div>
-                </div>
-                <!--  -->
-                <div
-                  class="flex items-center justify-between px-2 gap-8 absolute bottom-0 w-full"
-                >
-                  <div class="flex flex-col items-start">
-                    <div
-                      class="h-[24px] w-[24px] border-[5px] border-[#ff0000] bg-black rounded-full"
-                    ></div>
-                    <p class="text-[12px] font-medium">CLK</p>
-                  </div>
-                  <div class="flex flex-col items-start">
-                    <div
-                      class="h-[24px] w-[24px] border-[5px] border-[#ff0000] bg-black rounded-full"
-                    ></div>
-                    <p class="text-[12px] font-medium">Q1</p>
-                  </div>
-                </div>
-              </div>
-              <!-- HEADPHONE AMPLIFIER -->
-              <div
-                class="relative bg-[#a9a9a9] p-1 pt-0 border-4 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.6)] border-black w-[140px] h-[270px]"
-              >
-                <h5 class="text-center text-sm font-medium">
-                  HEADPHONE AMPLIFIER
-                </h5>
-                <p class="text-center text-[12px] pt-2 font-medium">
-                  LPF SELECT
-                </p>
-                <div class="flex justify-center mt-2 gap-2 items-center">
-                  <p class="text-[12px] font-medium">IN</p>
-                  <div
-                    class="relative h-[24px] w-[24px] border-[5px] border-[#464644] bg-black rounded-full"
-                  >
-                    <span
-                      class="absolute top-[4px] rounded-md -left-2 w-4 h-[5px] bg-white"
-                    ></span>
-                  </div>
-                  <p class="text-[12px] font-medium">OUT</p>
-                </div>
-                <div class="flex mt-4 flex-col items-end">
-                  <div class="flex flex-col items-start">
-                    <div
-                      class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                    ></div>
-                    <p class="text-[12px] font-medium">LPF</p>
-                  </div>
-                </div>
-                <div class="flex flex-col items-center justify-center gap-3">
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[26px] w-[26px] border-[4px] relative shadow-black shadow-lg border-black bg-[#ffff00] rounded-full"
-                    >
-                      <div
-                        class="w-1 h-2 absolute top-[50%] left-[40%] bg-black"
-                      ></div>
-                    </div>
-                    <p class="text-[12px] font-medium">K</p>
-                  </div>
-                </div>
-                <!--  -->
-                <div
-                  class="flex items-center justify-between px-2 gap-8 absolute bottom-0 w-full"
-                >
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] border-[5px] border-[#ffff00] bg-black rounded-full"
-                    ></div>
-                    <p class="text-[12px] font-medium">A</p>
-                  </div>
-                  <div class="flex flex-col items-center">
-                    <div
-                      class="h-[24px] w-[24px] border-[5px] border-[#575749] bg-black rounded-full"
-                    ></div>
-                    <p class="text-[12px] font-medium">KA</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex flex-col items-center">
+	    
+<div class="flex items-start"> 
+<div>
+  <img src = ".\fm_demod1.png"/>
+</div>        
+<div class="flex flex-col items-center">
             <div class="w-full my-3">
               <div class="flex justify-between m-2">
                 <div class="flex flex-1 items-center gap-3">
@@ -631,13 +191,7 @@
                     Perform FM Demodulation
                   </button>
 				  
-				  <button
-				    id = "plotButton"
-                    class="bg-blue-500 text-white py-1 px-3 rounded-md hover:scale-105"
-                    onclick="generateImpulseResponse()"
-                  >
-                    Show Frequency Spectrums
-                  </button>
+
 				  
                 </div>
               </div>
@@ -656,11 +210,7 @@
 
     </div>
 				  	  
-	  			    <div id="container1">
-        <div id="message-signal" class="plot-container1"></div>
-        <div id="modulated-signal" class="plot-container1"></div>
-        <div id="demodulated-signal" class="plot-container1"></div>
-    </div>
+
 	
 	
 <script>
@@ -740,10 +290,20 @@ function handleKfChange() {
         );
         var fs = parseInt(document.getElementById("fs").value);
         var numpoints = 10000; // Number of points for the signal
+
+          // Duration for 3 cycles of the message frequency
+  var duration = 3 / message_frequency;
+    // Generate x_values for 3 cycles
+    var x_values = Array.from(
+    { length: numpoints },
+    (_, i) => (i / (numpoints - 1)) * duration
+  );
+/*
         var x_values = Array.from(
           { length: numpoints },
           (_, i) => i * (1 / (message_frequency * numpoints))
         );
+        */
         var message_signal = x_values.map((x) =>
           Math.sin(2 * Math.PI * message_frequency * x)
         );
@@ -782,10 +342,19 @@ function handleKfChange() {
         );
         var fs = parseInt(document.getElementById("fs").value);
         var numpoints = 10000; // Number of points for the signal
-        var x_values = Array.from(
+                  // Duration for 3 cycles of the message frequency
+  var duration = 3 / carrier_frequency;
+    // Generate x_values for 3 cycles
+    var x_values = Array.from(
+    { length: numpoints },
+    (_, i) => (i / (numpoints - 1)) * duration
+  );
+     /*
+  var x_values = Array.from(
           { length: numpoints },
           (_, i) => i * (1 / (message_frequency * numpoints))
         );
+        */
         var carrier_signal = x_values.map((x) =>
           Math.sin(2 * Math.PI * carrier_frequency * x)
         );
@@ -859,10 +428,19 @@ function handleKfChange() {
         kf,
         numpoints = 10000
       ) {
+                  // Duration for 3 cycles of the message frequency
+  var duration = 3 / message_frequency;
+    // Generate x_values for 3 cycles
+    var x_values = Array.from(
+    { length: numpoints },
+    (_, i) => (i / (numpoints - 1)) * duration
+  );
+  /*
         var x_values = Array.from(
           { length: numpoints },
           (_, i) => i * (1 / (message_frequency * numpoints))
         );
+        */
         var message_signal = x_values.map((x) =>
           Math.sin(2 * Math.PI * message_frequency * x)
         );
@@ -905,6 +483,23 @@ function handleKfChange() {
 	
 	
 <script>
+  // Moving average smoothing function
+function smooth(data, windowSize) {
+    const smoothed = [];
+    const half = Math.floor(windowSize / 2);
+    for (let i = 0; i < data.length; i++) {
+        let sum = 0;
+        let count = 0;
+        for (let j = i - half; j <= i + half; j++) {
+            if (j >= 0 && j < data.length && !isNaN(data[j])) {
+                sum += data[j];
+                count++;
+            }
+        }
+        smoothed[i] = count > 0 ? sum / count : data[i];
+    }
+    return smoothed;
+}
 	function fmdemodulation() {
         // Parameters
         const fs = 1000;
@@ -983,7 +578,9 @@ function handleKfChange() {
         z[0] = 0; // Set initial value to zero
 
         // Apply bias
-        const z_with_bias = z.map(value => value + bias);
+        const z_with_bias0 = z.map(value => value + bias);
+        const windowSize = 20;
+        const z_with_bias = smooth(z_with_bias0, windowSize);
 
         // Plot demodulated signal with bias
         const trace2 = {
@@ -996,7 +593,7 @@ function handleKfChange() {
         };
 
         const layout2 = {
-            title: 'Demodulated Signal with Bias',
+            title: 'Demodulated Signal',
             xaxis: {title: 'Time'},
             yaxis: {title: 'Amplitude', range: [-1.5, 1.5]},
         };
@@ -1103,8 +700,8 @@ function handleKfChange() {
 
         const messageTrace = {
                 x: [messageFrequency, messageFrequency],
-                y: [0, 10*log10(0.5)],
-            mode: 'lines+markers',
+                y: [-30, 0],
+            mode: 'lines',
             name: 'Message Signal',
             line: { color: 'red' }
         };
@@ -1112,15 +709,15 @@ function handleKfChange() {
         const messageLayout = {
             title: 'Message Signal',
             xaxis: { title: 'Frequency (Hz)' },
-            yaxis: { title: 'Normalized PSD (dB/Hz)' }
+            yaxis: { title: 'Normalized PSD (dB/Hz) w.r.t. ifself', zeroline: false }
         };
 
         Plotly.newPlot('message-signal', [messageTrace], messageLayout, rr);
 
         const demodulatedTrace = {
                 x: [messageFrequency, messageFrequency],
-                y: [0, 10*log10(0.5)],
-            mode: 'lines+markers',
+                y: [-30, 0],
+            mode: 'lines',
             name: 'Demodulated Signal',
             line: { color: 'orange' }
         };
@@ -1128,7 +725,7 @@ function handleKfChange() {
         const demodulatedLayout = {
             title: 'Demodulated Signal',
             xaxis: { title: 'Frequency (Hz)' },
-            yaxis: { title: 'Normalized PSD (dB/Hz)' }
+            yaxis: { title: 'Normalized PSD (dB/Hz) w.r.t. message' , zeroline: false}
         };
 
         Plotly.newPlot('demodulated-signal', [demodulatedTrace], demodulatedLayout, rr);
@@ -1148,7 +745,8 @@ function handleKfChange() {
             carrierFreq + 2 * messageFreq
         ];
 
-        const magnitudes = [10*log10((0.115**2)/2), 10*log10((0.440**2)/2), 10*log10((0.765**2)/2), 10*log10((0.440**2)/2), 10*log10((0.115**2)/2)];
+        const magnitudes0 = [10*log10((0.115**2)/2), 10*log10((0.440**2)/2), 10*log10((0.765**2)/2), 10*log10((0.440**2)/2), 10*log10((0.115**2)/2)];
+        const magnitudes = magnitudes0.map(m => m + 3.0103);
         const colors = ['blue', 'green', 'red', 'green', 'blue'];
 
         const labels = [
@@ -1161,7 +759,7 @@ function handleKfChange() {
 
         const data = frequencies.map((freq, index) => ({
             x: [freq, freq],
-            y: [0, magnitudes[index]],
+            y: [-30, magnitudes[index]],
             type: 'scatter',
             mode: 'lines',
             line: {
@@ -1181,7 +779,7 @@ function handleKfChange() {
                 ],
             },
             yaxis: {
-                title: 'Normalized PSD (dB/Hz)',
+                title: 'Normalized PSD (dB/Hz) w.r.t. message', zeroline: false
                 //range: [0, 1],
             },
             legend: {

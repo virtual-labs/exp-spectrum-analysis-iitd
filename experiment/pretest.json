@@ -2,35 +2,35 @@
   "version": "2.0",
   "questions": [
     {
-      "question": "1. Which of the following statements is true regarding Amplitude Modulation (AM)?",
+      "question": "1. In a standard Amplitude Modulation (AM) system with a single-tone message signal, which of the following correctly describes the frequency components present in the modulated signal?",
       "answers": {
-        "a": "The amplitude of the carrier signal is varied in accordance with the modulating signal.",
-        "b": "The frequency of the carrier signal is varied in accordance with the modulating signal.",
-        "c": "The phase of the carrier signal is varied in accordance with the modulating signal.",
-        "d": "The amplitude of the modulating signal is varied in accordance with the carrier signal."
+        "a": "Only the carrier frequency and the lower sideband are present.",
+        "b": "Only the upper sideband and baseband frequencies are present.",
+        "c": "The carrier, upper sideband, and lower sideband frequencies are present.",
+        "d": "The modulated signal contains frequencies unrelated to the message or carrier."
       },
       "explanations": {
-        "a": "Correct: AM varies the amplitude of the carrier signal.",
-        "b": "Incorrect: This describes Frequency Modulation (FM).",
-        "c": "Incorrect: This describes Phase Modulation (PM).",
-        "d": "Incorrect: The modulating signal does not change its amplitude."
+        "a": "Incorrect: This describes Single Sideband (SSB) modulation.",
+        "b": "Incorrect: AM does not remove the carrier unless suppressed.",
+        "c": "Correct: Standard AM results in a carrier and two symmetrical sidebands.",
+        "d": "Incorrect: AM only generates components related to the carrier and message."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "c",
       "difficulty": "intermediate"
     },
     {
-      "question": "2. In Frequency Modulation (FM), what parameter of the carrier signal changes with the modulating signal?",
+      "question": "2. Which of the following statements best explains the spectral behavior of a frequency modulated (FM) signal when the amplitude of the modulating signal is increased?",
       "answers": {
-        "a": "Amplitude",
-        "b": "Frequency",
-        "c": "Phase",
-        "d": "None of the above"
+        "a": "The bandwidth remains the same, as FM does not depend on amplitude.",
+        "b": "The number of significant sidebands increases, leading to a wider bandwidth.",
+        "c": "The carrier frequency shifts, but bandwidth remains fixed.",
+        "d": "The FM signal collapses into an AM signal at high modulation index."
       },
       "explanations": {
-        "a": "Incorrect: FM does not vary the amplitude.",
-        "b": "Correct: FM varies the frequency of the carrier signal.",
-        "c": "Incorrect: This describes Phase Modulation (PM).",
-        "d": "Incorrect: FM does vary a parameter of the carrier signal."
+        "a": "Incorrect: FM bandwidth is dependent on modulation index, which includes amplitude.",
+        "b": "Correct: As modulation index increases, more sidebands become significant, widening the bandwidth.",
+        "c": "Incorrect: Carrier stays centered; frequency deviation affects sidebands.",
+        "d": "Incorrect: FM does not convert to AM regardless of modulation index."
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"
