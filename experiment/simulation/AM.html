@@ -10,11 +10,11 @@
 <div id = "container">
     <h1>Instructions for Amplitude Modulation (AM)</h1>
     <ul>
-        <li>Step 1: Click on 'Generate Message' button to generate input message signal</li>
-        <li>Step 2: Then click on 'Generate Carrier' button to generate carrier signal</li>
-		<li>Step 3: The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
-        <li>Step 4: Click on 'Generate Amplitude Modulated Signal' button to generate Amplitude Modulated Signal</li>
-        <li>Here, modulation index = Gain / DC. The frequency spectrum is shown for a modulation index of 1.</li>
+        <li class="step step1">Step 1: Click on 'Generate Message' button to generate input message signal</li>
+        <li class="step step2">Step 2: Then click on 'Generate Carrier' button to generate carrier signal</li>
+		<li class="step step3">Step 3: The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
+        <li class="step step4">Step 4: Click on 'Generate Amplitude Modulated Signal' button to generate Amplitude Modulated Signal</li>
+        <li class="step step1">Here, the modulation index is defined as the ratio of the message signal amplitude to the carrier signal amplitude. You can adjust both values.</li>
 	</ul>
 <br/>
 </div>		  
@@ -93,7 +93,7 @@
             </div>
           </div>
           <div class="flex flex-col items-center">
-            <p class="text-[13px] pb-1 text-center font-bold">Gain</p>
+            <p class="text-[13px] pb-1 text-center font-bold">Message Signal Amplitude (Am)</p>
             <input
             onchange="handleAChange()"
             id="A"
@@ -104,7 +104,7 @@
             step="0.01"
           />
           <div class="leading-none ADiv">1</div>
-          <p class="text-[13px] pb-1 text-center font-bold">DC</p>
+          <p class="text-[13px] pb-1 text-center font-bold">Carrier Signal Amplitude (Ac)</p>
           <input
           onchange="handleBChange()"
           type="range"
@@ -115,6 +115,10 @@
           step="0.01"
         />
         <div class="leading-none BDiv">1</div>
+
+        <br/><br/>
+        <p class="text-[13px] pb-1 text-center font-bold">Modulation Index (Am / Ac)</p>
+        <div id = "modulationIndex">1</div>
     
         <input
         onchange="handleDCChange()"
@@ -147,9 +151,9 @@
 <div id = "container">
     <h1>Instructions for Amplitude Demodulation</h1>
     <ul>
-        <li>Step 1: Tunable LPF's Cutoff frequency works in accordance with the Message frequency</li>
-		<li>Step 2: You can Demodulate the AM Signal clicking on the 'Perform AM Demodulation' button</li>
-		<li>Step 3: Click on the 'Show Frequency Spectrums' button to see spectrums of the message, AM modulated and demodulated signal</li>
+        <li class="step step1">Step 1: Tunable LPF's Cutoff frequency works in accordance with the Message frequency</li>
+		<li class="step step2">Step 2: You can Demodulate the AM Signal clicking on the 'Perform AM Demodulation' button</li>
+		<li class="step step3">Step 3: Click on the 'Show Frequency Spectrums' button above to see spectrums of the message, AM modulated and demodulated signal. The frequency spectra is shown for a modulation index of 1.</li>
     </ul>
 </div>	
 
@@ -270,19 +274,20 @@
         updateModulationIndex();
       }
 
+
       function updateModulationIndex() {
         const aValue = parseFloat(document.getElementById("A").value) || 1;  // Default to 1 if empty
         const bValue = parseFloat(document.getElementById("B").value) || 1;  // Default to 1 if empty
         
         // Prevent division by zero for B
         if (bValue === 0) {
-          document.getElementById("modulationIndex").value = "Infinity";
+          document.getElementById("modulationIndex").innerHTML = "Infinity";
         } else {
           // Calculate modulation index as A / B
-          const modulationIndex = aValue / bValue;
+          const modulationIndex = (aValue / bValue).toFixed(3);
 
           // Update the modulation index input field
-          document.getElementById("modulationIndex").value = modulationIndex;
+          document.getElementById("modulationIndex").innerHTML = modulationIndex;
         }
       }
 
@@ -303,6 +308,7 @@
       }
 
       function generateMessageSignal() {
+        let A = parseFloat(document.getElementById("A").value);
         var frequencyMessage = parseFloat(
           document.getElementById("messageFrequency").value
         );
@@ -317,7 +323,7 @@
         // Execute code for generating message signal
         for (var i = 0; i < num_points; i++) {
           var x = x_values[i];
-          var message_value = Math.sin(2 * Math.PI * frequencyMessage * x);
+          var message_value = A * Math.sin(2 * Math.PI * frequencyMessage * x);
           message_signal.push(message_value);
         }
 
@@ -333,6 +339,7 @@
 
       // Function to generate the carrier signal
       function generateCarrierSignal() {
+        let B = parseFloat(document.getElementById("B").value);
         var frequencyCarrier = parseFloat(
           document.getElementById("carrierFrequency").value
         );
@@ -343,7 +350,7 @@
         var num_points = 100000;
         var x_values = linspace(0, 3 / frequencyCarrier, num_points);
         var carrier_signal = x_values.map((x) =>
-          Math.sin(2 * Math.PI * frequencyCarrier * x)
+        B * Math.sin(2 * Math.PI * frequencyCarrier * x)
         );
         var carrierData = [{ x: x_values, y: carrier_signal, type: "line" }];
         var carrierLayout = {
@@ -372,8 +379,8 @@
           var message_value = Math.sin(2 * Math.PI * frequencyMessage * x);
           var carrier_value = Math.sin(2 * Math.PI * frequencyCarrier * x);
           var modulated_value = message_value * carrier_value;
-          var B = parseFloat(document.getElementById("B").value);
-          var A = parseFloat(document.getElementById("A").value);
+          let B = parseFloat(document.getElementById("B").value);
+          let A = parseFloat(document.getElementById("A").value);
           let DC = parseFloat(document.getElementById("DC").value);
           var modulated_value = (DC*B + A * message_value) * carrier_value;
 
@@ -765,40 +772,68 @@ document.getElementById('message-signal').scrollIntoView({ behavior: 'smooth' })
 
 <style>
 
-.container {
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 20px 40px;
-    max-width: 1000px; /* Increased max-width to fit three plots side by side */
-    margin: 0 auto; /* Center the container */
-    text-align: center;
+#container {
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 25px 40px;
+  max-width: 100%;
+  margin: 20px auto;
+  text-align: left;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 h1 {
-    color: #333;
-    font-size: 22px; /* Increased font size */
-    margin-bottom: 20px;
+  color: #1e3a8a;
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: justify;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-li {
-    background-color: #e0e7ff;
-    margin: 5px 0;
-    padding: 5px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 14px; /* Set font size for list items */
+li.step {
+  margin: 12px 0;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-li::before {
-    content: "✔";
-    color: #4caf50;
-    margin-right: 10px;
+li.step::before {
+  content: "✔";
+  color: #10b981;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+li.step:hover {
+  transform: scale(1.02);
+  background-color: #f3f4f6;
+}
+
+/* Color code each step */
+.step1 {
+  background-color: #ffe0e0;
+  border-left: 5px solid #ef4444;
+}
+.step2 {
+  background-color: #e0f7ff;
+  border-left: 5px solid #0ea5e9;
+}
+.step3 {
+  background-color: #e0ffe5;
+  border-left: 5px solid #22c55e;
+}
+.step4 {
+  background-color: #f5e0ff;
+  border-left: 5px solid #a855f7;
 }
 
 .plot-container {
