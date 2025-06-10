@@ -10,12 +10,13 @@
   <div id = "container">
     <h1>Instructions for Frequency Modulation (FM)</h1>
     <ul>
-        <li>Step 1: Click on 'Generate Message' button to generate input message signal</li>
-        <li>Step 2: Then click on 'Generate Carrier' button to generate carrier signal</li>
-		<li>Step 3: The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
-        <li>Step 4: Click on 'Generate Frequency Modulated Signal' button to generate Frequency Modulated Signal</li>
-        <li>Here, β represents the modulation index. The frequency spectrum is shown for a modulation index of 1</li>
+        <li class="step step1">Step 1: Click on 'Generate Message' button to generate input message signal</li>
+        <li class="step step2">Step 2: Then click on 'Generate Carrier' button to generate carrier signal</li>
+		<li class="step step3">Step 3: The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
+        <li class="step step3">Step 4: Click on 'Generate Frequency Modulated Signal' button to generate Frequency Modulated Signal</li>
+        <li class="step step4">Here, β represents the frequency modulation index, given by β = kf*Am/fm​​, where Am​ is the amplitude of the message signal (assumed to be fixed), fm​ is its frequency, and kf​ is the frequency sensitivity</li>
 	</ul>
+  </div>
 <br/>
 
 <div class="flex mb-2 items-start gap-10">
@@ -65,7 +66,7 @@
 				  
     <!-- Kf Input and Button -->
     <div class="flex flex-col items-center">
-        <p class="text-[13px] pb-1 font-bold">Kf:</p>
+        <p class="text-[13px] pb-1 font-bold">Kf (frequency sensitivity):</p>
         <input
             id="kf"
             value="50"
@@ -78,7 +79,7 @@
 		
 				<div align = "center">
 				<br/>
-				β =<input type = "text" id="modulationIndex" value = "50" readonly style="text-align: center;">
+				β (= kf*Am/fm​​) =<input type = "text" id="modulationIndex" value = "50" readonly style="text-align: center;">
 				</div>
         <button
             onclick="createPlots()"
@@ -169,9 +170,9 @@
 	<div id = "container">
     <h1>Instructions for Frequency Demodulation</h1>
     <ul>
-        <li>Step 1: LPF's Cutoff frequency works in accordance with the Message frequency</li>
-		<li>Step 2: You can Demodulate the FM Signal clicking on the 'Perform FM Demodulation' button</li>
-		<li>Step 3: Click on the 'Show Frequency Spectrums' button to see spectrums of the message, FM modulated and demodulated signal</li>
+        <li class="step step1">Step 1: LPF's Cutoff frequency works in accordance with the Message frequency</li>
+		<li class="step step2">Step 2: You can Demodulate the FM Signal clicking on the 'Perform FM Demodulation' button</li>
+		<li class="step step3">Step 3: Click on the 'Show Frequency Spectrums' button above to see spectra of the message, FM modulated and demodulated signal.  The frequency spectra is shown for a modulation index of 1</li>
     </ul>
 </div>	
 	    
@@ -815,16 +816,6 @@ function smooth(data, windowSize) {
             width: 45%;
             height: 400px;
         }
-		
-		.container {
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 20px 40px;
-    max-width: 1000px; /* Increased max-width to fit three plots side by side */
-    margin: 0 auto; /* Center the container */
-    text-align: center;
-}
 
         #container1 {
             display: flex;
@@ -838,30 +829,68 @@ function smooth(data, windowSize) {
         }
 
 
+        #container {
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 25px 40px;
+  max-width: 100%;
+  margin: 20px auto;
+  text-align: left;
+  font-family: 'Segoe UI', sans-serif;
+}
+
 h1 {
-    color: #333;
-    font-size: 22px; /* Increased font size */
-    margin-bottom: 20px;
+  color: #1e3a8a;
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: justify;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-li {
-    background-color: #e0e7ff;
-    margin: 5px 0;
-    padding: 5px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 14px; /* Set font size for list items */
+li.step {
+  margin: 12px 0;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-li::before {
-    content: "✔";
-    color: #4caf50;
-    margin-right: 10px;
+li.step::before {
+  content: "✔";
+  color: #10b981;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+li.step:hover {
+  transform: scale(1.02);
+  background-color: #f3f4f6;
+}
+
+/* Color code each step */
+.step1 {
+  background-color: #ffe0e0;
+  border-left: 5px solid #ef4444;
+}
+.step2 {
+  background-color: #e0f7ff;
+  border-left: 5px solid #0ea5e9;
+}
+.step3 {
+  background-color: #e0ffe5;
+  border-left: 5px solid #22c55e;
+}
+.step4 {
+  background-color: #f5e0ff;
+  border-left: 5px solid #a855f7;
 }
 
 	</style>
