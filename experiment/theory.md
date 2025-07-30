@@ -26,44 +26,46 @@ the modulation process.
         <p><b>Amplitude Modulation,</b> in which the amplitude of the sinusoidal carrier is varied in accordance with an incoming mesage signal. <b>Frequency and phase modulation</b> involve varying the instantaneous frequency or phase of the sinusoidal carrier in accordance with the message signal.</p>
         </div>
         </div>
-      <div class="px-6 pb-6 flex-1">
-        <div
-          class="w-full text-[#007bff] font-normal text-[19.2px]"
-          style="font-family: Raleway, sans-serif"
-        >
-          <ol class="mb-4 pl-4">
-            <li>
-              <a href="./AM_theory.html">
-                <div class="flex">
-                  <span class="text-black mr-4">1.</span>
-                  <p class="hover:text-[#3e6389] hover:underline">
-                    Amplitude Modulation
-                  </p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="./FM_theory.html">
-                  <span class="text-black mr-4">2.</span>
-                  <p class="hover:text-[#3e6389] hover:underline">
-                    Frequency Modulation
-                  </p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="./PM_theory.html">
-                <div class="flex">
-                  <span class="text-black mr-4">3.</span>
-                  <p class="hover:text-[#3e6389] hover:underline">
-                    Phase Modulation
-                  </p>
-                </div>
-              </a>
-            </li>
-          </ol>
-        </div>
-      </div>
+<div class="px-6 pb-6 flex-1">
+  <div
+    class="w-full text-[#007bff] font-normal text-[19.2px]"
+    style="font-family: Raleway, sans-serif"
+  >
+    <ol class="mb-4 pl-4">
+      <li>
+        <a href="./AM_theory.html">
+          <div class="flex">
+            <span class="text-black mr-4">1.</span>
+            <p class="hover:text-[#3e6389] hover:underline">
+              Amplitude Modulation
+            </p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="./FM_theory.html">
+          <div class="flex">
+            <span class="text-black mr-4">2.</span>
+            <p class="hover:text-[#3e6389] hover:underline">
+              Frequency Modulation
+            </p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="./PM_theory.html">
+          <div class="flex">
+            <span class="text-black mr-4">3.</span>
+            <p class="hover:text-[#3e6389] hover:underline">
+              Phase Modulation
+            </p>
+          </div>
+        </a>
+      </li>
+    </ol>
+  </div>
+</div>
+
 
 </body>
 </html>
