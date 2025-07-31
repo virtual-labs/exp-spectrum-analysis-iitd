@@ -362,20 +362,29 @@
                 is varied in proportion to the baseband signal. This modulation technique can be mathematically represented as:
             </p>
             <p>
-                \( S(t) = A_c \left[ 1 + K_a m(t) \right] \cos(2\pi f_c t) \)
+                \( s(t) = A_c \left[ 1 + K_a m(t) \right] \cos(2\pi f_c t) \)
             </p>
             <p>or equivalently,</p>
             <p>
-                \( S(t) = A_c \cos(2\pi f_c t) + A_c K_a m(t) \cos(2\pi f_c t) \)
+                \( s(t) = A_c \cos(2\pi f_c t) + A_c K_a m(t) \cos(2\pi f_c t) \)
             </p>
             <p>where:</p>
             <ul>
                 <li>\( K_a \) is the amplitude sensitivity of the modulator</li>
-                <li>\( S(t) \) is the modulated signal</li>
+                <li>\( s(t) \) is the modulated signal</li>
                 <li>\( A_c \) is the amplitude of the carrier signal</li>
                 <li>\( m(t) \) is the modulating (baseband) signal</li>
             </ul>
-        
+            <h2>Block Diagram for Amplitude Modulation</h2>
+            <div class="flex justify-center ">
+              <img
+                src="./simulation/AM_Modulation.png"
+                alt="am_image2"
+              />
+            </div>
+            <p class="mb-4 text-center font-semibold text-black">
+              Fig: Amplitude Modulation
+            </p>
               <h2>Modulation Index (μ) in Amplitude Modulation</h2>
               
               <p>
@@ -393,13 +402,7 @@
                   <li>\( K_a \) = amplitude sensitivity of the modulator</li>
                 </ul>
               </p>
-            <br/>
-              <p>
-                If \( K_a = 1 \), the expression simplifies to:
-                <br>
-                <strong>\( \mu = \frac{A_m}{A_c} \)</strong>
-              </p>
-            
+            <br/>            
               <p>
                 The value of \( \mu \) determines the modulation quality:
                 <ul>
@@ -421,230 +424,126 @@
                   <li>\( A_{\text{min}} \) = minimum amplitude of the modulated signal</li>
                 </ul>
               </p>
-
-            <h2>Power Efficiency and Distribution</h2>
-
-            <p>
-                A major topic in Amplitude Modulation (AM) is the analysis of how power is distributed within the transmitted signal. In the standard AM, a significant portion of the total transmitted power is concentrated in the carrier signal. Critically, this carrier wave itself conveys no information. The useful information—the original message signal—is contained entirely within the sidebands. The power efficiency (η) is a crucial metric that quantifies what fraction of the total power resides in these information-carrying sidebands.
-            </p>
-        
-            <ul>
-                <li>
-                    The efficiency is calculated using the formula:
-                    <div class="equation">
-                        η = μ² / (2 + μ²)
-                    </div>
-                    where <code>μ</code> represents the modulation index.
-                </li>
-                <li>
-                    Even under optimal conditions, such as 100% modulation (when μ=1), the maximum theoretical efficiency is only 33.3%.<sup class="citation"></sup> This means that a full two-thirds of the transmitter's power is expended just to send the carrier wave.<sup class="citation"></sup> This pronounced inefficiency is the primary motivation behind the development of more advanced, carrier-suppressed modulation techniques like Double-Sideband Suppressed-Carrier (DSB-SC) and Single-Sideband (SSB) modulation.
-                </li>
-            </ul>
-
-<h2>Bandwidth</h2>
-
-<p>
-    While the provided lab text displays the spectrum of an AM signal, it does not explicitly state the formula for calculating its required bandwidth. The bandwidth is defined as the difference between the highest and lowest frequencies present in the modulated signal's spectrum.<sup class="citation"></sup>
-</p>
-
-<ul>
-    <li>
-        For a standard AM signal, the bandwidth is precisely twice the highest frequency component found in the modulating signal (also known as the message signal). The formula is:
-        <div class="equation">
-            BW = 2 * f<sub>m</sub>
-        </div>
-        Where <code>f<sub>m</sub></code> is the maximum frequency of the message signal.<sup class="citation"></sup>
-    </li>
-</ul>
-                  <h2>Apparatus:</h2>
-                  <p class="ml-3">
-                    <span class="font-semibold">1. </span> TIMS-301 Modelling System
-                    <br />
-                    <span class="font-semibold">2. </span> C.R.O (20MHz)
-                    <br />
-                    <span class="font-semibold">3. </span> Spectrum Analyzer
-                    <br />
-                    <span class="font-semibold">4. </span> Connecting chords & probes.
-                    <br /><br />
+                  <h2>Frequency Domain Description :</h2>
+                  <p>
+                    To understand the spectral characteristics of a <strong>AM wave</strong>, we analyze it in the 
+                    <strong>frequency domain</strong> by applying the <strong>Fourier transform</strong> to its time-domain representation.
+                  </p>
+                
+                  <p>The AM signal is defined as:</p>
+                
+                  <p>
+                    \(
+                    s(t) = A_c \left[1 + k_a m(t)\right] \cos(\omega_c t)
+                    \)
+                  </p>
+                
+                  <p>
+                    Taking the <strong>Fourier transform</strong> of both sides, and applying frequency-shifting and delta function properties:
+                  </p>
+                
+                  <p>
+                    \(
+                    S(j\omega) = \pi A_c \left[ \delta(\omega - \omega_c) + \delta(\omega + \omega_c) \right]
+                    + \frac{1}{2} k_a A_c \left[ M(j(\omega - \omega_c)) + M(j(\omega + \omega_c)) \right]
+                    \)
                   </p>
                   <p>
-                    AM Signal, S(t) = <b> E(1+m.cosμt) cosωt</b> <br />
-                    Where, E is the amplitude of the AM signal <br />
-                    μ is the frequency of the message signal (in rad/s) <br />
-                    ω is the frequency of the carrier signal (in rad/s) <br />
-                    m is modulation index (varies from 0 to 1) <br />
+                    This spectrum consists of two impulse functions weighted by the factor πA<sub>c</sub>, 
+                    located at ±ω<sub>c</sub>, along with two replicas of the message spectrum that are 
+                    shifted in frequency by ±ω<sub>c</sub> and scaled in amplitude by 
+                    (1/2)k<sub>a</sub>A<sub>c</sub>.
                   </p>
-                  <p class="ml-3 font-bold">
-                    = {A(1+m.cosμt)} {B cosωt} <br />
-                    = {low frequency term a(t)} X {high frequency term c(t)}
-                  </p>
-                  <p>
-                    The low frequency term can be considered as <br />
-                    a(t) = DC + m(t) <br />
-                    In the above equation with the help of adder we try to keep the
-                    modulation index or modulation depth exactly 100%
-                  </p>
+                  <br/>
                   <div class="flex justify-center">
                     <img
-                      src="./images/theory/am1.png"
+                      src="./am_spectrum.png"
                       alt="am_image1"
                       class="h-[200px]"
                     />
                   </div>
-                  <p>
-                    For example, if we set dc voltage at <b>A</b> volt and amplitude of the AC
-                    part of the above equation A.m, then their ratio is 1 at the output
-                    of the adder. Then 100% amplitude modulation is performed.
+                  <p class="mb-4 text-center font-semibold text-black">
+                    Fig: Time-domain (on the left) and frequency-domain (on the right) characteristics of AM produced by a sinusoidal modulating wave.
+                    (a) Modulating wave.
+                    (b) Carrier wave.
+                    (c) AM wave.
                   </p>
-                  <h2>Circuit Diagram</h2>
+                  <h2>Bandwidth</h2>
+      
+                  <p>
+                      While the provided lab text displays the spectrum of an AM signal, it does not explicitly state the formula for calculating its required bandwidth. The bandwidth is defined as the difference between the highest and lowest frequencies present in the modulated signal's spectrum.<sup class="citation"></sup>
+                  </p>
+                  
+                  <ul>
+                      <li>
+                          For a standard AM signal, the bandwidth is precisely twice the highest frequency component found in the modulating signal (also known as the message signal). The formula is:
+                          <div class="equation">
+                              BW = 2 * f<sub>m</sub>
+                          </div>
+                          Where <code>f<sub>m</sub></code> is the maximum frequency of the message signal.<sup class="citation"></sup>
+                      </li>
+                  </ul>
+                  <h2>Power Efficiency and Distribution</h2>
+                  <p>In practice, the AM wave <span class="math">s(t)</span> is a voltage or current signal. In either case, the average power delivered to a 1-ohm load resistor by <span class="math">s(t)</span> is comprised of three components:</p>
+
+                  <p>
+                    Carrier power = (1/2)<span class="math">A<sub>c</sub><sup>2</sup></span><br>
+                    Upper side-frequency power = (1/8)&mu;<sup>2</sup><span class="math">A<sub>c</sub><sup>2</sup></span><br>
+                    Lower side-frequency power = (1/8)&mu;<sup>2</sup><span class="math">A<sub>c</sub><sup>2</sup></span>
+                  </p>
+                
+                  <p>
+                    The ratio of the total sideband power to the total power in the modulated wave is therefore equal to
+                    &mu;<sup>2</sup> / (2 + &mu;<sup>2</sup>), which depends only on the modulation factor &mu;. If &mu; = 1,
+                    that is, 100% modulation is used, the total power in the two side-frequencies of the resulting AM wave
+                    is only one-third of the total power in the modulated wave.
+                  </p>
+                  <p>
+                      A major topic in Amplitude Modulation (AM) is the analysis of how power is distributed within the transmitted signal. In the standard AM, a significant portion of the total transmitted power is concentrated in the carrier signal. Critically, this carrier wave itself conveys no information. The useful information—the original message signal—is contained entirely within the sidebands. The power efficiency (η) is a crucial metric that quantifies what fraction of the total power resides in these information-carrying sidebands.
+                  </p>
+              
+                  <ul>
+                      <li>
+                          The efficiency is calculated using the formula:
+                          <div class="equation">
+                              η = μ² / (2 + μ²)
+                          </div>
+                          where <code>μ</code> represents the modulation index.
+                      </li>
+                      <li>
+                          Even under optimal conditions, such as 100% modulation (when μ=1), the maximum theoretical efficiency is only 33.3%.<sup class="citation"></sup> This means that a full two-thirds of the transmitter's power is expended just to send the carrier wave.<sup class="citation"></sup> This pronounced inefficiency is the primary motivation behind the development of more advanced, carrier-suppressed modulation techniques like Double-Sideband Suppressed-Carrier (DSB-SC) and Single-Sideband (SSB) modulation.
+                      </li>
+                  </ul>
+                  <h2>
+                    Block Diagram for Amplitude Modulation
+                  </h2>
                   <div class="flex justify-center ">
                     <img
-                      src="./images/theory/am2.png"
+                      src="./simulation/AM_Demod.png"
                       alt="am_image2"
-                      class="h-[500px]"
-                    />
-                  </div>
-                  <h2>Procedure for Amplitude Modulation</h2>
-                  <p class="ml-3">
-                    <span class="font-semibold">1. </span> Generate a message signal
-                    from ‘AUDIO OSCILLATOR’ module as shown in the above. The AUDIO
-                    OSCILLATOR is a low distortion tuneable frequency sine wave source
-                    with a frequency range from 500Hz to 10kHz. Three outputs are
-                    provided. Two outputs are sinusoidal, with their signals in
-                    quadrature. The third output is a digital TTL level signal. Then
-                    pass the message signal thru the adder that can add a DC voltage and
-                    gain to the message signal. <br />
-                    The DC term comes from the VARIABLE DC module, and will be adjusted
-                    to the amplitude 'A' at the output of the ADDER. <br />
-                    The AC term <b>m(t)</b> will come from an AUDIO OSCILLATOR, and will be
-                    adjusted to the amplitude <b>'A•m'</b> at the output of the ADDER. So that
-                    the modulation index, m be 1 or perfect AM modulation <br />
-                    a(t) = A(1+m.cosμt) <br />
-                    a(t) = DC + m(t) <br />
-                    a(t) = A + A.m.cosμt <br />
-                    So, m will be 1 as it is the ratio of A.m and A <br />
-                    <span class="font-semibold">2. </span> Supply the 100 KHz carrier
-                    signal from the <b> MASTER SIGNALS</b> module
-                    <br />
-        
-                    <span class="font-semibold">3. </span> First patch up according to
-                    Figure above, but omit the input X and Y connections to the
-                    MULTIPLIER. Connect to the two oscilloscope channels using the SCOPE
-                    SELECTOR, as shown.
-                    <br />
-                    <span class="font-semibold">4. </span> Use the FREQUENCY COUNTER to
-                    set the AUDIO OSCILLATOR to about 1 kHz.
-                    <br />
-                    <span class="font-semibold">5. </span> Switch the SCOPE SELECTOR to
-                    CH1-B, and look at the message from the AUDIO OSCILLATOR. Adjust the
-                    oscilloscope to display two or three periods of the sine wave in the
-                    top half of the screen.
-                    <br />
-                    <span class="font-semibold">6. </span> Now start adjustments by
-                    setting up <b>a(t),</b> and with m = 1
-                    <br />
-                    <span class="font-semibold">7. </span> Turn both g and G fully
-                    anti-clockwise. This removes both the DC and the AC parts of the
-                    message from the output of the ADDER.
-                    <br />
-                    <span class="font-semibold">8. </span> Switch the scope selector to
-                    CH1-A. This is the ADDER output. Switch the oscilloscope amplifier
-                    to respond to DC if not already so set, and the sensitivity to about
-                    0.5 volt/cm.
-                    <br />
-                    <span class="font-semibold">9. </span> Set gain on ADDER to set VDC
-                    <br />
-                    <span class="font-semibold">10. </span> VDC = +1Volt
-                    <br />
-                    <span class="font-semibold">11. </span> Now set amplitude of AC
-                    signal also to 1 Volt
-                    <br />
-                    <span class="font-semibold">12. </span> Connect the output of the
-                    ADDER to input X of the MULTIPLIER. Make Sure the MULTIPLIER is
-                    switched to accept DC.
-                    <br />
-                    <span class="font-semibold">13. </span> Now prepare the carrier
-                    signal:
-                    <br />
-                    <b>c ( t ) = B.cosωt</b>
-                    <br />
-                    <span class="font-semibold">14. </span> Connect a 100 kHz analog
-                    signal from the MASTER SIGNALS module to input Y of the MULTIPLIER
-                    <br />
-                    <span class="font-semibold">15. </span>Connect the output of the
-                    MULTIPLIER to the CH2-A of the SCOPE SELECTOR. Adjust the
-                    oscilloscope to display the signal conveniently on the screen.
-                    <br />
-                    <span class="font-semibold">16. </span>Since each of the previous
-                    steps has been completed successfully, then at the MULTIPLIER output
-                    will be the 100% modulated AM signal. It will be displayed on CH2-A.
-                    It will look like this.
-                    <br />
-                  </p>
-        
-                  <div class="flex justify-center">
-                    <img
-                      src="./images/theory/am3.png"
-                      alt="am_image3"
-                      class="h-[280px]"
                     />
                   </div>
                   <p class="mb-4 text-center font-semibold text-black">
-                    Fig: AM, with m=1
+                    Fig: Amplitude Demodulation
                   </p>
-                  <p>
-                    The percentage modulation can also be calculated from the modulated
-                    signal using the formula. <br />
-                    Percentage modulation = (Vmax-Vmin )/(Vmax +Vmin) × 100
-                    <br />
-                    Modulation factor = (Vmax-Vmin )/(Vmax +Vmin)
-                    <br />
-                  </p>
-                  <p>
-                    <span class="font-semibold">17. </span> Vary the ADDER gain G, and
-                    thus 'm' and confirm that the envelope of the AM behaves as
-                    expected, including for values of m > 1.
-                  </p>
-                  <div class="flex justify-center">
-                    <img
-                      src="./images/theory/am4.png"
-                      alt="am_image4"
-                      class="h-[300px]"
-                    />
+                  <div>
+                    <h2>AM Demodulation – Basic Steps</h2>
+                    <ul>
+                      <li><strong>Envelope Detection (for large carrier):</strong>
+                        <ul>
+                          <li>Use a diode and RC filter to detect the envelope.</li>
+                          <li>It recovers the message from amplitude variations.</li>
+                        </ul>
+                      </li>
+                      <li><strong>Coherent Detection (for suppressed carrier like DSB-SC):</strong>
+                        <ul>
+                          <li>Multiply with a locally generated carrier (same frequency & phase).</li>
+                          <li>Apply low-pass filter to extract message signal.</li>
+                        </ul>
+                      </li>
+                    </ul>
                   </div>
-                  <h2>Spectrum :</h2>
-                  <p>
-                    Analysis shows that the sidebands of the AM, when derived from a
-                    message of frequency μ rad/s, are located either side of the carrier
-                    frequency, spaced from it by μ rad/s
-                  </p>
-                  <div class="flex justify-center">
-                    <img
-                      src="./images/theory/am5.png"
-                      alt="am_image5"
-                      class="h-[250px]"
-                    />
-                  </div>
-                  <p class="mb-4 text-center font-semibold text-black">
-                    Fig: AM Spectrum
-                  </p>
-                  <h2>
-                    Circuit Diagram for AM Envelop Recovery
-                  </h2>
-                  <div class="flex justify-center">
-                    <img
-                      src="./images/theory/am6.png"
-                      alt="am_image6"
-                      class="h-[400px]"
-                    />
-                  </div>
-                  <h2>Procedure for Amplitude Demodulation</h2>
-                  <p>
-                    Connect AM output signal to an ideal envelope detector, modelled as
-                    per Figure above. For the low pass filter use the TUNEABLE LPF
-                    module. Your whole system might look like that shown modelled in
-                    Figure above.
-                  </p>
+                  
                 </div>
               </div>
             </div>
