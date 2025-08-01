@@ -378,6 +378,16 @@ ANALYSIS">
         The carrier frequency \( f_c \) is shifted by an amount proportional to the modulating signal \( m(t) \), 
         and this shift results in a frequency-modulated signal.
     </p>
+    <h2>Block Diagram</h2>
+    <div class="flex justify-center ">
+      <img
+        src="./simulation/FM_Modulation.png"
+        alt="am_image2"
+      />
+    </div>
+    <p class="mb-4 text-center font-semibold text-black">
+      Fig: Frequency Modulation
+    </p>
     <h2>Modulation Index (β) in Frequency Modulation</h2>
 
     <p>
@@ -405,163 +415,51 @@ ANALYSIS">
             <li><strong>β > 1</strong>: <strong>Wideband FM (WBFM)</strong>. This is used in broadcasting for high-fidelity audio, as it offers superior noise immunity.</li>
         </ul>
     </p>
+    <h2>Frequency Domain Description:</h2>
 
-    <h2>Bandwidth in Frequency Modulation</h2>
+<p>An FM signal produces an infinite number of sidebands spaced at intervals of <em>&omega;<sub>m</sub></em> from the carrier <em>&omega;<sub>c</sub></em>, both above and below.</p>
 
-    <p>
-        Theoretically, generating an FM signal creates an infinite number of sidebands, implying an infinite bandwidth. However, in practice, the sidebands decrease in amplitude as they get further from the carrier frequency. We can therefore ignore sidebands with insignificant power and use an approximation for the practical bandwidth.
-    </p>
+<p>
+  S(j&omega;) = &sum;<sub>n=-∞</sub><sup>∞</sup> J<sub>n</sub>(β) &middot; δ(j&omega; - &omega;<sub>c</sub> - n &omega;<sub>m</sub>)
+</p>
 
-    <ul>
-        <li>
-            The most widely accepted approximation for the bandwidth of an FM signal is <strong>Carson's Rule</strong>. It states that approximately 98% of the signal power is contained within a bandwidth defined as:
-            <div class="equation">
-                BW ≈ 2(Δf + f<sub>m</sub>)
-            </div>
-            This can also be expressed using the modulation index:
-            <div class="equation">
-                BW ≈ 2f<sub>m</sub>(β + 1)
-            </div>
-        </li>
-    </ul>
-		<br>					
-          <div class="flex justify-center">
-            <img src="./images/theory/fm1.png" alt="fm_mod_blockimg" />
-          </div>
-          <p class="mb-4 text-center font-semibold text-black">Frequency Modulation TIMS-301 Modelling System</p>
-          <h2>Procedures for Frequency Modulation:</h2>
-          <p>
-            We use a voltage-controlled oscillator (VCO) as an FM modulator. The
-            VCO’s input voltage, V𝑖 , determines the VCO’s output signal
-            frequency as: <br />
-            <b>𝑓out = 𝑓center + 𝑘𝑓V𝑖n </b>
-            <br />
-            Where, 𝑓center is the carrier frequency, kf is the sensitivity of
-            the frequency modulator (here, VCO), and Vin is the voltage of
-            message signal
-            <br />
-            In this frequency modulation, we study the impact of the amplitude
-            and frequency of the message signal on FM signals.
-            <br />
-            <b>
-              In the ‘VCO’ module, the frequency range switch selects between
-              the HI or carrier band and the LO or audio band.
-            </b>
-          </p>
-          <p class="ml-3">
-            <span class="font-semibold">1. </span> Set the VCO module’s on-board
-            mode switch to “VCO” and the VCO front panel’s switch to “LO.” Set
-            the VCO front panel gain control fully counter-clockwise (so that
-            the VCO input, Vin, has no effect on the VCO’s output frequency).
-
-            <br />
-            <span class="font-semibold">2. </span> In order to set the
-            sensitivity factor of the FM modulator, you need to use the variable
-            DC module and the buffer amplifier on the TIMS front panel. Set the
-            variable DC gain control fully counter-clockwise. Connect the output
-            of variable DC module to the input of buffer amplifier and adjust it
-            to make a 1V DC signal. Connect this 1V DC signal to the input of
-            the VCO as shown in Figure 1.
-
-            <br />
-            <span class="font-semibold">3. </span> Adjust the VCO front panel f0
-            control to set the center frequency to 10 kHz. (for selecting
-            carrier frequency switch to ‘HI’ in the ‘VCO’ module). Now adjust
-            the VCO gain control until the VCO’s output frequency changes by 1
-            kHz. This means that 𝑘𝑓 is set to 1 KHz/volt . (Note that due to the
-            VCO’s internal settings, you will see a 1 kHz decrease with respect
-            to the center frequency.)
-
-            <br />
-            <span class="font-semibold">4. </span> Disconnect the DC signal from
-            the VCO and instead, connect a 2V p-p 500 Hz sinusoidal signal to
-            the VCO. You can use the AUDIO OSCILLATOR module and buffer
-            amplifier to make a 2V p-p 500 Hz sinusoidal signal. Observe the FM
-            signal on the Oscilloscope. Take screen shot from the Oscilloscope
-            and attach to your report. <br />
-            <span class="text-[#00000080]">
-            What are the minimum and maximum frequencies observed on the
-            Oscilloscope? <br />
-            What is the corresponding modulation index? <br />
-            [Hint: On the Oscilloscope, you should observe the Maximum and
-            minimum frequencies]
-        </span> <br />
-            <span class="font-semibold">5. </span> Change the message amplitude
-            to 3V p-p. What are the minimum and maximum frequencies observed on
-            the Oscilloscope? What is the corresponding modulation index?
-            <br />
-            <span class="font-semibold">6. </span> Now change the frequency
-            sensitivity factor of the FM modulator to 2KHz/volt. Repeat steps 4
-            and 5 for the new frequency sensitivity factor
-            <br />
-            <br />
-          </p>
-          <!--  -->
+<h3>Where:</h3>
+<ul>
+  <li><strong>J<sub>n</sub>(β)</strong>: Bessel function of the first kind of order <em>n</em></li>
+  <li><strong>δ(·)</strong>: Dirac delta (impulse) at each spectral line</li>
+  <li><strong>&omega;<sub>c</sub></strong>: Carrier angular frequency (rad/s)</li>
+  <li><strong>&omega;<sub>m</sub></strong>: Message angular frequency (rad/s)</li>
+</ul>
           <h2
             class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
           >
             Frequency Demodulation
           </h2>
           <div class="flex justify-center">
-            <img src="./images/theory/fm2.png" alt="fm_demod_blockimg" />
+            <img src="./simulation/fm_demod1.png" alt="fm_demod_blockimg" />
           </div>
-          <p class="mb-4 text-center font-semibold text-black">Frequency Demodulation TIMS-301 Modelling System</p>
-          <h2>Procedures for Frequency Demodulation:</h2>
-          <p class="ml-3">
-            <span class="font-semibold">1. </span> A simple FM demodulator, if
-            it reproduces the message without distortion, will provide further
-            confirmation that the VCO output is indeed an FM signal. The
-            zero-crossing counter is shown in figure 2. A simple yet effective
-            FM demodulator is one which takes a time average of the zero
-            crossings of the FM signal.
-            <br />
-            <span class="font-semibold">2. </span> This signal COMPARATOR with
-            TTL output and CLIPPER with bipolar output, for squaring analog
-            waveforms. ‘UTILITIES- COMPARATOR’s threshold level may be set as
-            required by applying a DC voltage to the REF input
-            <br />
-            <span class="font-semibold">3. </span> The ‘TWIN PULSE GENERATOR’ in
-            SINGLE mode, only Q1 outputs a positive going pulse, while Q2
-            outputs the inverse of Q1. The pulse width can be varied.
-            <br />
-            <span class="font-semibold">4. </span> The TWIN PULSE GENERATOR is
-            required to produce a pulse at each positive going zero crossing of
-            the FM signal. To achieve this, the FM signal is converted to a TTL
-            signal by the COMPARATOR, and this drives the TWIN PULSE GENERATOR.
-            <br />
-            <span class="font-semibold">5. </span> Note: the input signal to the
-            HEADPHONE AMPLIFIER filter (LPF, cut-off frequency – 3 KHz) is at
-            TTL level. It is TIMS practice, in order to avoid overload, not to
-            connect a TTL signal to an analog input. Check for overload. If you
-            prefer you can use the yellow analog output from the TWIN PULSE
-            GENERATOR. This is an AC coupled version of the TTL signal.
-            <br />
-            <span class="font-semibold">6. </span> Before plugging in the TWIN
-            PULSE GENERATOR set the on-board MODE switch SW1 to SINGLE. Patch up
-            the demodulator of figure 2.
-            <br />
-            <span class="font-semibold">7. </span> Set the frequency deviation
-            of the FM generator to zero, and connect the VCO output to the
-            demodulator input.
-            <br />
-            <span class="font-semibold">8. </span> Using the WIDTH control of
-            the TWIN PULSE GENERATOR adjust the output pulses to their maximum
-            width.
-            <br />
-            <span class="font-semibold">9. </span> Observe the demodulator
-            output. If you have chosen to take the TTL output from the TWIN
-            PULSE GENERATOR there should be a DC voltage present. Why? Notice
-            that it is proportional to the width of the pulses into the LPF of
-            the HEADPHONE AMPLIFIER.
-            <br />
-            <span class="font-semibold">10. </span> Introduce some modulation at
-            the VCO with the BUFFER amplifier gain control. Observe the
-            demodulated output from the LPF of the HEADPHONE AMPLIFIER using the
-            oscilloscope. Measure its frequency (and compare with the message
-            source at the transmitter).
-            <br />
-            <br />
-          </p>
+          <p class="mb-4 text-center font-semibold text-black">Fig: Frequency Demodulation</p>
+          <br/>
+          <p>The diagram illustrates a <strong>Phase-Locked Loop (PLL)</strong> used for demodulating Frequency Modulated (FM) signals. The working of each block is described below:</p>
+
+          <ul>
+            <li>
+              <strong>Input signal:</strong> This is the received FM signal, typically denoted as <em>s(t)</em>, which carries the frequency variations corresponding to the original message <em>m(t)</em>.
+            </li>
+            <li>
+              <strong>PD (Phase Detector):</strong> Compares the phase of the input signal with that of the feedback signal generated by the <em>VCO</em>. The output is a signal proportional to the phase difference or error.
+            </li>
+            <li>
+              <strong><em>F(s)</em> (Loop Filter):</strong> Processes the phase error signal from the PD. It smooths the signal to eliminate high-frequency components and to ensure loop stability.
+            </li>
+            <li>
+              <strong>VCO (Voltage Controlled Oscillator):</strong> Generates a signal whose frequency is controlled by the filtered phase error. The VCO attempts to match the instantaneous frequency of the input FM signal.
+            </li>
+            <li>
+              <strong>Demodulated FM Output (∼ dθ<sub>i</sub>(t)/dt):</strong> The output of the loop (or after taking the derivative of the instantaneous phase) approximates the original message signal <em>m(t)</em>.
+            </li>
+          </ul>
+        
         </div>
       </div>
     </div>

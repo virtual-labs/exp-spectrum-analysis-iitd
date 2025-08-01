@@ -352,7 +352,7 @@ ANALYSIS">
           <h2
             class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
           >
-            Phase Modulation (PM) and Demodulation
+            Phase Modulation (PM)
           </h2>
 		  
 		  <h2>Theory :</h2>
@@ -374,6 +374,16 @@ ANALYSIS">
     <p>
         In phase modulation, the phase of the carrier signal \( \cos\left[ 2\pi f_c t \right] \) is shifted by an amount proportional to the modulating signal \( m(t) \), 
         scaled by the phase sensitivity \( K_p \). The amount of phase shift is directly proportional to the amplitude of the modulating signal.
+    </p>
+    <h2>Block Diagram:</h2>
+    <div class="flex justify-center ">
+      <img
+        src="./simulation/PM_Modulation.png"
+        alt="am_image2"
+      />
+    </div>
+    <p class="mb-4 text-center font-semibold text-black">
+      Fig: Phase Modulation
     </p>
     <h2>Modulation Index (Δφ) in Phase Modulation</h2>
 
@@ -401,184 +411,58 @@ ANALYSIS">
             <li><strong>Δφ ≥ 1</strong>: <strong>Wideband PM (WBPM)</strong>. This offers improved noise immunity over NBPM.</li>
         </ul>
     </p>
-
-    <h2>Bandwidth</h2>
+    <h2>Frequency Domain Description:</h2>
 
     <p>
-        Theoretically, a PM signal has an infinite number of sidebands. However, most of the signal's power is concentrated in a finite band around the carrier frequency. The practical bandwidth can be estimated using a modified version of <strong>Carson's Rule</strong>.
+      A Phase Modulated (PM) signal, when modulated by a single sinusoidal tone, generates a theoretically infinite number of sidebands. These sidebands are spaced at integer multiples of the modulating frequency (<em>ω<sub>m</sub></em>) symmetrically around the carrier frequency (<em>ω<sub>c</sub></em>).
     </p>
 
+    <div>
+        S(jω) = ∑<sub>n=-∞</sub><sup>∞</sup> J<sub>n</sub>(Δφ) · δ(jω - ω<sub>c</sub> - n ω<sub>m</sub>)
+    </div>
+
+    <h3>Where:</h3>
     <ul>
-        <li>
-            The rule relies on the peak frequency deviation (Δf), which in PM is dependent on both the modulation index and the modulating frequency: <strong>Δf = Δφ · f<sub>m</sub></strong>.
-        </li>
-        <li>
-            Using this, the bandwidth for PM is given by:
-            <div class="equation">
-                 BW ≈ 2(Δf + f<sub>m</sub>)
-            </div>
-             Substituting the expression for Δf, we get:
-            <div class="equation">
-                BW ≈ 2(Δφ · f<sub>m</sub> + f<sub>m</sub>) = 2f<sub>m</sub>(Δφ + 1)
-            </div>
-             Where <code>f<sub>m</sub></code> is the maximum frequency of the message signal.<sup class="citation"></sup> This shows that, unlike in FM where bandwidth depends on the amplitude of the message signal, in PM the bandwidth depends on both the amplitude and the frequency of the message signal.
-        </li>
+        <li><strong>J<sub>n</sub>(Δφ)</strong>: This is the Bessel function of the first kind of order <em>n</em>. Its argument, <strong>Δφ</strong>, is the <strong>phase modulation index</strong>. The value of this function determines the amplitude of the <em>n</em>th sideband pair.</li>
+        <li><strong>δ(·)</strong>: The Dirac delta function, which represents the discrete spectral lines located at specific frequencies.</li>
+        <li><strong>ω<sub>c</sub></strong>: The angular frequency of the carrier signal (in rad/s).</li>
+        <li><strong>ω<sub>m</sub></strong>: The angular frequency of the modulating message signal (in rad/s).</li>
+        <li><strong>n</strong>: An integer (..., -2, -1, 0, 1, 2, ...) that denotes the order of the sideband.</li>
     </ul>
-		 <br> 
-          <h2>
-            Armstrong's Phase Modulator
-          </h2>
-          <p class="ml-3">
-            <span class="font-semibold">1. </span> For amplitude modulation,
-            defined as: AM = E.(1 + m.sinµt).sinωt …(i)
-            <br />
-            <span class="font-semibold">2. </span> This expression can be
-            expanded trigonometrically into the sum of two terms: <br />
-            AM = E.sinωt + E.m.sinμt.sinωt …(ii)
-            <br />
-            <span class="font-semibold">3. </span> In eqn.(ii) the two terms
-            involved with 'ω' are in phase. Now this relation can easily be
-            changed so that the two are at 90 degrees, or 'in quadrature'. This
-            is done by changing one of the sinωt terms to cosωt. The signal then
-            becomes what is sometimes called a quadrature modulated signal. It
-            is Armstrong`s signal. Thus: <br />
-            Armstrong`s signal = E.cosωt + E.m.sinμt.sinωt (iii)
-            <br />
-          </p>
-          <div class="flex justify-center">
-            <img src="./images/theory/pm2.png" alt="pm_image2" />
-          </div>
-          <p class="mb-4 text-center font-semibold text-black">
-            Fig 1: Phase modulation using DSBSC + carrier. (left) Phasor
-            Diagram, (right) amplitude spectrum
-          </p>
+
+    <p>
+      The sidebands appear at frequencies of <strong>ω<sub>c</sub> ± nω<sub>m</sub></strong>. The spectral structure is very similar to that of a Frequency Modulated (FM) signal, with the key difference being how the modulation index is defined. In PM, the modulation index <code>Δφ</code> is directly proportional to the amplitude of the modulating signal.
+    </p>
+
+          <h2
+          class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
+        >
+          Phase Demodulation
+        </h2>
           <br/>
           <div class="flex justify-center">
-            <img src="./images/theory/pm1.png" alt="pm_image"  class="h-[300px]"/>
+            <img src="./images/simulation/pm_demod1.png" alt="pm_image"  class="h-[300px]"/>
           </div>
-          <p class="mb-4 text-center font-semibold text-black">Fig 2: Phase Modulation using TIMS-301 Modelling System</p>
-          <h2>Procedures</h2>
-          <p class="ml-3">
-            <span class="font-semibold">1. </span> Choose a message frequency of
-            about 1 kHz from the AUDIO OSCILLATOR
-            <br />
-            <span class="font-semibold">2. </span> Check that the oscilloscope
-            has triggered correctly, using the external trigger facility
-            connected to the message source. Set the sweep speed so that it is
-            displaying two or three periods of the message, on CH1-A, at the top
-            of the screen
+          <div class="flex justify-center">
+            <img src="./images/simulation/pm_demod2.png" alt="pm_image"  class="h-[300px]"/>
+          </div>
+          <p class="mb-4 text-center font-semibold text-black">Fig : Phase Demodulation</p>
+          <p>The diagram shows a Phase-Locked Loop (PLL) based <strong>PM demodulator</strong>. Here's how each component functions together to retrieve the original message signal:</p>
 
-            <br />
-            <span class="font-semibold">3. </span> Rotate both g and G fully
-            anti-clockwise.
-            <br />
-            <span class="font-semibold">4. </span> Rotate g clockwise. Watch the
-            trace on CH2-A. A DSBSC will appear. Increase its amplitude to about
-            3 volts peak-to-peak. Adjust the trace so its peaks just touch grid
-            lines exactly a whole number of centimeters apart. This is for
-            experimental convenience; it will be matched by a similar adjustment
-            below.
-            <br />
-            <span class="font-semibold">5. </span> Remove the patching cord from
-            input g of the ADDER
-            <br />
-            <span class="font-semibold">6. </span> Rotate G clockwise. The
-            CARRIER will appear as a band across the screen. Increase its
-            amplitude until its peaks touch the same grid lines as did the peaks
-            of the DSBSC (the time base is too slow to give a hint of the fine
-            detail of the CARRIER; in any case, the synchronization is not
-            suitable).
-            <br />
-            <span class="font-semibold">7. </span> Replace the patch cord to g
-            of the ADDER. At the ADDER output there is now a DSBSC and a
-            CARRIER, each of exactly the same peak-to-peak amplitude, but of
-            unknown relative phase. Observe the envelope of this signal (CH2-A),
-            and compare its shape with that of the message (CH1-A), also being
-            displayed.
-            <br />
-            <span class="font-semibold">8. </span> Vary the phasing with the
-            front panel control on the PHASE SHIFTER until the almost sinusoidal
-            envelope (CH2-A) is of twice the frequency as that of the message
-            (CH1-A). The phase adjustment is complete when alternate envelope
-            peaks are of the same amplitude.
-            <br />
-            <span class="font-semibold">9. </span> Trim the front panel control
-            of the PHASE SHIFTER until adjacent peaks of the envelope are of
-            equal amplitude. To improve accuracy you can increase the
-            sensitivity of the oscilloscope to display the peaks only. Equating
-            heights of adjacent envelope peaks with the aid of an oscilloscope
-            is an acceptable method of achieving the quadrature condition. For
-            communication purposes the message distortion, as observed at the
-            receiver, due to any such phase error, will be found to be
-            negligible compared with the inherent distortion introduced by an
-            ideal Armstrong modulator.
-            <br />
-            <span class="font-semibold">10. </span> The envelope of Armstrong`s
-            signal is recovered, using an envelope detector, and is monitored
-            with a pair of headphones. For the in-phase condition this would be
-            a pure tone at message frequency. As the phase is rotated towards
-            the wanted 90 degrees difference it is very easy to detect, by ear,
-            when the fundamental component disappears (at µ rad/s, and initially
-            of large amplitude), leaving the component at 2µ rad/s, initially
-            small, but now large. This is the quadrature condition.
-            <br />
-            <span class="font-semibold">11. </span> Model an envelope detector,
-            using the RECTIFIER in the UTILITIES module, and the 3 kHz LPF in
-            the HEADPHONE AMPLIFIER module. Connect Armstrong`s signal to the
-            input of the envelope detector. Listen to the filter output (the
-            envelope) with headphones. Set the PHASE SHIFTER as far off the
-            quadrature condition as possible, and concentrate your mind on the
-            fundamental. Slowly vary the phase. You will hear the fundamental
-            amplitude reduce to zero, while the second harmonic of the message
-            appears. Notice how sensitive is the point at which the fundamental
-            disappears ! This is the quadrature condition.
-            <br />
-            <span class="font-semibold">12. </span> Set up for equal amplitudes
-            of DSBSC and carrier into the ADDER of the modulator (β = 1), and
-            confirm you have the quadrature condition. A message frequency of
-            about 1 kHz will be convenient for spectral measurements
-
-            <br />
-            <span class="font-semibold">13. </span> At the output of your
-            Armstrong modulator add the AMPLITUDE LIMITER (the CLIPPER in the
-            UTILITIES module) and filter (in the 100 kHz CHANNEL FILTERS
-            module).
-
-            <br />
-            <span class="font-semibold">14. </span>Model a WAVE ANALYSER, and
-            connect it to the filter output. There is no need to calibrate it;
-            you are interested in relative amplitudes.
-            <br />
-            <span class="font-semibold">15. </span> Set the phase deviation to
-            zero (by removing the DSBSC from the ADDER of the modulator).
-            Observe and sketch the waveform of the signals into and out of the
-            channel filter. Find the 100 kHz carrier component with the WAVE
-            ANALYSER. This, the unmodulated carrier, is your reference. For
-            convenience adjust the sensitivity of the SPECTRUM UTILITIES module
-            so the meter reads full scale.
-
-            <br />
-            <span class="font-semibold">16. </span> Replace the DSBSC to the
-            ADDER of the modulator. The carrier amplitude should drop to 84% of
-            the previous reading ,if you leave the meter switch on HOLD nothing
-            will happen. Search for the first pair of sidebands. They should be
-            at amplitudes of 38% of the unmodulated carrier.
-            <br />
-            <span class="font-semibold">17. </span> There are further sideband
-            pairs, but they are rather small, and will take care to find.
-            <br />
-            <span class="font-semibold">18. </span> You could repeat the
-            spectral measurements for β = 0.5 (which are also listed in Table
-            A-1).
-            <br />
-            <span class="font-semibold">19. </span> You were advised to look at
-            the signal from the filter when there was no modulation. Do this
-            again. Synchronize to the signal itself, and display ten or twenty
-            periods. Then add the modulation. You will see the right hand end of
-            the now modulated sine wave move in and out (the ‘oscillating
-            spring’ analogy), confirming the presence of frequency modulation
-            (there is no change to the amplitude). <br /><br />
-          </p>
+          <ul>
+            <li><strong>Input signal</strong> \( a(t) \): This is the received PM signal \( S(t) \), typically in the form:<br>
+              \( S(t) = A_c \cos\left[ 2\pi f_c t + K_p m(t) \right] \)
+            </li>
+          
+            <li><strong>PD (Phase Detector):</strong> Compares the phase of the received PM signal with the phase of the signal from the VCO (Voltage Controlled Oscillator). Outputs a voltage proportional to the phase difference, which directly relates to the modulating signal \( m(t) \).</li>
+          
+            <li><strong>F(s):</strong> The loop filter smooths the phase detector output, improving the dynamic response and reducing high-frequency noise. For PM demodulation, a high-pass or differentiating filter may not be needed, unlike in FM.</li>
+          
+            <li><strong>VCO (Voltage Controlled Oscillator):</strong> Adjusts its output phase to lock onto the phase of the input signal. It generates a feedback signal used by the PD to keep the loop in lock.</li>
+          
+            <li><strong>Demodulated PM Output \( \sim m(t) \):</strong> Since PM involves direct phase variation with \( m(t) \), the output of the PD (after loop stabilization) gives a signal proportional to the original message signal \( m(t) \).</li>
+          </ul>
+          
           <!--  -->
         </div>
       </div>
