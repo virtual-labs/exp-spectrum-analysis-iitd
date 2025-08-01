@@ -483,43 +483,12 @@
                           Where <code>f<sub>m</sub></code> is the maximum frequency of the message signal.<sup class="citation"></sup>
                       </li>
                   </ul>
-                  <h2>Power Efficiency and Distribution</h2>
-                  <p>In practice, the AM wave <span class="math">s(t)</span> is a voltage or current signal. In either case, the average power delivered to a 1-ohm load resistor by <span class="math">s(t)</span> is comprised of three components:</p>
-
-                  <p>
-                    Carrier power = (1/2)<span class="math">A<sub>c</sub><sup>2</sup></span><br>
-                    Upper side-frequency power = (1/8)&mu;<sup>2</sup><span class="math">A<sub>c</sub><sup>2</sup></span><br>
-                    Lower side-frequency power = (1/8)&mu;<sup>2</sup><span class="math">A<sub>c</sub><sup>2</sup></span>
-                  </p>
-                
-                  <p>
-                    The ratio of the total sideband power to the total power in the modulated wave is therefore equal to
-                    &mu;<sup>2</sup> / (2 + &mu;<sup>2</sup>), which depends only on the modulation factor &mu;. If &mu; = 1,
-                    that is, 100% modulation is used, the total power in the two side-frequencies of the resulting AM wave
-                    is only one-third of the total power in the modulated wave.
-                  </p>
-                  <p>
-                      A major topic in Amplitude Modulation (AM) is the analysis of how power is distributed within the transmitted signal. In the standard AM, a significant portion of the total transmitted power is concentrated in the carrier signal. Critically, this carrier wave itself conveys no information. The useful information—the original message signal—is contained entirely within the sidebands. The power efficiency (η) is a crucial metric that quantifies what fraction of the total power resides in these information-carrying sidebands.
-                  </p>
-              
-                  <ul>
-                      <li>
-                          The efficiency is calculated using the formula:
-                          <div class="equation">
-                              η = μ² / (2 + μ²)
-                          </div>
-                          where <code>μ</code> represents the modulation index.
-                      </li>
-                      <li>
-                          Even under optimal conditions, such as 100% modulation (when μ=1), the maximum theoretical efficiency is only 33.3%.<sup class="citation"></sup> This means that a full two-thirds of the transmitter's power is expended just to send the carrier wave.<sup class="citation"></sup> This pronounced inefficiency is the primary motivation behind the development of more advanced, carrier-suppressed modulation techniques like Double-Sideband Suppressed-Carrier (DSB-SC) and Single-Sideband (SSB) modulation.
-                      </li>
-                  </ul>
                   <h2>
-                    Block Diagram for Amplitude Modulation
+                    Block Diagram for Amplitude Demodulation
                   </h2>
                   <div class="flex justify-center ">
                     <img
-                      src="./simulation/AM_Demod.png"
+                      src="./am_demod.png"
                       alt="am_image2"
                     />
                   </div>
@@ -527,22 +496,56 @@
                     Fig: Amplitude Demodulation
                   </p>
                   <div>
-                    <h2>AM Demodulation – Basic Steps</h2>
-                    <ul>
-                      <li><strong>Envelope Detection (for large carrier):</strong>
-                        <ul>
-                          <li>Use a diode and RC filter to detect the envelope.</li>
-                          <li>It recovers the message from amplitude variations.</li>
-                        </ul>
-                      </li>
-                      <li><strong>Coherent Detection (for suppressed carrier like DSB-SC):</strong>
-                        <ul>
-                          <li>Multiply with a locally generated carrier (same frequency & phase).</li>
-                          <li>Apply low-pass filter to extract message signal.</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
+<br/>
+<p>
+  The block diagram illustrates the process of <strong>synchronous (coherent) demodulation</strong>, a method used to recover the original message signal from an Amplitude Modulated (AM) waveform.
+</p>
+
+<ol>
+  <li>
+    <strong>Modulated AM Signal Input:</strong><br>
+    The input signal is given by:<br>
+    \( s(t) = A_c \left[1 + K_a m(t)\right] \cos(2\pi f_c t) \)<br>
+    Where:
+    <ul>
+      <li>\( A_c \): Carrier amplitude</li>
+      <li>\( f_c \): Carrier frequency</li>
+      <li>\( m(t) \): Message (modulating) signal</li>
+      <li>\( K_a \): Amplitude sensitivity constant</li>
+    </ul>
+  </li>
+<br/>
+  <li>
+    <strong>Product Modulator (Multiplier):</strong><br>
+    The signal is multiplied with a locally generated carrier of the same frequency and phase:<br>
+    \( c(t) = \cos(2\pi f_c t) \)<br>
+    Giving:<br>
+    \( s(t) \cdot c(t) = A_c \left[1 + K_a m(t)\right] \cos^2(2\pi f_c t) \)<br>
+    Using identity \( \cos^2(\theta) = \frac{1 + \cos(2\theta)}{2} \):<br>
+    \(
+    s(t) \cdot c(t) = \frac{A_c}{2} \left[1 + K_a m(t)\right] + \frac{A_c}{2} \left[1 + K_a m(t)\right] \cos(4\pi f_c t)
+    \)
+    This results in:
+    <ul>
+      <li>Baseband term: \( \frac{A_c}{2} [1 + K_a m(t)] \)</li>
+      <li>High-frequency term at \( 2f_c \)</li>
+    </ul>
+  </li>
+<br/>
+  <li>
+    <strong>Low-Pass Filter (LPF):</strong><br>
+    The LPF removes the high-frequency component at \( 2f_c \), yielding:<br>
+    \( \frac{A_c}{2} [1 + K_a m(t)] \)<br>
+    To recover \( m(t) \), a DC block or subtracting the average is often applied.
+  </li>
+
+  <li>
+    <strong>Output – Demodulated Signal:</strong><br>
+    After DC removal and scaling, we obtain:<br>
+    \( m(t) \)
+  </li>
+</ol>
+
                   
                 </div>
               </div>
