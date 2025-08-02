@@ -11,9 +11,10 @@
     <h1>Instructions for Frequency Modulation (FM)</h1>
     <ul>
         <li class="step step1">Step 1: Click on 'Generate Message' button to generate input message signal</li>
-        <li class="step step2">Step 2: Then click on 'Generate Carrier' button to generate carrier signal</li>
-		<li class="step step3">Step 3: The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
-        <li class="step step3">Step 4: Click on 'Generate Frequency Modulated Signal' button to generate Frequency Modulated Signal</li>
+        <li class="step step2">Step 2: Then click on 'Generate Carrier' button to generate carrier signal. The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
+        <li class="step step3">Step 3: Click on 'Generate Frequency Modulated Signal' button to generate Frequency Modulated Signal</li>
+        <li class="step step4">Step 4: Click the 'Show Frequency Spectrums' button to view the FM spectra.</li>
+  
         <li class="step step4">Here, β represents the frequency modulation index, given by β = kf*Am/fm​​, where Am​ is the amplitude of the message signal (assumed to be fixed), fm​ is its frequency, and kf​ is the frequency sensitivity</li>
 	</ul>
   </div>
@@ -37,12 +38,17 @@
                       onchange="handleMessageFrequencyChange()"
                     />
                     <div class="leading-none messageFrequencyDiv">1</div>
+
+                    <div class="inline-flex items-center gap-2">
+                      <span><strong>Step 1:</strong></span>
                     <button
                       onclick="generateMessage()"
                       class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
                     >
                       Generate Message
                     </button>
+                    </div>
+
                   </div>
                   <!-- carrier frequency -->
                   <div class="flex flex-col items-center">
@@ -56,12 +62,17 @@
                       onchange="handleCarrierFrequencyChange()"
                     />
                     <div class="leading-none carrierFrequencyDiv">10</div>
+                    
+                    <div class="inline-flex items-center gap-2">
+                      <span><strong>Step 2:</strong></span>
                     <button
                       onclick="generateCarrier()"
                       class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
                     >
                       Generate Carrier
                     </button>
+                  </div>
+
                   </div>
 				  
     <!-- Kf Input and Button -->
@@ -79,16 +90,25 @@
 		
 				<div align = "center">
 				<br/>
+        <!--
 				β (= kf*Am/fm​​) =<input type = "text" id="modulationIndex" value = "50" readonly style="text-align: center;">
-				</div>
+				--->
+      </div>
+
+      <div class="inline-flex items-center gap-2">
+        <span><strong>Step 3:</strong></span>
         <button
             onclick="createPlots()"
             class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
         >
             Generate Frequency Modulated Signal
         </button>
+        </div>
 
 		<br/>
+
+    <div class="inline-flex items-center gap-2">
+      <span><strong>Step 4:</strong></span>
     <button
     id = "plotButton"
             class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
@@ -96,14 +116,9 @@
           >
             Show Frequency Spectrums
           </button>
-          <br/>
+          </div>
 
-				        <button
-            onclick="fmdemodulation()"
-            class="bg-gray-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-        >
-            Perform FM Demodulation
-        </button>
+          <br/>
 		
     </div>
 	<!-- Kf Input and Button Ends-->		
@@ -398,6 +413,13 @@ function handleKfChange() {
 
         // Plot frequency-modulated signal
         var modulatedPlotDiv = document.getElementById("modulatedPlot");
+
+        const aValue = parseFloat(document.getElementById("kf").value) || 50;  // Default to 1 if empty
+        const messageValue = parseFloat(
+          document.getElementById("messageFrequency").value
+        );
+          const modulationIndex = aValue / messageValue;
+
         Plotly.newPlot(
           modulatedPlotDiv,
           [
@@ -417,6 +439,21 @@ function handleKfChange() {
             yaxis: {
               title: "Amplitude",
             },
+            annotations: [
+    {
+      xref: "paper",
+      yref: "paper",
+      x: 0.95, // near top-right
+      y: 1.05,
+      text: `Modulation Index, β (= kf*Am/fm​​) =  ${modulationIndex}`,
+      showarrow: false,
+      font: {
+        size: 12,
+        color: "black",
+      },
+      align: "right",
+    },
+  ],
           }
         , rr);
       }

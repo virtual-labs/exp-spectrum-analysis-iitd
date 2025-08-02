@@ -11,9 +11,9 @@
     <h1>Instructions for Amplitude Modulation (AM)</h1>
     <ul>
         <li class="step step1">Step 1: Click on 'Generate Message' button to generate input message signal</li>
-        <li class="step step2">Step 2: Then click on 'Generate Carrier' button to generate carrier signal</li>
-		<li class="step step3">Step 3: The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
-        <li class="step step4">Step 4: Click on 'Generate Amplitude Modulated Signal' button to generate Amplitude Modulated Signal</li>
+        <li class="step step2">Step 2: Then click on 'Generate Carrier' button to generate carrier signal. The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
+        <li class="step step4">Step 3: Click on 'Generate Amplitude Modulated Signal' button to generate Amplitude Modulated Signal</li>
+        <li class="step step4">Step 4: Click the 'Show Frequency Spectrums' button to view the AM spectra.</li>
         <li class="step step1">Here, the modulation index is defined as the ratio of the message signal amplitude to the carrier signal amplitude. You can adjust both values.</li>
 	</ul>
 <br/>
@@ -29,6 +29,17 @@
           </div>
           <div class="flex flex-col mb-2 items-center">
                   <div class="flex flex-col mb-2 items-center">
+                    <p class="text-[13px] pb-1 text-center font-bold">Message Signal Amplitude (Am)</p>
+                    <input
+                    onchange="handleAChange()"
+                    id="A"
+                    value="1"
+                    type="range"
+                    min="0"
+                    max="2"
+                    step="0.01"
+                  />
+                  <div class="leading-none ADiv">1</div>
                     <p class="text-[13px] pb-1 text-center font-bold">
                       Message Frequency (Hz)
                     </p>
@@ -41,16 +52,21 @@
                       onchange="handleMessageFrequencyChange()"
                     />
                     <div class="leading-none messageFrequencyDiv">50</div>
-                    <button
-                      onclick="generateMessageSignal()"
-                      class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-                    >
-                      Generate Message
-                    </button>
                   </div>
 				  
 				                    <!-- carrier frequency -->
                   <div class="flex flex-col items-center">
+                    <p class="text-[13px] pb-1 text-center font-bold">Carrier Signal Amplitude (Ac)</p>
+                    <input
+                    onchange="handleBChange()"
+                    type="range"
+                    value="1"
+                    id="B"
+                    min="0"
+                    max="2"
+                    step="0.01"
+                  />
+                  <div class="leading-none BDiv">1</div>
                     <p class="text-[13px] pb-1 font-bold">Carrier Frequency (Hz)</p>
                     <input
                       id="carrierFrequency"
@@ -61,30 +77,17 @@
                       onchange="handleCarrierFrequencyChange()"
                     />
                     <div class="leading-none carrierFrequencyDiv">500</div>
-                    <button
-                      onclick="generateCarrierSignal()"
-                      class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-                    >
-                      Generate Carrier
-                    </button>
                   </div>
-				          <button
-            onclick="generateAmplitudeModulatedSignal()"
-            class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-        >
-            Generate Amplitude Modulated Signal
-        </button>
 		<br/>
-    <button class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105" id="plotButton">Show Frequency Spectrums</button>
     <br/>
-
+<!--
 						        <button
             onclick="createPlots()"
             class="bg-gray-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
         >
             Perform AM Demodulation
         </button>
-
+-->
             <div class="bg-red-50 plotSection">
               <div id="modulatedPlot" class="w-[600px] max-h-[450px]"></div>
               <div id="carrierPlot" class="w-[600px] max-h-[450px]"></div>
@@ -93,32 +96,8 @@
             </div>
           </div>
           <div class="flex flex-col items-center">
-            <p class="text-[13px] pb-1 text-center font-bold">Message Signal Amplitude (Am)</p>
-            <input
-            onchange="handleAChange()"
-            id="A"
-            value="1"
-            type="range"
-            min="0"
-            max="2"
-            step="0.01"
-          />
-          <div class="leading-none ADiv">1</div>
-          <p class="text-[13px] pb-1 text-center font-bold">Carrier Signal Amplitude (Ac)</p>
-          <input
-          onchange="handleBChange()"
-          type="range"
-          value="1"
-          id="B"
-          min="0"
-          max="2"
-          step="0.01"
-        />
-        <div class="leading-none BDiv">1</div>
 
         <br/><br/>
-        <p class="text-[13px] pb-1 text-center font-bold">Modulation Index (Am / Ac)</p>
-        <div id = "modulationIndex">1</div>
     
         <input
         onchange="handleDCChange()"
@@ -131,6 +110,42 @@
         step="0.01"
       />
       <div class="hidden leading-none DCDiv">1</div>
+
+      <div class="inline-flex items-center gap-2">
+      <span><strong>Step 1:</strong></span>
+      <button
+      onclick="generateMessageSignal()"
+      class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+    >
+      Generate Message
+    </button>
+  </div>
+
+  <div class="inline-flex items-center gap-2">
+    <span><strong>Step 2:</strong></span>
+    <button
+    onclick="generateCarrierSignal()"
+    class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+  >
+    Generate Carrier
+  </button>
+  </div>
+
+  <div class="inline-flex items-center gap-2">
+    <span><strong>Step 3:</strong></span>
+  <button
+  onclick="generateAmplitudeModulatedSignal()"
+  class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+>
+  Generate Amplitude Modulated Signal
+</button>
+</div>
+
+<div class="inline-flex items-center gap-2">
+  <span><strong>Step 4:</strong></span>
+<button class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105" id="plotButton">Show Frequency Spectrums</button>
+</div>
+
     </div>
         </div>
       </div>
@@ -444,16 +459,40 @@
         };
         Plotly.newPlot("carrierPlot", carrierData, carrierLayout);
 
-        // Create plot data for modulated signal
-        var modulatedData = [
-          { x: result.x, y: result.modulated, type: "line" },
-        ];
-        var modulatedLayout = {
-          title: "Modulated Signal",
-          xaxis: { title: "Time (s)" },
-          yaxis: { title: "Amplitude" },
-        };
-        Plotly.newPlot("modulatedPlot", modulatedData, modulatedLayout, rr);
+// Create plot data for modulated signal
+var modulatedData = [
+  { x: result.x, y: result.modulated, type: "line" },
+];
+
+// Get modulation index (optional: dynamically calculate or get from input)
+const Am = parseFloat(document.getElementById("A").value) || 1;  // Default to 1 if empty
+        const Ac = parseFloat(document.getElementById("B").value) || 1;  // Default to 1 if empty
+var modulationIndex = (Am / Ac).toFixed(2); // Replace Am and Ac with your actual values or variables
+
+// Define layout with annotation
+var modulatedLayout = {
+  title: "Modulated Signal",
+  xaxis: { title: "Time (s)" },
+  yaxis: { title: "Amplitude" },
+  annotations: [
+    {
+      xref: "paper",
+      yref: "paper",
+      x: 0.95, // near top-right
+      y: 1.05,
+      text: `Modulation Index (Am / Ac) = ${modulationIndex}`,
+      showarrow: false,
+      font: {
+        size: 12,
+        color: "black",
+      },
+      align: "right",
+    },
+  ],
+};
+
+Plotly.newPlot("modulatedPlot", modulatedData, modulatedLayout, rr);
+
       }
     </script>
 	
