@@ -7,8 +7,10 @@
 </head>
 <body>
     <ol>
-        <li><strong>Select Frequencies</strong>:<br>
-            Begin by choosing the message and carrier frequencies using the provided slider inputs. Adjust the sliders to set your desired frequency values.
+        <li>Input <strong>Message Signal Amplitude (Am),</strong> <strong>Message Frequency (Hz),</strong>   </strong> <strong>Carrier Signal Amplitude (Ac),</strong> and <strong>Carrier Frequency (Hz):</strong><br>
+            Begin by choosing the message and carrier frequencies and amplitudes using the provided slider inputs. Adjust the sliders to set your desired frequency values.
+        </li>
+        <li>For FM and PM, input<strong> Kf (frequency sensitivity),</strong> and <strong>Kp (phase sensitivity)</strong>   respectively
         </li>
         <li><strong>Generate Modulated Signal</strong>:<br>
             Once the frequencies are selected, click on the <strong>"Generate Modulated Signal"</strong> button. This action will display the modulated signal based on the selected modulation technique (AM, FM, or PM).
@@ -16,7 +18,7 @@
         <li><strong>Perform Demodulation</strong>:<br>
             To view the original message signal, click on the <strong>"Perform Demodulation"</strong> button. This will execute the demodulation process and display the demodulated signal.
         </li>
-        <li><strong>View Frequency Spectrums</strong>:<br>
+        <li><strong>Show Frequency Spectrums</strong>:<br>
             If you wish to analyze the frequency components, click on the <strong>"Show Frequency Spectrums"</strong> button. This will generate and display the frequency spectrums of the message signal, the modulated signal, and the demodulated signal.
         </li>
     </ol>
