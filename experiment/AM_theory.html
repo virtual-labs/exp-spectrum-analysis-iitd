@@ -515,36 +515,45 @@
     </ul>
   </li>
 <br/>
-  <li>
-    <strong>Product Modulator (Multiplier):</strong><br>
-    The signal is multiplied with a locally generated carrier of the same frequency and phase:<br>
-    \( c(t) = \cos(2\pi f_c t) \)<br>
-    Giving:<br>
-    \( s(t) \cdot c(t) = A_c \left[1 + K_a m(t)\right] \cos^2(2\pi f_c t) \)<br>
-    Using identity \( \cos^2(\theta) = \frac{1 + \cos(2\theta)}{2} \):<br>
-    \(
-    s(t) \cdot c(t) = \frac{A_c}{2} \left[1 + K_a m(t)\right] + \frac{A_c}{2} \left[1 + K_a m(t)\right] \cos(4\pi f_c t)
-    \)
-    This results in:
-    <ul>
-      <li>Baseband term: \( \frac{A_c}{2} [1 + K_a m(t)] \)</li>
-      <li>High-frequency term at \( 2f_c \)</li>
-    </ul>
-  </li>
+<strong>The Product Modulator (Multiplier)</strong>
+<p>The core of synchronous demodulation is multiplying the incoming AM signal \( s(t) \) with a locally generated carrier signal \( c(t) \). For ideal demodulation, this local carrier must be a perfect replica of the original transmitter's carrier:</p>
+<div class="formula-box">
+    \( c(t) = \cos(2\pi f_c t) \)
+</div>
+<p>The multiplication yields the signal \( v(t) \):</p>
+<div class="formula-box">
+    \( v(t) = s(t) \cdot c(t) = A_c [1 + K_a m(t)] \cos^2(2\pi f_c t) \)
+</div>
+<p>Using the trigonometric identity \( \cos^2(\theta) = \frac{1}{2} (1 + \cos(2\theta)) \), we can expand this equation:</p>
+<div class="formula-box">
+    \( v(t) = \frac{A_c}{2} [1 + K_a m(t)] (1 + \cos(4\pi f_c t)) \)
+</div>
+<p>Distributing the terms gives:</p>
+<div class="formula-box">
+    \( v(t) = \underbrace{\frac{A_c}{2} [1 + K_a m(t)]}_{\text{Low-Frequency Component}} + \underbrace{\frac{A_c}{2} [1 + K_a m(t)] \cos(4\pi f_c t)}_{\text{High-Frequency Component}} \)
+</div>
+<p>This multiplication effectively shifts the original message signal back to the baseband (centered around 0 Hz) and also creates a high-frequency component centered at twice the carrier frequency (\( 2f_c \)).</p>
 <br/>
-  <li>
-    <strong>Low-Pass Filter (LPF):</strong><br>
-    The LPF removes the high-frequency component at \( 2f_c \), yielding:<br>
-    \( \frac{A_c}{2} [1 + K_a m(t)] \)<br>
-    To recover \( m(t) \), a DC block or subtracting the average is often applied.
-  </li>
-
-  <li>
-    <strong>Output – Demodulated Signal:</strong><br>
-    After DC removal and scaling, we obtain:<br>
-    \( m(t) \)
-  </li>
+<strong>The Low-Pass Filter (LPF)</strong>
+<p>The output of the multiplier, \( v(t) \), is then passed through a Low-Pass Filter (LPF). The purpose of the LPF is to eliminate the high-frequency component at \( 2f_c \) while preserving the desired low-frequency (baseband) component.</p>
+<p>The filter is designed with a cutoff frequency that is:</p>
+<ul>
+    <li><strong>Higher</strong> than the highest frequency in the message signal \( m(t) \).</li>
+    <li><strong>Lower</strong> than the high-frequency component at \( 2f_c \).</li>
+</ul>
+<p>After filtering, the output signal, \( v_{LPF}(t) \), is:</p>
+<div class="formula-box">
+    \( v_{LPF}(t) = \frac{A_c}{2} [1 + K_a m(t)] = \frac{A_c}{2} + \frac{A_c K_a}{2} m(t) \)
+</div>
+<p>This signal contains two parts:</p>
+<ol>
+    <li>A DC offset: \( \frac{A_c}{2} \)</li>
+    <li>A scaled version of the desired message signal: \( \frac{A_c K_a}{2} m(t) \)</li>
 </ol>
+<br/>
+<strong>DC Blocking and Amplification</strong>
+<p>To isolate the original message signal, the DC offset \( \frac{A_c}{2} \) must be removed. This is typically done using a simple DC-blocking capacitor or a level-shifting circuit. After removing the DC component, we are left with a scaled version of the message. An amplifier can then be used to scale the signal back to its original amplitude.</p>
+
 
                   
                 </div>
