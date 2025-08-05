@@ -447,21 +447,23 @@ ANALYSIS">
             <img src="./images/simulation/pm_demod2.png" alt="pm_image"  class="h-[300px]"/>
           </div>
           <p class="mb-4 text-center font-semibold text-black">Fig : Phase Demodulation</p>
-          <p>The diagram shows a Phase-Locked Loop (PLL) based <strong>PM demodulator</strong>. Here's how each component functions together to retrieve the original message signal:</p>
+          <p>The diagram shows a <strong>Phase-Locked Loop (PLL)</strong> used to demodulate a Phase Modulated (PM) signal. In PM, the message is encoded in the signal’s <strong>phase</strong>.</p>
 
+          <p>The PLL's job is to perfectly follow the phase of the PM signal. The voltage signal it creates to do this tracking is the original message.    </p>      <br/>
+          
           <ul>
-            <li><strong>Input signal</strong> \( a(t) \): This is the received PM signal \( S(t) \), typically in the form:<br>
-              \( S(t) = A_c \cos\left[ 2\pi f_c t + K_p m(t) \right] \)
+            <li>
+              <strong>Phase Detector (PD):</strong> This block compares the phase of the incoming PM signal with the VCO's signal and produces an error voltage proportional to their phase difference. This phase difference varies in time according to the original message.
             </li>
-          
-            <li><strong>PD (Phase Detector):</strong> Compares the phase of the received PM signal with the phase of the signal from the VCO (Voltage Controlled Oscillator). Outputs a voltage proportional to the phase difference, which directly relates to the modulating signal \( m(t) \).</li>
-          
-            <li><strong>F(s):</strong> The loop filter smooths the phase detector output, improving the dynamic response and reducing high-frequency noise. For PM demodulation, a high-pass or differentiating filter may not be needed, unlike in FM.</li>
-          
-            <li><strong>VCO (Voltage Controlled Oscillator):</strong> Adjusts its output phase to lock onto the phase of the input signal. It generates a feedback signal used by the PD to keep the loop in lock.</li>
-          
-            <li><strong>Demodulated PM Output \( \sim m(t) \):</strong> Since PM involves direct phase variation with \( m(t) \), the output of the PD (after loop stabilization) gives a signal proportional to the original message signal \( m(t) \).</li>
+            <br/>
+            <li>
+              <strong>Loop Filter and VCO:</strong> The loop filter smooths the error voltage, and the VCO uses it to track the phase of the incoming signal. This ensures a stable reference for accurate demodulation.
+            </li>
           </ul>
+          <br/>
+          
+          <p><strong>The Final Output:</strong> The output of the loop filter represents the original message signal.</p>
+          
           
           <!--  -->
         </div>
