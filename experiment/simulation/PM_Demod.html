@@ -4,11 +4,169 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Virtual Labs</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
   <body>
-    <!-- sidebar and body -->
+    <div id = "modulation">
+    <div id = "container">
+    <h1>Instructions for Phase Modulation (PM)</h1>
+    <ul>
+        <li class="step step1">Step 1: Click on 'Generate Message' button to generate input message signal</li>
+        <li class="step step2">Step 2: Then click on 'Generate Carrier' button to generate carrier signal. The carrier frequency has to be more than the message frequency and You can change frequencies using sliders</li>
+        <li class="step step4">Step 3: Click on 'Generate Phase Modulated Signal' button to generate Phase Modulated Signal</li>
+		    <li class="step step1">Step 4: Click on the 'Show Frequency Spectrums of PM' button to see spectrums of the PM signal</li>
+        <li class="step step2">Here, β represents the phase modulation index, given by β=kp*Am​, where Am​ is the amplitude of the message signal (assumed to be fixed), and kp​ is the phase sensitivity of the modulator</li>
+	</ul>
+<br/>
+<div class="flex items-start gap-10">
+  <div>
+    <img src=".\PM_Modulation.png" class="w-[50em] h-[20em]"/>
+  </div>
+  
+      <div class="flex flex-col items-center">
+        <div class="leading-none messageFrequencyDiv">5<span class="ml-1">Hz</span></div>
+        <!----
+        <input
+        id="messageFrequency"
+        value="5"
+        type="range"
+        min="1"
+        max="15"
+        onchange="handleMessageFrequencyChange()"
+      />
+------>
+        <div class="inline-flex items-center">
+          <span><strong>Step 1:</strong></span>
+                  <button
+          onclick="generateMessage()"
+          class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+        >
+          Generate Message
+        </button>
+      </div>
+
+      </div>
+
+          <div class="flex flex-col items-center">
+            <div class="leading-none carrierFrequencyDiv">50<span class="ml-1">Hz</span></div>
+            <!--------------
+            <input
+            id="carrierFrequency"
+            value="50"
+            type="range"
+            min="1"
+            max="450"
+            onchange="handleCarrierFrequencyChange()"
+          />
+          ------>
+            <div class="inline-flex items-center gap-1">
+              <span><strong>Step 2:</strong></span>
+            <button
+              onclick="generateCarrier()"
+              class="bg-blue-500 text-white py-1 px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+            >
+              Generate Carrier
+            </button>
+            </div>
+
+          </div>
+
+        <div>
+          <!-- carrier frequency -->
+          <div class="flex flex-col items-center">
+            <p class="text-[13px] pb-1 font-bold">Kf (frequency sensitivity):</p>
+            <input
+            id="kp"
+            value="2"
+            type="range"
+            min="1"
+            max="50"
+            onchange="handleKpChange()"
+        />
+            <div class="leading-none KpDiv" id="kpValue">2</div>
+          </div>
+        </div>
+
+      <div class="flex justify-center gap-1 items-center">
+        <p class="text-nowrap font-medium"></p>
+        <input
+        class="border px-1 w-[152px] py-1 rounded-sm border-black"
+        min="1"
+        type="number"
+        id="samplingFrequency"
+        value="1000"
+        placeholder="sampling frequency in Hz"
+      />
+      </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <span><strong>Step 3:</strong></span>
+                    <button
+        class="bg-blue-500 text-white py-1 px-3 font-medium text-sm rounded-md hover:scale-105"
+        onclick="createPlots1()"
+      >
+      Generate Phase Modulated Signal
+      </button>
+      </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <span><strong>Step 4:</strong></span>
+      <button
+        class="bg-blue-500 text-white py-[6px] px-3 text-sm rounded-md hover:scale-105"
+        onclick="renderVisualizations()"
+      >
+        Show Frequency Spectrums
+      </button>
+      </div>
+
+    </div>
+
+    <div class="flex flex-col items-center">
+    <div class="plotSection relative -top-[10em]">
+      <div id="recoveredUSBPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="modulatedPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="carrierPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="messagePlot" class="w-[600px] max-h-[410px]"></div>
+      <!-- <div id="recoveredLSBPlot" class="w-[600px] h-[450px]"></div> -->
+    </div>
+    <div>
+  </div>
+</div>
+
+<br />
+<br />
+
+<div class="bg-red-50 plotSection">
+  <div id="modulatedPlot" class="w-[600px] max-h-[500px]"></div>
+  <div id="carrierPlot" class="w-[600px] max-h-[500px]"></div>
+  <div id="messagePlot" class="w-[600px] max-h-[500px]"></div>
+
+</div>
+<br />
+<br />
+<hr />
+<br />
+
+            <!-- Visualization containers -->
+            <div class="visualizations-row">
+              <div class="visualization" id="message-visualization"></div>
+              <div class="visualization" id="modulated-spectrum-visualization"></div>
+              <div class="visualization" id="demodulated-visualization"></div>
+          </div>
+
+	<br/><br/>		<br/><br/>
+		<hr/>
+    </div>
+    </div>
+	<!------------------->
+	<div id = "demodulation">
+		<div id = "container">
+    <h1>Instructions for Phase Demodulation</h1>
+    <ul>
+		<li class="step step1">Step 1: You can Demodulate the PM Signal clicking on the 'Perform phase Demodulation' button</li>
+    </ul>
+</div>	
+	    <!-- sidebar and body -->
     <div class="flex min-h-[80vh]">
       <div class="px-6 pb-6 flex-1">
         <div class="flex flex-shrink-0">
@@ -31,32 +189,12 @@
           </div>
           <div class="flex flex-col items-center">
             <div class="flex w-full py-4 gap-4">
-              <div class="flex items-center gap-2">
-                <p class="text-nowrap font-medium">
-                  Message Frequency(in Hz) :
-                </p>
-                <input
-                  class="border px-1 w-[152px] py-1 rounded-sm border-black"
-                  type="number"
-                  id="messageFrequency"
-                  value="5"
-                />
-              </div>
-              <div class="flex items-center gap-2">
-                <p class="text-nowrap font-medium">
-                  Carrier Frequency(in Hz) :
-                </p>
-                <input
-                  class="border px-1 w-[152px] py-1 rounded-sm border-black"
-                  type="number"
-                  id="carrierFrequency"
-                  value="50"
-                />
-              </div>
+
+
             </div>
             <div class="flex w-full py-4 gap-4">
               <div class="flex items-center gap-2">
-                <p class="text-nowrap font-medium">Window Size:</p>
+                <p class="text-nowrap font-medium"></p>
                 <input
                   class="border px-1 w-[152px] py-1 rounded-sm border-black"
                   type="number"
@@ -64,276 +202,773 @@
                   value="30"
                 />
               </div>
+              <div class="flex items-center gap-2">
+                <p class="text-nowrap font-medium"></p>
+                <input
+                  class="border px-1 w-[152px] py-1 rounded-sm border-black"
+                  type="number"
+                  id="envelopeWindowSize"
+                  value="50"
+                />
+              </div>
+              <p>Message frequency (Hz)</p>
+              <input
+              class="border px-1 w-[152px] py-1 rounded-sm border-black"
+              id="messageFrequency"
+              value="5"
+              type="number"
+              min="1"
+              max="15"
+              onchange="handleMessageFrequencyChange()"
+            />
+            <p>Carrier frequency (Hz)</p>
+            <input
+            class="border px-1 w-[152px] py-1 rounded-sm border-black"
+            id="carrierFrequency"
+            value="50"
+            type="number"
+            min="1"
+            max="450"
+            onchange="handleCarrierFrequencyChange()"
+          />
               <button
                 class="bg-blue-500 text-white py-1 px-3 text-sm rounded-md hover:scale-105"
                 onclick="performPhaseDemodulation()"
               >
-                Phase Demodulation
+                Perform Phase Demodulation
               </button>
+
             </div>
             <div class="plotSection flex flex-col justify-center">
-              <div class="w-[700px] max-h-[350px]">
-                <canvas id="messageCanvas"></canvas>
-              </div>
-              <div class="w-[700px] max-h-[350px]">
-                <canvas id="carrierCanvas"></canvas>
-              </div>
-              <div class="w-[700px] max-h-[350px]">
-                <canvas id="modulatedCanvas"></canvas>
-              </div>
-              <div class="w-[700px] max-h-[350px]">
-                <canvas id="demodulatedCanvas"></canvas>
-              </div>
+              <div class="w-[700px] max-h-[350px]" id="messagePlot"></div>
+              <div class="w-[700px] max-h-[350px]" id="carrierPlot"></div>
+              <div class="w-[700px] max-h-[350px]" id="modulatedPlot"></div>
+              <div class="w-[700px] max-h-[350px]" id="demodulatedPlot"></div>
+              <div class="w-[700px] max-h-[350px]" id="envelopePlot"></div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
+	
+    </div>
+
+  </div>
+	<!------------------->
+	
+<script>
+    function checkFrequencies() {
+        // Get values from input fields
+        let carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+        let messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+        
+        // Check the frequencies
+        if (carrierFrequency <= messageFrequency) {
+            alert("Carrier frequency should be greater than message frequency.");
+            
+            // Perform a hard refresh after the alert is dismissed
+            window.location.reload(true);  // Hard refresh the page
+        } else {
+            console.log("Carrier frequency is greater than message frequency.");
+        }
+    }
+
+    // Function to attach event listeners to all buttons
+    function attachEventListeners() {
+        let buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('click', checkFrequencies);
+        });
+    }
+
+    // Attach event listeners when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', attachEventListeners);
+</script>
+
+	
     <script>
-      let messageFrequency = 5;
-      let carrierFrequency = 50;
-      let windowSize = 30;
+	        const rr = {
+            showLink: false,             
+            displaylogo: false,           
+            modeBarButtonsToRemove: ['sendDataToCloud'] 
+        };
 
-      // Parameters
-      const sampling_frequency = 1000; // Sampling frequency in Hz
-      const duration = 1; // Time duration for 1 second
-      const time = math.range(0, duration, 1 / sampling_frequency)._data; // Time array
-
-      // Generate Message Signal
-      function generateMessageSignal(messageFrequency, time) {
-        return time.map((t) => math.sin(2 * Math.PI * messageFrequency * t));
-      }
-
-      // Generate Carrier Signal
-      function generateCarrierSignal(carrierFrequency, time) {
-        return time.map((t) => math.sin(2 * Math.PI * carrierFrequency * t));
-      }
-
-      // Generate Modulated Signal
-      function generateModulatedSignal(messageSignal, carrierFrequency, time) {
-        return time.map((t, i) =>
-          math.sin(2 * Math.PI * carrierFrequency * t + 0.5 * messageSignal[i])
-        );
-      }
-
-      // Phase Demodulation
-      function phaseDemodulation(modulatedSignal, carrierFrequency, time) {
-        return modulatedSignal.map((m, i) =>
-          math.asin(math.sin(2 * Math.PI * carrierFrequency * time[i]) * m)
-        );
-      }
-
-      // Apply Moving Average Low-pass Filter
-      function movingAverageFilter(signal, windowSize) {
-        const filteredSignal = [];
-        for (let i = 0; i < signal.length; i++) {
-          let sum = 0;
-          for (let j = Math.max(0, i - windowSize + 1); j <= i; j++) {
-            sum += signal[j];
-          }
-          filteredSignal.push(sum / Math.min(windowSize, i + 1));
-        }
-        return filteredSignal;
-      }
-
-      // Plotting Functions
-      function plotMessageSignal(messageSignal) {
-        const messageCanvas = document
-          .getElementById("messageCanvas")
-          .getContext("2d");
-        clearChart(messageCanvas);
-        new Chart(messageCanvas, {
-          type: "line",
-          data: {
-            labels: time,
-            datasets: [
-              {
-                label: "Message Signal",
-                data: messageSignal,
-                borderColor: "blue",
-                fill: false,
-              },
-            ],
-          },
-          options: {
-            scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: "Time",
-                },
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: "Amplitude",
-                },
-              },
-            },
-          },
-        });
-      }
-
-      function plotCarrierSignal(carrierSignal) {
-        const carrierCanvas = document
-          .getElementById("carrierCanvas")
-          .getContext("2d");
-        clearChart(carrierCanvas);
-        new Chart(carrierCanvas, {
-          type: "line",
-          data: {
-            labels: time,
-            datasets: [
-              {
-                label: "Carrier Signal",
-                data: carrierSignal,
-                borderColor: "green",
-                fill: false,
-              },
-            ],
-          },
-          options: {
-            scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: "Time",
-                },
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: "Amplitude",
-                },
-              },
-            },
-          },
-        });
-      }
-
-      function plotModulatedSignal(modulatedSignal) {
-        const modulatedCanvas = document
-          .getElementById("modulatedCanvas")
-          .getContext("2d");
-        clearChart(modulatedCanvas);
-        new Chart(modulatedCanvas, {
-          type: "line",
-          data: {
-            labels: time,
-            datasets: [
-              {
-                label: "Modulated Signal",
-                data: modulatedSignal,
-                borderColor: "red",
-                fill: false,
-              },
-            ],
-          },
-          options: {
-            scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: "Time",
-                },
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: "Amplitude",
-                },
-              },
-            },
-          },
-        });
-      }
-
-      function plotFilteredDemodulatedSignal(filteredDemodulatedSignal) {
-        const demodulatedCanvas = document
-          .getElementById("demodulatedCanvas")
-          .getContext("2d");
-        clearChart(demodulatedCanvas);
-        new Chart(demodulatedCanvas, {
-          type: "line",
-          data: {
-            labels: time,
-            datasets: [
-              {
-                label: "Filtered Demodulated Signal",
-                data: filteredDemodulatedSignal,
-                borderColor: "purple",
-                fill: false,
-              },
-            ],
-          },
-          options: {
-            scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: "Time",
-                },
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: "Amplitude",
-                },
-              },
-            },
-          },
-        });
-      }
-
-      // Clear Chart Function
-      function clearChart(canvas) {
-        const chart = Chart.getChart(canvas);
-        if (chart) {
-          chart.destroy();
-        }
-      }
-
-      // Main function to perform phase demodulation
-      function performPhaseDemodulation() {
-        // Get input values
-        messageFrequency = parseFloat(
+		let Kp = parseFloat(
+        document.getElementById("kp").value
+    );
+      function handleMessageFrequencyChange() {
+        const messageValue = parseFloat(
           document.getElementById("messageFrequency").value
         );
-        carrierFrequency = parseFloat(
+        document.querySelector(".messageFrequencyDiv").innerHTML = messageValue;
+      }
+      function handleCarrierFrequencyChange() {
+        const messageValue = parseFloat(
           document.getElementById("carrierFrequency").value
         );
-        windowSize = parseFloat(document.getElementById("windowSize").value);
+        document.querySelector(".carrierFrequencyDiv").innerHTML = messageValue;
+      }
+	  
+	  function handleKpChange() {
+    const kpValue = parseFloat(
+        document.getElementById("kp").value
+    );
+    document.getElementById("kpValue").innerHTML = kpValue;
+	updateModulationIndex();
+}
 
-        // Generate signals
-        const messageSignal = generateMessageSignal(messageFrequency, time);
-        const carrierSignal = generateCarrierSignal(carrierFrequency, time);
-        const modulatedSignal = generateModulatedSignal(
-          messageSignal,
-          carrierFrequency,
-          time
+	      function updateModulationIndex() {
+        const aValue = parseFloat(document.getElementById("kp").value) || 2;  // Default to 1 if empty
+        
+          const modulationIndex = aValue;
+
+          // Update the modulation index input field
+          document.getElementById("modulationIndex").value = modulationIndex;
+        }
+      // Function for phase modulation
+      function pmmod(
+        message_frequency,
+        carrier_frequency,
+        sampling_frequency,
+        phase_deviation
+      ) {
+        const Fs = sampling_frequency;
+        const phasedev = phase_deviation;
+        /*
+        const x_values = Array.from(
+          { length: Math.floor(1 * Fs) },
+          (_, i) => i / Fs
         );
-        const demodulatedSignal = phaseDemodulation(
-          modulatedSignal,
-          carrierFrequency,
-          time
-        );
-        const filteredDemodulatedSignal = movingAverageFilter(
-          demodulatedSignal,
-          windowSize
+*/       var duration = 3 / message_frequency;
+    // Generate x_values for 3 cycles
+    var x_values = Array.from(
+    { length: Fs },
+    (_, i) => (i / (Fs - 1)) * duration
+  );
+        // Message signal
+        const message_signal = x_values.map((t) =>
+          Math.cos(2 * Math.PI * message_frequency * t)
         );
 
-        // Plot signals
-        plotMessageSignal(messageSignal);
-        plotCarrierSignal(carrierSignal);
-        plotModulatedSignal(modulatedSignal);
-        plotFilteredDemodulatedSignal(filteredDemodulatedSignal);
+        // Carrier signal
+        const carrier_signal = x_values.map((t) =>
+          Math.cos(2 * Math.PI * carrier_frequency * t)
+        );
 
-        // Show the canvases
-        document.getElementById("messageCanvas").style.display = "block";
-        document.getElementById("carrierCanvas").style.display = "block";
-        document.getElementById("modulatedCanvas").style.display = "block";
-        document.getElementById("demodulatedCanvas").style.display = "block";
+        // Phase modulation
+        const modulated_signal = x_values.map((t) =>
+          Math.cos(
+            2 * Math.PI * carrier_frequency * t +
+              phasedev * message_signal[Math.floor(t * Fs)]
+          )
+        );
+
+        return {
+          x: x_values,
+          message: message_signal,
+          carrier: carrier_signal,
+          modulated: modulated_signal,
+        };
+      }
+
+      // Function to generate message signal
+      function generateMessage() {
+        var message_frequency = parseInt(
+          document.getElementById("messageFrequency").value
+        );
+        var sampling_frequency = parseInt(
+          document.getElementById("samplingFrequency").value
+        );
+        /*
+        var x_values = Array.from(
+          { length: Math.floor(1 * sampling_frequency) },
+          (_, i) => i / sampling_frequency
+        );
+        */       
+       var duration = 3 / message_frequency;
+    // Generate x_values for 3 cycles
+    var x_values = Array.from(
+    { length: sampling_frequency },
+    (_, i) => (i / (sampling_frequency - 1)) * duration
+  );
+        var message_signal = x_values.map((t) =>
+          Math.cos(2 * Math.PI * message_frequency * t)
+        );
+
+        var messagePlotDiv = document.getElementById("messagePlot");
+        Plotly.newPlot(
+          messagePlotDiv,
+          [
+            {
+              x: x_values,
+              y: message_signal,
+              mode: "lines",
+              name: "Message Signal",
+              line: { color: "green" },
+            },
+          ],
+          {
+            title: "Message Signal",
+            xaxis: {
+              title: "Time",
+            },
+            yaxis: {
+              title: "Amplitude",
+            },
+          }
+        ,rr);
+      }
+
+      // Function to generate carrier signal
+      function generateCarrier() {
+        var carrier_frequency = parseInt(
+          document.getElementById("carrierFrequency").value
+        );
+        var sampling_frequency = parseInt(
+          document.getElementById("samplingFrequency").value
+        );
+        /*
+        var x_values = Array.from(
+          { length: Math.floor(1 * sampling_frequency) },
+          (_, i) => i / sampling_frequency
+        );
+
+*/      
+      var duration = 3 / carrier_frequency;
+          // Generate x_values for 3 cycles
+          var x_values = Array.from(
+          { length: sampling_frequency },
+          (_, i) => (i / (sampling_frequency - 1)) * duration
+        );
+        
+        var carrier_signal = x_values.map((t) =>
+          Math.cos(2 * Math.PI * carrier_frequency * t)
+        );
+        var carrierPlotDiv = document.getElementById("carrierPlot");
+        Plotly.newPlot(
+          carrierPlotDiv,
+          [
+            {
+              x: x_values,
+              y: carrier_signal,
+              mode: "lines",
+              name: "Carrier Signal",
+              line: { color: "red" },
+            },
+          ],
+          {
+            title: "Carrier Signal",
+            xaxis: {
+              title: "Time",
+            },
+            yaxis: {
+              title: "Amplitude",
+            },
+          }
+        ,rr);
+      }
+
+      // Function to create plots
+      function createPlots1() {
+        var message_frequency = parseInt(
+          document.getElementById("messageFrequency").value
+        );
+        var carrier_frequency = parseInt(
+          document.getElementById("carrierFrequency").value
+        );
+        var sampling_frequency = parseInt(
+          document.getElementById("samplingFrequency").value
+        );
+        var phase_deviation =
+          Math.PI * parseFloat(document.getElementById("kp").value);
+        var data = pmmod(
+          message_frequency,
+          carrier_frequency,
+          sampling_frequency,
+          phase_deviation
+        );
+
+        // Plot message signal
+        var messagePlotDiv = document.getElementById("messagePlot");
+        Plotly.newPlot(
+          messagePlotDiv,
+          [
+            {
+              x: data.x,
+              y: data.message,
+              mode: "lines",
+              name: "Message Signal",
+              line: { color: "green" },
+            },
+          ],
+          {
+            title: "Message Signal",
+            xaxis: {
+              title: "Time",
+            },
+            yaxis: {
+              title: "Amplitude",
+            },
+          }
+        ,rr );
+
+        // Plot carrier signal
+        var carrierPlotDiv = document.getElementById("carrierPlot");
+        Plotly.newPlot(
+          carrierPlotDiv,
+          [
+            {
+              x: data.x,
+              y: data.carrier,
+              mode: "lines",
+              name: "Carrier Signal",
+              line: { color: "red" },
+            },
+          ],
+          {
+            title: "Carrier Signal",
+            xaxis: {
+              title: "Time",
+            },
+            yaxis: {
+              title: "Amplitude",
+            },
+          }
+        , rr);
+
+        // Plot phase-modulated signal
+        const aValue = parseFloat(document.getElementById("kp").value) || 2;  // Default to 1 if empty
+        
+        const modulationIndex = aValue;
+
+        // Update the modulation index input field
+
+        var modulatedPlotDiv = document.getElementById("modulatedPlot");
+        Plotly.newPlot(
+          modulatedPlotDiv,
+          [
+            {
+              x: data.x,
+              y: data.modulated,
+              mode: "lines",
+              name: "Phase Modulated Signal",
+              line: { color: "blue" },
+            },
+          ],
+          {
+            title: "Phase Modulated Signal",
+            xaxis: {
+              title: "Time",
+            },
+            yaxis: {
+              title: "Amplitude",
+            },
+            annotations: [
+    {
+      xref: "paper",
+      yref: "paper",
+      x: 0.95, // near top-right
+      y: 1.05,
+      text: `Modulation Index, β (= kp*Am​​) =  ${modulationIndex}`,
+      showarrow: false,
+      font: {
+        size: 12,
+        color: "black",
+      },
+      align: "right",
+    },
+  ],
+          }
+        ,rr);
       }
     </script>
+	
+<script>
+  function performPhaseDemodulation() {
+    let messageFrequency = 5;
+    let carrierFrequency = 50;
+    let windowSize = 50;
+    let envelopeWindowSize = 50; // Envelope window size
+
+    // Parameters
+    const sampling_frequency = 1000; // Sampling frequency in Hz
+    const duration = 1; // Time duration for 1 second
+    const time = Array.from(
+      { length: duration * sampling_frequency },
+      (_, i) => i / sampling_frequency
+    ); // Time array
+
+    // Generate Message Signal
+    function generateMessageSignal(messageFrequency, time) {
+      return time.map((t) => Math.sin(2 * Math.PI * messageFrequency * t));
+    }
+
+    // Generate Carrier Signal
+    function generateCarrierSignal(carrierFrequency, time) {
+      return time.map((t) => Math.sin(2 * Math.PI * carrierFrequency * t));
+    }
+
+    // Generate Modulated Signal
+    function generateModulatedSignal(messageSignal, carrierFrequency, time) {
+      return time.map((t, i) =>
+        Math.sin(2 * Math.PI * carrierFrequency * t + 0.5 * messageSignal[i])
+      );
+    }
+
+    // Phase Demodulation
+    function phaseDemodulation(modulatedSignal, carrierFrequency, time) {
+      const phase = [];
+      for (let i = 1; i < modulatedSignal.length; i++) {
+        const prevAngle = Math.atan2(
+          modulatedSignal[i - 1],
+          Math.cos(2 * Math.PI * carrierFrequency * time[i - 1])
+        );
+        const currAngle = Math.atan2(
+          modulatedSignal[i],
+          Math.cos(2 * Math.PI * carrierFrequency * time[i])
+        );
+        let deltaPhase = currAngle - prevAngle;
+        if (deltaPhase > Math.PI) deltaPhase -= 2 * Math.PI;
+        if (deltaPhase < -Math.PI) deltaPhase += 2 * Math.PI;
+        phase.push(deltaPhase);
+      }
+      // Convert phase difference to frequency
+      return phase.map((p) => p * (sampling_frequency / (2 * Math.PI)));
+    }
+
+    // Apply Moving Average Low-pass Filter
+    function movingAverageFilter(signal, windowSize) {
+      const filteredSignal = [];
+      for (let i = 0; i < signal.length; i++) {
+        let sum = 0;
+        for (let j = Math.max(0, i - windowSize + 1); j <= i; j++) {
+          sum += signal[j];
+        }
+        filteredSignal.push(sum / Math.min(windowSize, i + 1));
+      }
+      return filteredSignal;
+    }
+
+    // Rectify the Signal
+    function rectifySignal(signal) {
+      return signal.map((v) => Math.abs(v));
+    }
+
+    // Plotting Function
+    function plotSignal(plotId, label, data, color) {
+      const trace = {
+        x: time,
+        y: data,
+        mode: "lines",
+        name: label,
+        line: { color: color },
+      };
+      const layout = {
+        xaxis: { title: "Time" },
+        yaxis: { title: "Amplitude" },
+      };
+      Plotly.newPlot(plotId, [trace], layout, rr);
+    }
+
+    // Main function to perform phase demodulation
+    // Get input values
+    messageFrequency = parseFloat(
+      document.getElementById("messageFrequency").value
+    );
+    carrierFrequency = parseFloat(
+      document.getElementById("carrierFrequency").value
+    );
+    windowSize = parseFloat(document.getElementById("windowSize").value);
+    envelopeWindowSize = parseFloat(
+      document.getElementById("envelopeWindowSize").value
+    ); // Get envelope window size
+
+    // Generate signals
+    const messageSignal = generateMessageSignal(messageFrequency, time);
+    const modulatedSignal = generateModulatedSignal(
+      messageSignal,
+      carrierFrequency,
+      time
+    );
+    const demodulatedSignal = phaseDemodulation(
+      modulatedSignal,
+      carrierFrequency,
+      time
+    );
+    const filteredDemodulatedSignal = movingAverageFilter(
+      demodulatedSignal,
+      windowSize
+    );
+    const rectifiedSignal = rectifySignal(filteredDemodulatedSignal);
+    const envelopeSignal = movingAverageFilter(
+      rectifiedSignal,
+      envelopeWindowSize
+    );
+    
+    // Add bias of -50 to the envelope signal
+    const biasedEnvelopeSignal = envelopeSignal.map(v => v - carrierFrequency);
+
+    // Plot only the biased envelope signal
+    plotSignal(
+      "envelopePlot",
+      "Envelope of Demodulated Signal (with Bias)",
+      biasedEnvelopeSignal,
+      "orange"
+    );
+
+
+    // Show the envelope plot
+    document.getElementById("envelopePlot").style.display = "block";
+	document.getElementById('envelopePlot').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+
+
+    <script>
+		function log10(value) {
+    return Math.log(value) / Math.log(10);
+}
+        function renderVisualizations() {
+            // Get input values
+            const messageFreq = parseFloat(document.getElementById('messageFrequency').value);
+            const carrierFreq = parseFloat(document.getElementById('carrierFrequency').value);
+
+            // Render Message Signal Visualization
+            const messageData = [{
+                x: [messageFreq, messageFreq],
+                y: [-30, 0], // Amplitude 1
+                type: 'scatter',
+                mode: 'lines',
+                line: {
+                    color: 'purple',
+                    width: 2
+                },
+                name: 'Message Frequency'
+            }];
+
+            const messageLayout = {
+                title: 'Message Signal',
+                xaxis: {
+                    title: 'Frequency (Hz)',
+                    range: [0, carrierFreq + 50],
+                },
+                yaxis: {
+                    title: 'Normalized PSD (dB/Hz) w.r.t. itself', zeroline:false
+                    //range: [0, 1.2],
+                },
+                legend: {
+                    x: 1,
+                    y: 1,
+                    bgcolor: 'rgba(255, 255, 255, 0.5)',
+                    bordercolor: 'black',
+                    borderwidth: 1
+                }
+            };
+
+            Plotly.newPlot('message-visualization', messageData, messageLayout, rr);
+
+            // Render Modulated Spectrum Visualization
+            const frequencies = [
+                carrierFreq - 2 * messageFreq,
+                carrierFreq - messageFreq,
+                carrierFreq,
+                carrierFreq + messageFreq,
+                carrierFreq + 2 * messageFreq
+            ];
+
+            const magnitudes0 = [10*log10((0.115**2)/2), 10*log10((0.440**2)/2), 10*log10((0.765**2)/2), 10*log10((0.440**2)/2), 10*log10((0.115**2)/2)];
+            const magnitudes = magnitudes0.map(m => m + 3.0103);
+            const colors = ['blue', 'green', 'red', 'green', 'blue'];
+            const labels = [
+                'Second Sideband (lower)',
+                'First Sideband (lower)',
+                'Carrier Frequency',
+                'First Sideband (upper)',
+                'Second Sideband (upper)'
+            ];
+
+            const spectrumData = frequencies.map((freq, index) => ({
+                x: [freq, freq],
+                y: [-30, magnitudes[index]],
+                type: 'scatter',
+                mode: 'lines',
+                line: {
+                    color: colors[index],
+                    width: 2
+                },
+                name: labels[index]
+            }));
+
+            const spectrumLayout = {
+                title: 'Modulated Spectrum of Phase Modulated Signal',
+                xaxis: {
+                    title: 'Frequency (Hz)',
+                    range: [
+                        carrierFreq - 2 * messageFreq - 1,
+                        carrierFreq + 2 * messageFreq + 1
+                    ],
+                },
+                yaxis: {
+                    title: 'Normalized PSD (dB/Hz) w.r.t. message', zeroline:false
+                    //range: [0, 1],
+                },
+                legend: {
+                    x: 1,
+                    y: 1,
+                    bgcolor: 'rgba(255, 255, 255, 0.5)',
+                    bordercolor: 'black',
+                    borderwidth: 1
+                }
+            };
+
+            Plotly.newPlot('modulated-spectrum-visualization', spectrumData, spectrumLayout, rr);
+
+            // Render Demodulated Signal Visualization
+            const demodulatedData = [{
+                x: [messageFreq, messageFreq],
+                y: [-30, 0], // Amplitude 0.5
+                type: 'scatter',
+                mode: 'lines',
+                line: {
+                    color: 'orange',
+                    width: 2
+                },
+                name: 'Demodulated Frequency'
+            }];
+
+            const demodulatedLayout = {
+                title: 'Demodulated Signal',
+                xaxis: {
+                    title: 'Frequency (Hz)',
+                    range: [0, carrierFreq + 50],
+                },
+                yaxis: {
+                    title: 'Normalized PSD (dB/Hz) w.r.t. message', zeroline:false
+                    //range: [0, 0.6],
+                },
+                legend: {
+                    x: 1,
+                    y: 1,
+                    bgcolor: 'rgba(255, 255, 255, 0.5)',
+                    bordercolor: 'black',
+                    borderwidth: 1
+                }
+            };
+
+            Plotly.newPlot('demodulated-visualization', demodulatedData, demodulatedLayout, rr);
+
+            // Scroll into view
+            document.getElementById('demodulated-visualization').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('message-visualization').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('modulated-spectrum-visualization').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+
+
+
+
+	
+<style>
+    #modulation {
+    display: none;
+  }
+#windowSize, #envelopeWindowSize, #samplingFrequency, #phaseDeviation {
+display: none;
+}
+
+        .plot-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .plot {
+            width: 29%;
+        }
+		
+        #container {
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 25px 40px;
+  max-width: 100%;
+  margin: 20px auto;
+  text-align: left;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h1 {
+  color: #1e3a8a;
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: justify;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li.step {
+  margin: 12px 0;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+li.step::before {
+  content: "✔";
+  color: #10b981;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+li.step:hover {
+  transform: scale(1.02);
+  background-color: #f3f4f6;
+}
+
+/* Color code each step */
+.step1 {
+  background-color: #ffe0e0;
+  border-left: 5px solid #ef4444;
+}
+.step2 {
+  background-color: #e0f7ff;
+  border-left: 5px solid #0ea5e9;
+}
+.step3 {
+  background-color: #e0ffe5;
+  border-left: 5px solid #22c55e;
+}
+.step4 {
+  background-color: #f5e0ff;
+  border-left: 5px solid #a855f7;
+}
+
+        .visualizations-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        .visualizations-row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .visualization {
+            width: 30%;
+            height: 400px;
+            margin: 0 10px;
+        }
+</style>
+
   </body>
 </html>

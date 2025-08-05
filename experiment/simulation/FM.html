@@ -20,65 +20,62 @@
   </div>
 <br/>
 
-<div class="flex mb-2 items-start gap-10">
-<div>
-<img src = ".\FM_Modulation.png" class="w-[40em] h-[20em]"/>
-</div>
-                  <!-- message frequency -->
-                  <div class="flex flex-col mb-2 items-center">
-                    <p class="text-[13px] pb-1 text-center font-bold">
-                      Message Frequency (Hz)
-                    </p>
-                    <input
-                      id="messageFrequency"
-                      value="1"
-                      type="range"
-                      min="1"
-                      max="100"
-                      onchange="handleMessageFrequencyChange()"
-                    />
-                    <div class="leading-none messageFrequencyDiv">1</div>
-
-                    <div class="inline-flex items-center gap-2">
-                      <span><strong>Step 1:</strong></span>
-                    <button
-                      onclick="generateMessage()"
-                      class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-                    >
-                      Generate Message
-                    </button>
-                    </div>
-
-                  </div>
-                  <!-- carrier frequency -->
-                  <div class="flex flex-col items-center">
-                    <p class="text-[13px] pb-1 font-bold">Carrier Frequency (Hz)</p>
-                    <input
-                      id="carrierFrequency"
-                      value="10"
-                      type="range"
-                      min="1"
-                      max="300"
-                      onchange="handleCarrierFrequencyChange()"
-                    />
-                    <div class="leading-none carrierFrequencyDiv">10</div>
-                    
-                    <div class="inline-flex items-center gap-2">
-                      <span><strong>Step 2:</strong></span>
-                    <button
-                      onclick="generateCarrier()"
-                      class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-                    >
-                      Generate Carrier
-                    </button>
-                  </div>
-
-                  </div>
-				  
-    <!-- Kf Input and Button -->
-    <div class="flex flex-col items-center">
-        <p class="text-[13px] pb-1 font-bold">Kf (frequency sensitivity):</p>
+<div class="flex items-start gap-10">
+  <div>
+    <img src=".\FM_Modulation.png" class="w-[50em] h-[20em]"/>
+  </div>
+  
+      <div class="flex flex-col items-center">
+        <div class="leading-none messageFrequencyDiv">1<span class="ml-1">Hz</span></div>
         <input
+        id="messageFrequency"
+        value="1"
+        type="range"
+        min="1"
+        max="100"
+        onchange="handleMessageFrequencyChange()"
+      />
+
+        <div class="inline-flex items-center">
+          <span><strong>Step 1:</strong></span>
+                  <button
+          onclick="generateMessage()"
+          class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+        >
+          Generate Message
+        </button>
+      </div>
+
+      </div>
+
+          <div class="flex flex-col items-center">
+            <div class="leading-none carrierFrequencyDiv">10<span class="ml-1">Hz</span></div>
+            <input
+            id="carrierFrequency"
+            value="10"
+            type="range"
+            min="1"
+            max="300"
+            onchange="handleCarrierFrequencyChange()"
+          />
+
+            <div class="inline-flex items-center gap-1">
+              <span><strong>Step 2:</strong></span>
+            <button
+              onclick="generateCarrier()"
+              class="bg-blue-500 text-white py-1 px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+            >
+              Generate Carrier
+            </button>
+            </div>
+
+          </div>
+
+        <div>
+          <!-- carrier frequency -->
+          <div class="flex flex-col items-center">
+            <p class="text-[13px] pb-1 font-bold">Kf (frequency sensitivity):</p>
+            <input
             id="kf"
             value="50"
             type="range"
@@ -86,92 +83,69 @@
             max="50"
             onchange="handleKfChange()"
         />
-        <div class="leading-none kfDiv" id="kfValue">50</div>
-		
-				<div align = "center">
-				<br/>
-        <!--
-				β (= kf*Am/fm​​) =<input type = "text" id="modulationIndex" value = "50" readonly style="text-align: center;">
-				--->
+            <div class="leading-none KfDiv" id="kfValue">50</div>
+          </div>
+        </div>
+
+      <div class="flex justify-center gap-1 items-center">
+        <p class="text-nowrap font-medium"></p>
+        <input
+        class="border px-1 w-[152px] py-1 rounded-sm border-black"
+        min="1"
+        type="number"
+        id="fs"
+        value="1000"
+        placeholder="sampling frequency in Hz"
+      />
       </div>
 
-      <div class="inline-flex items-center gap-2">
+      <div class="flex flex-col items-center gap-1">
         <span><strong>Step 3:</strong></span>
-        <button
-            onclick="createPlots()"
-            class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-        >
-            Generate Frequency Modulated Signal
-        </button>
-        </div>
-
-		<br/>
-
-    <div class="inline-flex items-center gap-2">
-      <span><strong>Step 4:</strong></span>
-    <button
-    id = "plotButton"
-            class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-            onclick="generateImpulseResponse()"
-          >
-            Show Frequency Spectrums
-          </button>
-          </div>
-
-          <br/>
-		
-    </div>
-	<!-- Kf Input and Button Ends-->		
-	
-                  <!--  -->
-                </div>
-              </div>
-              <!-- frequency counter -->
-
-                <!-- <div class="flex justify-center mt-8">
-                                <button onclick="generateAmplitudeModulatedSignal()"
-                                    class="bg-[#008000] py-1 px-3 rounded-md hover:bg-[#0c9c0c] hover:scale-105">
-                                    Generate
-                                </button>
-                            </div> -->
-              </div>
-            </div>
-            <div class="flex px-8 mt-6 mb-8 gap-20">
- 
-              <!-- master signal -->
-            </div>
-          </div>
-          <div class="flex flex-col grow-0 items-center">
-            <div class="w-full my-3">
-              <div class="flex justify-between m-2">
-                <div class="flex flex-1 justify-center gap-1 items-center">
-                  <p class="text-nowrap font-medium"></p>
-                  <input
-                    class="border px-1 w-[152px] py-1 rounded-sm border-black"
-                    min="1"
-                    type="number"
-                    id="fs"
-                    value="1000"
-                    placeholder="sampling frequency in Hz"
-                  />
-                </div>
-                <div class="flex flex-1 justify-center items-center gap-1">
-
-                </div>
-              </div>
-            </div>
-            <div class="bg-red-50 plotSection">
-                <div id="modulatedPlot" class="w-[600px] max-h-[500px]"></div>
-                <div id="carrierPlot" class="w-[600px] max-h-[500px]"></div>
-                <div id="messagePlot" class="w-[600px] max-h-[500px]"></div>
-
-            </div>
-          </div>
-        </div>
+                    <button
+        class="bg-blue-500 text-white py-1 px-3 font-medium text-sm rounded-md hover:scale-105"
+        onclick="createPlots()"
+      >
+      Generate Frequency Modulated Signal
+      </button>
       </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <span><strong>Step 4:</strong></span>
+      <button
+        class="bg-blue-500 text-white py-[6px] px-3 text-sm rounded-md hover:scale-105"
+        id="plotButton"
+      >
+        Show Frequency Spectrums
+      </button>
+      </div>
+
     </div>
 
-    <br/><br/>
+    <div class="flex flex-col items-center">
+    <div class="plotSection relative -top-[10em]">
+      <div id="recoveredUSBPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="modulatedPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="carrierPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="messagePlot" class="w-[600px] max-h-[410px]"></div>
+      <!-- <div id="recoveredLSBPlot" class="w-[600px] h-[450px]"></div> -->
+    </div>
+    <div>
+  </div>
+</div>
+
+<br />
+<br />
+
+<div class="bg-red-50 plotSection">
+  <div id="modulatedPlot" class="w-[600px] max-h-[500px]"></div>
+  <div id="carrierPlot" class="w-[600px] max-h-[500px]"></div>
+  <div id="messagePlot" class="w-[600px] max-h-[500px]"></div>
+
+</div>
+<br />
+<br />
+<hr />
+<br />
 
     <div id="container1">
       <div id="message-signal" class="plot-container1"></div>
@@ -181,7 +155,7 @@
 
 	<br/><br/>		<br/><br/>
 		<hr/>
-		
+		<div id = "demodulation">
 	<div id = "container">
     <h1>Instructions for Frequency Demodulation</h1>
     <ul>
@@ -227,7 +201,7 @@
     </div>
 				  	  
 
-	
+	</div>
 	
 <script>
     function checkFrequencies() {
@@ -841,6 +815,12 @@ function smooth(data, windowSize) {
 	
 
 	<style>
+      #demodulation {
+    display: none;
+  }
+    #samplingFrequency{
+        display: none;
+}
 		#fs {
 	display: none;
 	}

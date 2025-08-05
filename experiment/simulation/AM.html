@@ -19,150 +19,143 @@
 <br/>
 </div>		  
 
-
-
-
-
-          <div class="flex grow-0 items-start gap-10">
-            <div>
-            <img src = ".\AM_Modulation.png" class="w-[40em] h-[20em]"/>
-          </div>
-          <div class="flex flex-col mb-2 items-center">
-                  <div class="flex flex-col mb-2 items-center">
-                    <p class="text-[13px] pb-1 text-center font-bold">Message Signal Amplitude (Am)</p>
-                    <input
-                    onchange="handleAChange()"
-                    id="A"
-                    value="1"
-                    type="range"
-                    min="0"
-                    max="2"
-                    step="0.01"
-                  />
-                  <div class="leading-none ADiv">1</div>
-                    <p class="text-[13px] pb-1 text-center font-bold">
-                      Message Frequency (Hz)
-                    </p>
-                    <input
-                      id="messageFrequency"
-                      value="50"
-                      type="range"
-                      min="1"
-                      max="200"
-                      onchange="handleMessageFrequencyChange()"
-                    />
-                    <div class="leading-none messageFrequencyDiv">50</div>
-                  </div>
-				  
-				                    <!-- carrier frequency -->
-                  <div class="flex flex-col items-center">
-                    <p class="text-[13px] pb-1 text-center font-bold">Carrier Signal Amplitude (Ac)</p>
-                    <input
-                    onchange="handleBChange()"
-                    type="range"
-                    value="1"
-                    id="B"
-                    min="0"
-                    max="2"
-                    step="0.01"
-                  />
-                  <div class="leading-none BDiv">1</div>
-                    <p class="text-[13px] pb-1 font-bold">Carrier Frequency (Hz)</p>
-                    <input
-                      id="carrierFrequency"
-                      value="500"
-                      type="range"
-                      min="1"
-                      max="1000"
-                      onchange="handleCarrierFrequencyChange()"
-                    />
-                    <div class="leading-none carrierFrequencyDiv">500</div>
-                  </div>
-		<br/>
-    <br/>
-<!--
-						        <button
-            onclick="createPlots()"
-            class="bg-gray-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-        >
-            Perform AM Demodulation
-        </button>
--->
-            <div class="bg-red-50 plotSection">
-              <div id="modulatedPlot" class="w-[600px] max-h-[450px]"></div>
-              <div id="carrierPlot" class="w-[600px] max-h-[450px]"></div>
-              <div id="messagePlot" class="w-[600px] max-h-[450px]"></div>
-
-            </div>
-          </div>
-          <div class="flex flex-col items-center">
-
-        <br/><br/>
-    
+<div class="flex items-start gap-10">
+  <div>
+    <img src=".\AM_Modulation.png" class="w-[50em] h-[20em]"/>
+  </div>
+  
+      <div class="flex flex-col items-center">
+        <div class="leading-none messageFrequencyDiv">50<span class="ml-1">Hz</span></div>
         <input
-        onchange="handleDCChange()"
-        class="hidden"
-        id="DC"
-        value="1"
+        id="messageFrequency"
+        value="50"
         type="range"
-        min="0"
-        max="2"
-        step="0.01"
+        min="1"
+        max="200"
+        onchange="handleMessageFrequencyChange()"
       />
-      <div class="hidden leading-none DCDiv">1</div>
 
-      <div class="inline-flex items-center gap-2">
-      <span><strong>Step 1:</strong></span>
-      <button
-      onclick="generateMessageSignal()"
-      class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-    >
-      Generate Message
-    </button>
-  </div>
-
-  <div class="inline-flex items-center gap-2">
-    <span><strong>Step 2:</strong></span>
-    <button
-    onclick="generateCarrierSignal()"
-    class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-  >
-    Generate Carrier
-  </button>
-  </div>
-
-  <div class="inline-flex items-center gap-2">
-    <span><strong>Step 3:</strong></span>
-  <button
-  onclick="generateAmplitudeModulatedSignal()"
-  class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
->
-  Generate Amplitude Modulated Signal
-</button>
-</div>
-
-<div class="inline-flex items-center gap-2">
-  <span><strong>Step 4:</strong></span>
-<button class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105" id="plotButton">Show Frequency Spectrums</button>
-</div>
-
-    </div>
-        </div>
+        <div class="inline-flex items-center">
+          <span><strong>Step 1:</strong></span>
+                  <button
+          onclick="generateMessageSignal()"
+          class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+        >
+          Generate Message
+        </button>
       </div>
 
-      <br/>
+      </div>
 
-      <div class="plot-container">
-        <div id="message-signal" class="plot"></div>
-        <div id="sidebands" class="plot"></div>
-        <div id="demodulated-signal" class="plot"></div>
+          <div class="flex flex-col items-center">
+            <div class="leading-none carrierFrequencyDiv">500<span class="ml-1">Hz</span></div>
+            <input
+            id="carrierFrequency"
+            value="500"
+            type="range"
+            min="1"
+            max="1000"
+            onchange="handleCarrierFrequencyChange()"
+          />
+
+            <div class="inline-flex items-center gap-1">
+              <span><strong>Step 2:</strong></span>
+            <button
+              onclick="generateCarrierSignal()"
+              class="bg-blue-500 text-white py-1 px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+            >
+              Generate Carrier
+            </button>
+            </div>
+
+          </div>
+
+        <div>
+          <!-- carrier frequency -->
+          <div class="flex flex-col items-center">
+            <p class="text-[13px] pb-1 font-bold">Message Signal Amplitude</p>
+            <input
+              id="A"
+              value="1"
+              type="range"
+              min="1"
+              max="10"
+              onchange="handleGainChangeA()"
+            />
+            <div class="leading-none ADiv">1</div>
+            <p class="text-[13px] pb-1 font-bold">Carrier Signal Amplitude</p>
+            <input
+              id="B"
+              value="1"
+              type="range"
+              min="1"
+              max="10"
+              onchange="handleGainChangeB()"
+            />
+            <div class="leading-none BDiv">1</div>
+          </div>
+        </div>
+
+      <div class="flex justify-center gap-1 items-center">
+        <p class="text-nowrap font-medium"></p>
+        <input
+          class="border px-1 w-[142px] py-1 rounded-sm border-black"
+          min="1"
+          type="number"
+          id="samplingFrequency"
+          value="10000"
+          placeholder="sampling frequency in Hz"
+        />
+      </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <span><strong>Step 3:</strong></span>
+                    <button
+        class="bg-blue-500 text-white py-1 px-3 font-medium text-sm rounded-md hover:scale-105"
+        onclick="generateAmplitudeModulatedSignal()"
+      >
+      Generate Amplitude Modulated Signal
+      </button>
+      </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <span><strong>Step 4:</strong></span>
+      <button
+        class="bg-blue-500 text-white py-[6px] px-3 text-sm rounded-md hover:scale-105"
+        id="plotButton"
+      >
+        Show Frequency Spectrums
+      </button>
+      </div>
+
     </div>
 
-<br/>
-<br/>		
-<hr/>
-<br/>		
+    <div class="flex flex-col items-center">
+    <div class="plotSection relative -top-[10em]">
+      <div id="recoveredUSBPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="modulatedPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="carrierPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="messagePlot" class="w-[600px] max-h-[410px]"></div>
+      <!-- <div id="recoveredLSBPlot" class="w-[600px] h-[450px]"></div> -->
+    </div>
+    <div>
+  </div>
+</div>
+
+<br />
+<br />
+
+<div class="plot-container">
+  <div id="message-signal" class="plot"></div>
+  <div id="sidebands" class="plot"></div>
+  <div id="demodulated-signal" class="plot"></div>
+</div>
+<br />
+<br />
+<hr />
+<br />
 <!----->
+<div id = "demodulation">
 <div id = "container">
     <h1>Instructions for Amplitude Demodulation</h1>
     <ul>
@@ -177,7 +170,7 @@
             <div class="w-full my-3">
               <div class="flex justify-between m-2">
                 <div class="flex flex-1 items-center gap-3">
-                    <img src = ".\AM_Demod.png"/>
+                    <img src = "..\am_demod.png"/>
                   <p class="font-medium">Cut-off Frequency</p>
                   <input
                     class="border px-1 w-[152px] py-1 rounded-sm border-black"
@@ -202,7 +195,8 @@
             </div>
           </div>
         </div>
-		
+
+      </div>
 <!----->
 
 	
@@ -249,6 +243,20 @@
 
     // Attach event listeners when the DOM is fully loaded
     document.addEventListener('DOMContentLoaded', attachEventListeners);
+
+
+    function handleGainChangeA() {
+            const gainValue = parseFloat(
+                document.getElementById("A").value
+            );
+            document.querySelector(".ADiv").innerHTML = gainValue;
+        }
+    function handleGainChangeB() {
+            const gainValue = parseFloat(
+                document.getElementById("B").value
+            );
+            document.querySelector(".BDiv").innerHTML = gainValue;
+        }
 </script>
 
 	
@@ -396,7 +404,7 @@
           var modulated_value = message_value * carrier_value;
           let B = parseFloat(document.getElementById("B").value);
           let A = parseFloat(document.getElementById("A").value);
-          let DC = parseFloat(document.getElementById("DC").value);
+          let DC = 1; //parseFloat(document.getElementById("DC").value);
           var modulated_value = (DC*B + A * message_value) * carrier_value;
 
           message_signal.push(message_value);
@@ -810,7 +818,12 @@ document.getElementById('message-signal').scrollIntoView({ behavior: 'smooth' })
 
 
 <style>
-
+  #demodulation {
+    display: none;
+  }
+#samplingFrequency{
+        display: none;
+}
 #container {
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);

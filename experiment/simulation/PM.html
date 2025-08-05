@@ -17,93 +17,62 @@
         <li class="step step2">Here, β represents the phase modulation index, given by β=kp*Am​, where Am​ is the amplitude of the message signal (assumed to be fixed), and kp​ is the phase sensitivity of the modulator</li>
 	</ul>
 <br/>
-<div class="flex grow-0 items-start gap-10">
-<div>
-  <img src = ".\PM_Modulation.png" class="w-[40em] h-[20em]"/>
-</div>
-          <div class="flex flex-col grow-0 items-center">
-            <div class="w-full pl-2 my-3">
-              <div class="flex flex-col gap-2 m-2">
-                <div class="flex flex-1 gap-1 items-center">
-                  <p class="text-nowrap font-medium"></p>
-                  <input
-                    class="border px-1 w-[152px] py-1 rounded-sm border-black"
-                    min="1"
-                    type="number"
-                    id="samplingFrequency"
-                    value="100000"
-                    placeholder="sampling frequency in Hz"
-                  />
-                </div>
-                <div class="flex flex-1 items-center gap-1">
-                  <p class="font-medium"></p>
-                  <input
-                    class="border px-1 w-[152px] py-1 rounded-sm border-black"
-                    type="number"
-                    id="phaseDeviation"
-                    value="2"
-                  />
-                  
-
-                </div>
-              </div>
-            </div>
-			
-			          <div class="flex flex-col grow-0 items-center">
-                  <div class="flex flex-col mb-2 items-center">
-                    <p class="text-[13px] pb-1 text-center font-bold">
-                      Message Frequency (Hz)
-                    </p>
-                    <input
-                      id="messageFrequency"
-                      value="5"
-                      type="range"
-                      min="1"
-                      max="15"
-                      onchange="handleMessageFrequencyChange()"
-                    />
-                    <div class="leading-none messageFrequencyDiv">5</div>
-
-                    <div class="inline-flex items-center gap-2">
-                      <span><strong>Step 1:</strong></span>
-                    <button
-                      onclick="generateMessage()"
-                      class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-                    >
-                      Generate Message
-                    </button>
-                    </div>
-
-                  </div>
-				  
-				                    <!-- carrier frequency -->
-                  <div class="flex flex-col items-center">
-                    <p class="text-[13px] pb-1 font-bold">Carrier Frequency (Hz)</p>
-                    <input
-                      id="carrierFrequency"
-                      value="50"
-                      type="range"
-                      min="1"
-                      max="450"
-                      onchange="handleCarrierFrequencyChange()"
-                    />
-                    <div class="leading-none carrierFrequencyDiv">50</div>
-
-                    <div class="inline-flex items-center gap-2">
-                      <span><strong>Step 2:</strong></span>
-                    <button
-                      onclick="generateCarrier()"
-                      class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-                    >
-                      Generate Carrier
-                    </button>
-                    </div>
-                  </div>	  
-				      <!-- Kp Input and Button -->
-
-    <div class="flex flex-col items-center">
-        <p class="text-[13px] pb-1 font-bold">Kp (phase sensitivity):</p>
+<div class="flex items-start gap-10">
+  <div>
+    <img src=".\PM_Modulation.png" class="w-[50em] h-[20em]"/>
+  </div>
+  
+      <div class="flex flex-col items-center">
+        <div class="leading-none messageFrequencyDiv">5<span class="ml-1">Hz</span></div>
         <input
+        id="messageFrequency"
+        value="5"
+        type="range"
+        min="1"
+        max="15"
+        onchange="handleMessageFrequencyChange()"
+      />
+
+        <div class="inline-flex items-center">
+          <span><strong>Step 1:</strong></span>
+                  <button
+          onclick="generateMessage()"
+          class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+        >
+          Generate Message
+        </button>
+      </div>
+
+      </div>
+
+          <div class="flex flex-col items-center">
+            <div class="leading-none carrierFrequencyDiv">50<span class="ml-1">Hz</span></div>
+            <input
+            id="carrierFrequency"
+            value="50"
+            type="range"
+            min="1"
+            max="450"
+            onchange="handleCarrierFrequencyChange()"
+          />
+
+            <div class="inline-flex items-center gap-1">
+              <span><strong>Step 2:</strong></span>
+            <button
+              onclick="generateCarrier()"
+              class="bg-blue-500 text-white py-1 px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+            >
+              Generate Carrier
+            </button>
+            </div>
+
+          </div>
+
+        <div>
+          <!-- carrier frequency -->
+          <div class="flex flex-col items-center">
+            <p class="text-[13px] pb-1 font-bold">Kf (frequency sensitivity):</p>
+            <input
             id="kp"
             value="2"
             type="range"
@@ -111,51 +80,70 @@
             max="50"
             onchange="handleKpChange()"
         />
-        <div class="leading-none kpDiv" id="kpValue">2</div>
-		
-				<div align = "center">
-				<br/>
-        <!---
-				β (kp*Am) =<input type = "text" id="modulationIndex" value = "2" readonly style="text-align: center;">
-				---->
-      </div></div>
-
-
-        <div class="inline-flex items-center gap-2">
-          <span><strong>Step 3:</strong></span>
-				          <button
-            onclick="createPlots1()"
-            class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-        >
-            Generate Phase Modulated Signal
-        </button>
-        </div>
-
-		<br/>
-    <div class="inline-flex items-center gap-2">
-      <span><strong>Step 4:</strong></span>
-    <button
-    class="bg-blue-500 text-white py-[2px] px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
-    onclick="renderVisualizations()"
-  >
-   Show Frequency Spectrums
-  </button>
-    </div>
-  <br/>
-		</div>
-            <div class="bg-red-100 plotSection">
-              <div id="modulatedPlot" class="w-[600px] max-h-[500px]"></div>
-              <div id="carrierPlot" class="w-[600px] max-h-[500px]"></div>
-              <div id="messagePlot" class="w-[600px] max-h-[500px]"></div>
-              <div id="spectrum-plot1" class="w-[600px] max-h-[500px]"></div>
-            </div>
+            <div class="leading-none KpDiv" id="kpValue">2</div>
           </div>
         </div>
+
+      <div class="flex justify-center gap-1 items-center">
+        <p class="text-nowrap font-medium"></p>
+        <input
+        class="border px-1 w-[152px] py-1 rounded-sm border-black"
+        min="1"
+        type="number"
+        id="samplingFrequency"
+        value="1000"
+        placeholder="sampling frequency in Hz"
+      />
       </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <span><strong>Step 3:</strong></span>
+                    <button
+        class="bg-blue-500 text-white py-1 px-3 font-medium text-sm rounded-md hover:scale-105"
+        onclick="createPlots1()"
+      >
+      Generate Phase Modulated Signal
+      </button>
+      </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <span><strong>Step 4:</strong></span>
+      <button
+        class="bg-blue-500 text-white py-[6px] px-3 text-sm rounded-md hover:scale-105"
+        onclick="renderVisualizations()"
+      >
+        Show Frequency Spectrums
+      </button>
+      </div>
+
     </div>
 
-    <br/><br/>	
-	
+    <div class="flex flex-col items-center">
+    <div class="plotSection relative -top-[10em]">
+      <div id="recoveredUSBPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="modulatedPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="carrierPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="messagePlot" class="w-[600px] max-h-[410px]"></div>
+      <!-- <div id="recoveredLSBPlot" class="w-[600px] h-[450px]"></div> -->
+    </div>
+    <div>
+  </div>
+</div>
+
+<br />
+<br />
+
+<div class="bg-red-50 plotSection">
+  <div id="modulatedPlot" class="w-[600px] max-h-[500px]"></div>
+  <div id="carrierPlot" class="w-[600px] max-h-[500px]"></div>
+  <div id="messagePlot" class="w-[600px] max-h-[500px]"></div>
+
+</div>
+<br />
+<br />
+<hr />
+<br />
+
             <!-- Visualization containers -->
             <div class="visualizations-row">
               <div class="visualization" id="message-visualization"></div>
@@ -163,10 +151,10 @@
               <div class="visualization" id="demodulated-visualization"></div>
           </div>
 
-<br/><br/>	
-<hr/>	
+	<br/><br/>		<br/><br/>
+		<hr/>
 	<!------------------->
-	
+	<div id = "demodulation">
 		<div id = "container">
     <h1>Instructions for Phase Demodulation</h1>
     <ul>
@@ -242,6 +230,7 @@
 	
     </div>
 
+  </div>
 	<!------------------->
 	
 <script>
@@ -859,6 +848,9 @@
 
 	
 <style>
+    #demodulation {
+    display: none;
+  }
 #windowSize, #envelopeWindowSize, #samplingFrequency, #phaseDeviation {
 display: none;
 }
