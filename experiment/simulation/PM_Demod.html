@@ -25,16 +25,14 @@
   
       <div class="flex flex-col items-center">
         <div class="leading-none messageFrequencyDiv">5<span class="ml-1">Hz</span></div>
-        <!----
-        <input
-        id="messageFrequency"
-        value="5"
-        type="range"
-        min="1"
-        max="15"
-        onchange="handleMessageFrequencyChange()"
-      />
------->
+              <input
+              id="messageFrequency"
+              value="5"
+              type="number"
+              min="1"
+              max="15"
+              onchange="handleMessageFrequencyChange()"
+            />
         <div class="inline-flex items-center">
           <span><strong>Step 1:</strong></span>
                   <button
@@ -49,16 +47,14 @@
 
           <div class="flex flex-col items-center">
             <div class="leading-none carrierFrequencyDiv">50<span class="ml-1">Hz</span></div>
-            <!--------------
             <input
             id="carrierFrequency"
             value="50"
-            type="range"
+            type="number"
             min="1"
             max="450"
             onchange="handleCarrierFrequencyChange()"
           />
-          ------>
             <div class="inline-flex items-center gap-1">
               <span><strong>Step 2:</strong></span>
             <button
@@ -164,7 +160,8 @@
     <h1>Instructions for Phase Demodulation</h1>
     <ul>
 		<li class="step step1">Step 1: You can Demodulate the PM Signal clicking on the 'Perform phase Demodulation' button</li>
-    </ul>
+    <li class="step step2"><strong>Tip:</strong> Phase Modulation (PM) settings auto-transfer to the Phase Demodulation tab. No need to re-enter values. Keep both tabs open, or demodulate immediately after modulation.</li>
+	</ul>
 </div>	
 	    <!-- sidebar and body -->
     <div class="flex min-h-[80vh]">
@@ -211,26 +208,6 @@
                   value="50"
                 />
               </div>
-              <p>Message frequency (Hz)</p>
-              <input
-              class="border px-1 w-[152px] py-1 rounded-sm border-black"
-              id="messageFrequency"
-              value="5"
-              type="number"
-              min="1"
-              max="15"
-              onchange="handleMessageFrequencyChange()"
-            />
-            <p>Carrier frequency (Hz)</p>
-            <input
-            class="border px-1 w-[152px] py-1 rounded-sm border-black"
-            id="carrierFrequency"
-            value="50"
-            type="number"
-            min="1"
-            max="450"
-            onchange="handleCarrierFrequencyChange()"
-          />
               <button
                 class="bg-blue-500 text-white py-1 px-3 text-sm rounded-md hover:scale-105"
                 onclick="performPhaseDemodulation()"
@@ -864,6 +841,24 @@
             document.getElementById('message-visualization').scrollIntoView({ behavior: 'smooth' });
             document.getElementById('modulated-spectrum-visualization').scrollIntoView({ behavior: 'smooth' });
         }
+		
+		
+		function loadData() {
+  const data = localStorage.getItem('sharedData');
+  if (data) {
+    const parsed = JSON.parse(data);
+
+    // Update input fields in current tab
+    document.getElementById('messageFrequency').value = parsed.messageFrequency ?? '';
+    document.getElementById('carrierFrequency').value = parsed.carrierFrequency ?? '';
+  }
+}
+
+// Load immediately
+loadData();
+
+// Update if storage changes (works across tabs)
+window.addEventListener('storage', loadData);
     </script>
 
 
