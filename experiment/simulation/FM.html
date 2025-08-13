@@ -435,6 +435,7 @@ function handleKfChange() {
   ],
           }
         , rr);
+		saveData();
       }
 
       // Function for frequency modulation
@@ -813,6 +814,20 @@ function smooth(data, windowSize) {
 
     // Add an event listener to the button
     document.getElementById('plotButton').addEventListener('click', plotImpulseResponses);
+	
+	
+function saveData() {
+  const fm = parseFloat(document.getElementById('messageFrequency').value);
+  const fc = parseFloat(document.getElementById('carrierFrequency').value);
+  const fDev = parseFloat(document.getElementById('kf').value);
+
+  // Store as an object (use the variables you actually defined)
+  const myData = { fm: fm, fc: fc, fDev: fDev };
+
+  localStorage.setItem('sharedData', JSON.stringify(myData));
+}
+
+
 </script>
 
 	
