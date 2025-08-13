@@ -563,6 +563,7 @@
   ],
           }
         ,rr);
+		saveData();
       }
     </script>
 	
@@ -846,6 +847,16 @@
             document.getElementById('message-visualization').scrollIntoView({ behavior: 'smooth' });
             document.getElementById('modulated-spectrum-visualization').scrollIntoView({ behavior: 'smooth' });
         }
+		
+		function saveData() {
+  const messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+  const carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+
+  // Store as an object (use the variables you actually defined)
+  const myData = { messageFrequency: messageFrequency, carrierFrequency: carrierFrequency };
+
+  localStorage.setItem('sharedData', JSON.stringify(myData));
+}
     </script>
 
 

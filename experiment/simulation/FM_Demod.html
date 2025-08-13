@@ -17,6 +17,7 @@
         <li class="step step4">Step 4: Click the 'Show Frequency Spectrums' button to view the FM spectra.</li>
   
         <li class="step step4">Here, β represents the frequency modulation index, given by β = kf*Am/fm​​, where Am​ is the amplitude of the message signal (assumed to be fixed), fm​ is its frequency, and kf​ is the frequency sensitivity</li>
+	
 	</ul>
   </div>
 <br/>
@@ -28,16 +29,14 @@
   
       <div class="flex flex-col items-center">
         <div class="leading-none messageFrequencyDiv">1<span class="ml-1">Hz</span></div>
-        <!----
-        <input
-        id="messageFrequency"
-        value="1"
-        type="range"
-        min="1"
-        max="100"
-        onchange="handleMessageFrequencyChange()"
-      />
------->
+                  <input
+                  id="messageFrequency"
+                  value="1"
+                  type="number"
+                  min="1"
+                  max="100"
+                  onchange="handleMessageFrequencyChange()"
+                />
         <div class="inline-flex items-center">
           <span><strong>Step 1:</strong></span>
                   <button
@@ -52,16 +51,14 @@
 
           <div class="flex flex-col items-center">
             <div class="leading-none carrierFrequencyDiv">10<span class="ml-1">Hz</span></div>
-            <!--------
-            <input
-            id="carrierFrequency"
-            value="10"
-            type="range"
-            min="1"
-            max="300"
-            onchange="handleCarrierFrequencyChange()"
-          />
------------>
+                <input
+                id="carrierFrequency"
+                value="10"
+                type="number"
+                min="1"
+                max="300"
+                onchange="handleCarrierFrequencyChange()"
+                />
             <div class="inline-flex items-center gap-1">
               <span><strong>Step 2:</strong></span>
             <button
@@ -164,7 +161,9 @@
     <h1>Instructions for Frequency Demodulation</h1>
     <ul>
 		<li class="step step2">Step 1: You can Demodulate the FM Signal clicking on the 'Perform FM Demodulation' button</li>
-    </ul>
+        <li class="step step2"><strong>Tip:</strong> Frequency Modulation (FM) settings auto-transfer to the Frequency Demodulation tab. No need to re-enter values. Keep both tabs open, or demodulate immediately after modulation.</li>
+
+	</ul>
 </div>	
 	    
 <div class="flex items-start"> 
@@ -175,28 +174,6 @@
             <div class="w-full my-3">
               <div class="flex justify-between m-2">
                 <div class="flex flex-1 items-center gap-3">
-                
-                  <p class="font-medium">Message Frequency (Hz)</p>
-                  <input
-                  class="border px-1 w-[152px] py-1 rounded-sm border-black"
-                  id="messageFrequency"
-                  value="1"
-                  type="number"
-                  min="1"
-                  max="100"
-                  onchange="handleMessageFrequencyChange()"
-                />
-
-                <p class="font-medium">Carrier Frequency (Hz)</p>
-                <input
-                class="border px-1 w-[152px] py-1 rounded-sm border-black"
-                id="carrierFrequency"
-                value="10"
-                type="number"
-                min="1"
-                max="300"
-                onchange="handleCarrierFrequencyChange()"
-                />
                   <button
                     class="bg-blue-500 text-white py-1 px-3 rounded-md hover:scale-105"
                     onclick="fmdemodulation()"
@@ -535,10 +512,26 @@ function smooth(data, windowSize) {
     }
     return smoothed;
 }
+
+function normalize(inputArray) {
+   if (inputArray.length === 0) return [];
+
+  const minValue = Math.min(...inputArray);
+  const maxValue = Math.max(...inputArray);
+  const range = maxValue - minValue;
+
+  if (range === 0) {
+    // All values are the same → map them to 0
+    return inputArray.map(() => 0);
+  }
+
+  return inputArray.map(x => (2 * (x - minValue) / range) - 1);
+  }
+
 	function fmdemodulation() {
         // Parameters
         const fs = 1000;
-        const fc = 300;
+        const fc = 100;
 		var fm = parseFloat(document.getElementById('messageFrequency').value);
         const t_max = 1;
         const t_step = 1 / fs;
@@ -547,7 +540,7 @@ function smooth(data, windowSize) {
         // Original signal
         const x = t.map(ti => Math.sin(2 * Math.PI * fm * ti));
 
-        const fDev = 50;
+        const fDev = 20;
 
         // Integrate the signal
         const int_x = [];
@@ -615,7 +608,8 @@ function smooth(data, windowSize) {
         // Apply bias
         const z_with_bias0 = z.map(value => value + bias);
         const windowSize = 20;
-        const z_with_bias = smooth(z_with_bias0, windowSize);
+        const z_with_bias1 = smooth(z_with_bias0, windowSize);
+		const z_with_bias = normalize(z_with_bias1);
 
         // Plot demodulated signal with bias
         const trace2 = {
@@ -637,20 +631,19 @@ function smooth(data, windowSize) {
 
         // Custom unwrap function
         function customUnwrap(phase) {
-            const unwrapped = [...phase];
-            for (let i = 1; i < phase.length; i++) {
-                const delta = phase[i] - phase[i - 1];
-                if (delta > Math.PI) {
-                    for (let j = i; j < unwrapped.length; j++) {
-                        unwrapped[j] -= 2 * Math.PI;
-                    }
-                } else if (delta < -Math.PI) {
-                    for (let j = i; j < unwrapped.length; j++) {
-                        unwrapped[j] += 2 * Math.PI;
-                    }
-                }
-            }
-            return unwrapped;
+    const unwrapped = new Array(phase.length);
+    unwrapped[0] = phase[0];
+    let offset = 0;
+    for (let i = 1; i < phase.length; i++) {
+        const delta = phase[i] - phase[i - 1];
+        if (delta > Math.PI) {
+            offset -= 2 * Math.PI;
+        } else if (delta < -Math.PI) {
+            offset += 2 * Math.PI;
+        }
+        unwrapped[i] = phase[i] + offset;
+    }
+    return unwrapped;
         }
 
         // Cooley-Tukey FFT function
@@ -831,6 +824,24 @@ function smooth(data, windowSize) {
 
     // Add an event listener to the button
     document.getElementById('plotButton').addEventListener('click', plotImpulseResponses);
+	
+function loadData() {
+  const data = localStorage.getItem('sharedData');
+  if (data) {
+    const parsed = JSON.parse(data);
+
+    // Update input fields in current tab
+    document.getElementById('messageFrequency').value = parsed.fm ?? '';
+    document.getElementById('carrierFrequency').value = parsed.fc ?? '';
+    document.getElementById('kf').value = parsed.fDev ?? '';
+  }
+}
+
+// Load immediately
+loadData();
+
+// Update if storage changes (works across tabs)
+window.addEventListener('storage', loadData);
 </script>
 
 	
