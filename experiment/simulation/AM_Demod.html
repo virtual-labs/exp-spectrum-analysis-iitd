@@ -174,7 +174,15 @@
             <div class="w-full my-3">
               <div class="flex justify-between m-2">
                 <div class="flex flex-1 items-center gap-3">
-                    <img src = "..\am_demod.png"/>
+                  <button
+                  onclick="AMInput();"
+                  class="bg-blue-500 text-white py-1 px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+                >
+                  AM Input
+                </button>
+                    <img src = ".\AM_Demod.png"/>
+                    
+                    <div class = "hidden">
                     <p class="font-medium">Message Frequency (Hz)</p>
                     <input
                     class="border px-1 w-[152px] py-1 rounded-sm border-black"
@@ -195,6 +203,7 @@
                   max="1000"
                   onchange="handleCarrierFrequencyChange()"
                 />
+                </div>
                   <p class="font-medium">Cut-off Frequency (Hz)</p>
                   <input
                     class="border px-1 w-[152px] py-1 rounded-sm border-black"
@@ -219,6 +228,19 @@
             </div>
           </div>
         </div>
+
+        <!-- Popup modal -->
+<!-- Popup modal -->
+<!-- AM Modal -->
+<div id="amModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+     background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:1000;">
+  <div style="background:white; padding:20px; border-radius:12px; width:80%; max-width:800px; box-shadow:0 6px 20px rgba(0,0,0,0.3); position:relative;">
+    <button onclick="closeAMModal()" style="position:absolute; top:8px; right:8px; 
+            background:#ff4d4d; border:none; color:white; padding:4px 8px; 
+            border-radius:6px; font-size:12px; cursor:pointer;">Close</button>
+    <div id="AMInput" style="width:90%; height:400px;"></div>
+  </div>
+</div>
 		
 <!----->
 
@@ -613,8 +635,16 @@ Plotly.newPlot("modulatedPlot", modulatedData, modulatedLayout, rr);
 
     // Function to create plots
     function createPlots() {
+
         var frequency = parseFloat(document.getElementById('messageFrequency').value);
         var amplitude = parseFloat(document.getElementById('carrierFrequency').value);
+        if (!frequency || !amplitude) {
+    alert("Perform AM Modulation first!");
+    return;
+  }
+  window.frequency = frequency;
+    window.amplitude = amplitude;
+
         var A1 = parseFloat(document.getElementById("A").value); //  parseFloat(document.getElementById('A1').value);
         var B1 = parseFloat(document.getElementById("B").value); //  parseFloat(document.getElementById('B1').value);
 
@@ -835,6 +865,86 @@ document.getElementById('message-signal').scrollIntoView({ behavior: 'smooth' })
 
         // Add event listener to the button
         document.getElementById('plotButton').addEventListener('click', plotImpulseResponses);
+
+
+
+let messageData = null;
+let modulatedData = null;
+
+function AMInput() {
+    // Show modal
+    document.getElementById("amModal").style.display = "flex";
+
+    // Get input values
+    const frequency = parseFloat(document.getElementById("messageFrequency").value);
+    const amplitude = parseFloat(document.getElementById("carrierFrequency").value);
+    const A = parseFloat(document.getElementById("A").value) || 1;  // Message amplitude
+    const B = parseFloat(document.getElementById("B").value) || 1;  // Carrier amplitude
+
+    if (isNaN(frequency) || isNaN(amplitude)) {
+        alert("Please enter valid frequency and amplitude values.");
+        return;
+    }
+
+    // Generate message signal
+    const num_points = 100000;
+    const x_values = linspace(0, 3 / frequency, num_points);
+    const message_signal = x_values.map(x => A * Math.sin(2 * Math.PI * frequency * x));
+    messageData = [{ x: x_values, y: message_signal, type: "line", name: "Message Signal" }];
+
+    // Generate AM signal
+    const mod_signal = x_values.map(x => (B + A * Math.sin(2 * Math.PI * frequency * x)) * Math.sin(2 * Math.PI * amplitude * x));
+    modulatedData = [{ x: x_values, y: mod_signal, type: "line", name: "AM Signal" }];
+
+    // Layout for superimposed plot
+    const layout = {
+        title: "Superimposition of Message and AM Signals",
+        xaxis: { title: "Time (s)" },
+        yaxis: { title: "Amplitude" },
+        showlegend: true
+    };
+
+    // Plot superimposed signals
+    Plotly.newPlot("AMInput", [...messageData, ...modulatedData], layout, { responsive: true });
+}
+
+// Close modal function
+function closeAMModal() {
+    document.getElementById("amModal").style.display = "none";
+}
+closeAMModal();
+// Utility function to generate linearly spaced array
+function linspace(start, stop, num) {
+    const arr = [];
+    const step = (stop - start) / (num - 1);
+    for (let i = 0; i < num; i++) {
+        arr.push(start + step * i);
+    }
+    return arr;
+}
+
+
+
+
+function loadData() {
+  const saved = localStorage.getItem("AM_Data");
+  if (saved) {
+    const parsed = JSON.parse(saved);
+
+    // Restore into inputs
+    document.getElementById("messageFrequency").value = parsed.frequency ?? "";
+    document.getElementById("carrierFrequency").value = parsed.amplitude ?? "";
+
+    return parsed;
+  }
+  return null;
+}
+
+// Load immediately when tab opens
+loadData();
+
+// Sync across tabs if localStorage changes
+window.addEventListener("storage", loadData);
         
     </script>
 
