@@ -38,6 +38,7 @@
         type="range"
         min="1"
         max="200"
+        step = "1"
         onchange="handleMessageFrequencyChange()"
       />
 
@@ -61,6 +62,7 @@
             type="range"
             min="1"
             max="1000"
+            step = "1"
             onchange="handleCarrierFrequencyChange()"
           />
 
@@ -132,6 +134,12 @@
       >
         Show Frequency Spectrums
       </button>
+      <button 
+      class="bg-green-500 text-white rounded-md px-3 py-1 hover:scale-105"
+      onclick="location.reload();"
+    >
+      Reset Simulator
+    </button>
       </div>
 
     </div>
@@ -140,6 +148,7 @@
     <div class="plotSection relative -top-[10em]">
       <div id="recoveredUSBPlot" class="w-[600px] max-h-[410px]"></div>
       <div id="modulatedPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="superimposed" class="w-[600px] max-h-[410px]"></div>
       <div id="carrierPlot" class="w-[600px] max-h-[410px]"></div>
       <div id="messagePlot" class="w-[600px] max-h-[410px]"></div>
       <!-- <div id="recoveredLSBPlot" class="w-[600px] h-[450px]"></div> -->
@@ -154,7 +163,16 @@
 <div class="plot-container">
   <div id="message-signal" class="plot"></div>
   <div id="sidebands" class="plot"></div>
-  <div id="demodulated-signal" class="plot"></div>
+  <div id="demodulated-signal" class="hidden plot"></div>
+</div>
+<div align = "center">
+  <a href = ".\AM_demod.html">
+  <button
+  class="bg-blue-500 text-white py-1 px-3  rounded-md hover:scale-105"
+>
+  Perform AM Demodulation
+</button>
+</a>
 </div>
 <br />
 <br />
@@ -336,6 +354,8 @@
         return result;
       }
 
+      let messageData, carrierData;
+  
       function generateMessageSignal() {
         let A = parseFloat(document.getElementById("A").value);
         var frequencyMessage = parseFloat(
@@ -357,7 +377,7 @@
         }
 
         // Plot the message signal
-        var messageData = [{ x: x_values, y: message_signal, type: "line" }];
+        messageData = [{ x: x_values, y: message_signal, type: "line" }];
         var messageLayout = {
           title: "Message Signal",
           xaxis: { title: "Time (s)" },
@@ -369,6 +389,9 @@
       // Function to generate the carrier signal
       function generateCarrierSignal() {
         let B = parseFloat(document.getElementById("B").value);
+        var frequencyMessage = parseFloat(
+          document.getElementById("messageFrequency").value
+        );
         var frequencyCarrier = parseFloat(
           document.getElementById("carrierFrequency").value
         );
@@ -377,11 +400,11 @@
           return;
         }
         var num_points = 100000;
-        var x_values = linspace(0, 3 / frequencyCarrier, num_points);
+        var x_values = linspace(0, 3 / frequencyMessage, num_points);
         var carrier_signal = x_values.map((x) =>
         B * Math.sin(2 * Math.PI * frequencyCarrier * x)
         );
-        var carrierData = [{ x: x_values, y: carrier_signal, type: "line" }];
+        carrierData = [{ x: x_values, y: carrier_signal, type: "line" }];
         var carrierLayout = {
           title: "Carrier Signal",
           xaxis: { title: "Time (s)" },
@@ -389,7 +412,18 @@
         };
         Plotly.newPlot("carrierPlot", carrierData, carrierLayout, rr);
       }
+      
+      function superimposed() {
+  let superimposedLayout = {
+    title: "Superimposition of Message and Carrier Signals",
+    xaxis: { title: "Time (s)" },
+    yaxis: { title: "Amplitude" },
+    showlegend: false
+  };
 
+  // Spread the trace arrays into one array
+  Plotly.newPlot("superimposed", [...messageData, ...carrierData], superimposedLayout, { responsive: true });
+}
       // Function to perform additional processing for amplitude modulation
       function additional_processing_am(
         frequencyMessage,
@@ -427,8 +461,10 @@
         };
       }
 
+let modulatedData;
       // Function to generate amplitude modulated signal
       function generateAmplitudeModulatedSignal() {
+        superimposed();
         // Get input values
         var frequencyMessage = parseFloat(
           document.getElementById("messageFrequency").value
@@ -451,6 +487,7 @@
 
         // Plot the signals
         plotSignals(result);
+        saveData();
       }
 
       // Function to plot the signals
@@ -474,7 +511,7 @@
         Plotly.newPlot("carrierPlot", carrierData, carrierLayout);
 
 // Create plot data for modulated signal
-var modulatedData = [
+modulatedData = [
   { x: result.x, y: result.modulated, type: "line" },
 ];
 
@@ -818,7 +855,26 @@ document.getElementById('message-signal').scrollIntoView({ behavior: 'smooth' })
 
         // Add event listener to the button
         document.getElementById('plotButton').addEventListener('click', plotImpulseResponses);
-        
+
+
+        function saveData() {
+  const frequency = parseFloat(document.getElementById("messageFrequency").value) || 0;
+  const amplitude = parseFloat(document.getElementById("carrierFrequency").value) || 0;
+
+  const myData = {
+    frequency,
+    amplitude
+  };
+
+  try {
+    localStorage.setItem("AM_Data", JSON.stringify(myData));
+  } catch (e) {
+    console.error("Storage quota exceeded!", e);
+    alert("Error: Could not save data (quota exceeded).");
+  }
+}
+
+ 
     </script>
 
 

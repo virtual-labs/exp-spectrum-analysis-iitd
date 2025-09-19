@@ -120,6 +120,12 @@
       >
         Show Frequency Spectrums
       </button>
+      <button 
+      class="bg-green-500 text-white rounded-md px-3 py-1 hover:scale-105"
+      onclick="location.reload();"
+    >
+      Reset Simulator
+    </button>
       </div>
 
     </div>
@@ -128,6 +134,7 @@
     <div class="plotSection relative -top-[10em]">
       <div id="recoveredUSBPlot" class="w-[600px] max-h-[410px]"></div>
       <div id="modulatedPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="superimposed" class="w-[600px] max-h-[410px]"></div>
       <div id="carrierPlot" class="w-[600px] max-h-[410px]"></div>
       <div id="messagePlot" class="w-[600px] max-h-[410px]"></div>
       <!-- <div id="recoveredLSBPlot" class="w-[600px] h-[450px]"></div> -->
@@ -154,7 +161,16 @@
             <div class="visualizations-row">
               <div class="visualization" id="message-visualization"></div>
               <div class="visualization" id="modulated-spectrum-visualization"></div>
-              <div class="visualization" id="demodulated-visualization"></div>
+              <div class="hidden visualization" id="demodulated-visualization"></div>
+          </div>
+          <div align = "center">
+            <a href = ".\PM_demod.html">
+            <button
+            class="bg-blue-500 text-white py-1 px-3  rounded-md hover:scale-105"
+          >
+            Perform PM Demodulation
+          </button>
+          </a>
           </div>
 
 	<br/><br/>		<br/><br/>
@@ -354,6 +370,7 @@
         };
       }
 
+      let carrier_signal, message_signal;
       // Function to generate message signal
       function generateMessage() {
         var message_frequency = parseInt(
@@ -374,7 +391,7 @@
     { length: sampling_frequency },
     (_, i) => (i / (sampling_frequency - 1)) * duration
   );
-        var message_signal = x_values.map((t) =>
+        message_signal = x_values.map((t) =>
           Math.cos(2 * Math.PI * message_frequency * t)
         );
 
@@ -404,6 +421,9 @@
 
       // Function to generate carrier signal
       function generateCarrier() {
+        var message_frequency = parseInt(
+          document.getElementById("messageFrequency").value
+        );
         var carrier_frequency = parseInt(
           document.getElementById("carrierFrequency").value
         );
@@ -417,14 +437,14 @@
         );
 
 */      
-      var duration = 3 / carrier_frequency;
+      var duration = 3 / message_frequency;
           // Generate x_values for 3 cycles
           var x_values = Array.from(
           { length: sampling_frequency },
           (_, i) => (i / (sampling_frequency - 1)) * duration
         );
         
-        var carrier_signal = x_values.map((t) =>
+        carrier_signal = x_values.map((t) =>
           Math.cos(2 * Math.PI * carrier_frequency * t)
         );
         var carrierPlotDiv = document.getElementById("carrierPlot");
@@ -451,8 +471,49 @@
         ,rr);
       }
 
+      function superimposed() {
+  var numpoints = message_signal.length; 
+  var message_frequency = parseInt(document.getElementById("messageFrequency").value);
+
+  // Duration matches your earlier choice: 3 cycles of the message
+  var duration = 3 / message_frequency;
+  var x_values = Array.from(
+    { length: numpoints },
+    (_, i) => (i / (numpoints - 1)) * duration
+  );
+
+  let superimposedLayout = {
+    title: "Superimposition of Message and Carrier Signals",
+    xaxis: { title: "Time (s)" },
+    yaxis: { title: "Amplitude" },
+    showlegend: true
+  };
+
+  let traces = [
+    {
+      x: x_values,
+      y: message_signal,
+      mode: "lines",
+      name: "Message Signal",
+      line: { color: "green" }
+    },
+    {
+      x: x_values,
+      y: carrier_signal,
+      mode: "lines",
+      name: "Carrier Signal",
+      line: { color: "red" }
+    }
+  ];
+
+  Plotly.newPlot("superimposed", traces, superimposedLayout, { responsive: true });
+}
+
+
+let phase_deviation;
       // Function to create plots
       function createPlots1() {
+        superimposed();
         var message_frequency = parseInt(
           document.getElementById("messageFrequency").value
         );
@@ -848,15 +909,24 @@
             document.getElementById('modulated-spectrum-visualization').scrollIntoView({ behavior: 'smooth' });
         }
 		
-		function saveData() {
+        function saveData() {
   const messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
   const carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+  const Kp = parseFloat(document.getElementById("kp").value);
 
-  // Store as an object (use the variables you actually defined)
-  const myData = { messageFrequency: messageFrequency, carrierFrequency: carrierFrequency };
+  // phase deviation = π * Kp
+  const phase_deviation = Math.PI * Kp;
+
+  const myData = { 
+    messageFrequency: messageFrequency, 
+    carrierFrequency: carrierFrequency, 
+    phase_deviation: phase_deviation, 
+    Kp: Kp 
+  };
 
   localStorage.setItem('sharedData', JSON.stringify(myData));
 }
+
     </script>
 
 

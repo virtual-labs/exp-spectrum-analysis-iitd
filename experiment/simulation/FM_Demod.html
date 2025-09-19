@@ -167,6 +167,12 @@
 </div>	
 	    
 <div class="flex items-start"> 
+  <button
+  onclick="FMInput();"
+  class="bg-blue-500 text-white py-1 px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+>
+  FM Input
+</button>
 <div>
   <img src = ".\fm_demod1.png"/>
 </div>        
@@ -200,7 +206,15 @@
 
     </div>
 				  	  
-
+    <div id="fmModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:1000;">
+ <div style="background:white; padding:20px; border-radius:12px; width:80%; max-width:800px; box-shadow:0 6px 20px rgba(0,0,0,0.3); position:relative;">
+   <button onclick="closeAMModal()" style="position:absolute; top:8px; right:8px; 
+           background:#ff4d4d; border:none; color:white; padding:4px 8px; 
+           border-radius:6px; font-size:12px; cursor:pointer;">Close</button>
+   <div id="FMInput" style="width:90%; height:400px;"></div>
+ </div>
+</div>
 	
 	
 <script>
@@ -537,6 +551,11 @@ function normalize(inputArray) {
         const t_step = 1 / fs;
         const t = Array.from({length: Math.floor(t_max / t_step) + 1}, (_, i) => i * t_step);
 
+        if (isNaN(fm) || isNaN(fc)) {
+        alert("Please perform FM modulation first!");
+        return;
+    }
+
         // Original signal
         const x = t.map(ti => Math.sin(2 * Math.PI * fm * ti));
 
@@ -824,7 +843,96 @@ function normalize(inputArray) {
 
     // Add an event listener to the button
     document.getElementById('plotButton').addEventListener('click', plotImpulseResponses);
-	
+
+
+    function FMInput() {
+    // Show modal
+    document.getElementById("fmModal").style.display = "flex";
+/*
+    // Get input values
+    const fm = parseFloat(document.getElementById("messageFrequency").value); // message frequency
+    const fc = parseFloat(document.getElementById("carrierFrequency").value); // carrier frequency
+    const kf = parseFloat(document.getElementById("kf").value) || 50;         // frequency sensitivity
+    const fs = 10 * fc;  // sampling frequency (at least 10x carrier)
+    */
+    const num_points = 10000;
+
+
+    // Duration = 3 cycles of message
+    const duration = 3 / fm;
+    const x_values = Array.from({ length: num_points }, (_, i) => (i / (num_points - 1)) * duration);
+
+    // Message signal
+    const message_signal = x_values.map(x => Math.sin(2 * Math.PI * fm * x));
+
+
+    var fm = parseInt(
+          document.getElementById("messageFrequency").value
+        );
+        var fc = parseInt(
+          document.getElementById("carrierFrequency").value
+        );
+        var fs = parseInt(document.getElementById("fs").value);
+        var kf = parseInt(document.getElementById("kf").value);
+        var data = processing_fm(fm, fc, fs, kf);
+
+        // Plot frequency-modulated signal
+        var modulatedPlotDiv = document.getElementById("modulatedPlot");
+
+        //const kf = parseFloat(document.getElementById("kf").value) || 50;  // Default to 1 if empty
+
+
+        if (isNaN(fm) || isNaN(fc)) {
+        alert("Please perform FM modulation first!");
+        return;
+    }
+    // Calculate modulation index β = kf * Am / fm
+    const modulationIndex = kf / fm; // Amplitude of message = 1
+
+    // Plot using Plotly
+    const layout = {
+        title: "Superimposition of Messsage and FM Signals",
+        xaxis: { title: "Time (s)" },
+        yaxis: { title: "Amplitude" },
+        showlegend: true,
+        annotations: [
+            {
+                xref: "paper",
+                yref: "paper",
+                x: 0.95,
+                y: 1.05,
+                text: `Modulation Index β = ${modulationIndex.toFixed(2)}`,
+                showarrow: false,
+                font: { size: 12, color: "black" },
+                align: "right"
+            }
+        ]
+    };
+
+    Plotly.newPlot("FMInput", [
+        { x: x_values, y: message_signal, type: "line", name: "Message Signal" },
+        { x: data.x, y: data.modulated, type: "line", name: "FM Signal" }
+    ], layout, { responsive: true });
+}
+
+
+
+// Close modal
+function closeAMModal() {
+    document.getElementById("fmModal").style.display = "none";
+}
+closeAMModal();
+// Utility: linspace
+function linspace(start, stop, num) {
+    const arr = [];
+    const step = (stop - start) / (num - 1);
+    for (let i = 0; i < num; i++) {
+        arr.push(start + step * i);
+    }
+    return arr;
+}
+
+
 function loadData() {
   const data = localStorage.getItem('sharedData');
   if (data) {
@@ -833,10 +941,9 @@ function loadData() {
     // Update input fields in current tab
     document.getElementById('messageFrequency').value = parsed.fm ?? '';
     document.getElementById('carrierFrequency').value = parsed.fc ?? '';
-    document.getElementById('kf').value = parsed.fDev ?? '';
+    document.getElementById('kf').value = parsed.kf ?? '';
   }
 }
-
 // Load immediately
 loadData();
 
