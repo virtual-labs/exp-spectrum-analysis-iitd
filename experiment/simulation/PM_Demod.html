@@ -170,6 +170,12 @@
           <div class="basis-2/5 py-2">
             <div class="flex flex-col justify-center items-center">
               <div class="w-[400px] h-[340px]">
+                <button
+                onclick="PMInput();"
+                class="bg-blue-500 text-white py-1 px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+              >
+                PM Input
+              </button>
                 <img
                   class="w-[100%] h-[100%]"
                   src="../images/simulation/pm_demod1.png"
@@ -232,6 +238,17 @@
     </div>
 
   </div>
+
+
+  <div id="pmModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:1000;">
+<div style="background:white; padding:20px; border-radius:12px; width:80%; max-width:800px; box-shadow:0 6px 20px rgba(0,0,0,0.3); position:relative;">
+ <button onclick="closeAMModal()" style="position:absolute; top:8px; right:8px; 
+         background:#ff4d4d; border:none; color:white; padding:4px 8px; 
+         border-radius:6px; font-size:12px; cursor:pointer;">Close</button>
+ <div id="PMInput" style="width:90%; height:400px;"></div>
+</div>
+</div>
 	<!------------------->
 	
 <script>
@@ -842,22 +859,108 @@
             document.getElementById('modulated-spectrum-visualization').scrollIntoView({ behavior: 'smooth' });
         }
 		
+
+
+
+        function PMInput() {
+    // Show modal
+    document.getElementById("pmModal").style.display = "flex";
+
+    // Get input values
+    var messageFrequency = parseInt(
+        document.getElementById("messageFrequency").value
+    );
+    var carrierFrequency = parseInt(
+        document.getElementById("carrierFrequency").value
+    );
+    var fs = 1000;
+    var phase_deviation =
+        Math.PI * parseFloat(document.getElementById("kp").value);
+
+    // Run PM modulation
+    var data = pmmod(messageFrequency, carrierFrequency, fs, phase_deviation);
+
+    if (isNaN(messageFrequency) || isNaN(carrierFrequency)) {
+        alert("Please perform PM modulation first!");
+        return;
+    }
+
+    // Plot message + PM signal together
+    var messagePlotDiv = document.getElementById("PMInput");
+   // const phase_deviation = parseFloat(document.getElementById("kp").value) || 2; // default
+    const modulationIndex = phase_deviation/(Math.PI); // β = kp * Am (Am = 1)
+
+    Plotly.newPlot(
+        messagePlotDiv,
+        [
+            {
+                x: data.x,
+                y: data.message,
+                mode: "lines",
+                name: "Message Signal",
+                line: { color: "green" },
+            },
+            {
+                x: data.x,
+                y: data.modulated,
+                mode: "lines",
+                name: "Phase Modulated Signal",
+                line: { color: "blue" },
+            },
+        ],
+        {
+            title: "Superimposition of Message and PM Signals",
+            xaxis: { title: "Time" },
+            yaxis: { title: "Amplitude" },
+            annotations: [
+                {
+                    xref: "paper",
+                    yref: "paper",
+                    x: 0.95,
+                    y: 1.05,
+                    text: `Modulation Index, β (= kp*Am) = ${modulationIndex}`,
+                    showarrow: false,
+                    font: { size: 12, color: "black" },
+                    align: "right",
+                },
+            ],
+        }, rr
+    );
+}
+
+
+// Close modal
+function closeAMModal() {
+    document.getElementById("pmModal").style.display = "none";
+}
+closeAMModal();
+// Utility: linspace
+function linspace(start, stop, num) {
+    const arr = [];
+    const step = (stop - start) / (num - 1);
+    for (let i = 0; i < num; i++) {
+        arr.push(start + step * i);
+    }
+    return arr;
+}
+
 		
-		function loadData() {
+function loadData() {
   const data = localStorage.getItem('sharedData');
   if (data) {
     const parsed = JSON.parse(data);
 
-    // Update input fields in current tab
     document.getElementById('messageFrequency').value = parsed.messageFrequency ?? '';
     document.getElementById('carrierFrequency').value = parsed.carrierFrequency ?? '';
+    document.getElementById('kp').value = parsed.Kp ?? '';
+    // phase_deviation is derived internally when needed
   }
 }
 
 // Load immediately
 loadData();
 
-// Update if storage changes (works across tabs)
+// Sync across tabs
 window.addEventListener('storage', loadData);
     </script>
 
