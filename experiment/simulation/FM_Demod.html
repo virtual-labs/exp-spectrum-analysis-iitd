@@ -193,8 +193,19 @@
               </div>
             </div>
             <div class="plotSection">
-              <div class="w-[600px] h-[450px]">
-                <div id="plot2" class="w-[100%] h-[100%]"></div>
+              <div class="w-[100%] h-[100%]">
+                <div id="SSBSCInput1" class="flex gap-4">
+                  <!-- Time-domain plot -->
+                  <div id="FMInput" class="w-[100%] h-[100%]"></div>
+                  <!-- Frequency-domain plot -->
+                  <div id="spectrum" class="w-[100%] h-[100%]"></div>
+                </div>
+                <div id="hjkkk" class="flex gap-4">
+                  <!-- Time-domain plot -->
+                  <div id="plot2" class="flex-1  w-[600px]"></div>
+                  <!-- Frequency-domain plot -->
+                  <div id="demodulatedSpectrum" class="flex-1  w-[600px]"></div>
+                </div>
               </div>
 			  
             </div>
@@ -205,16 +216,7 @@
       </div>
 
     </div>
-				  	  
-    <div id="fmModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:1000;">
- <div style="background:white; padding:20px; border-radius:12px; width:80%; max-width:800px; box-shadow:0 6px 20px rgba(0,0,0,0.3); position:relative;">
-   <button onclick="closeAMModal()" style="position:absolute; top:8px; right:8px; 
-           background:#ff4d4d; border:none; color:white; padding:4px 8px; 
-           border-radius:6px; font-size:12px; cursor:pointer;">Close</button>
-   <div id="FMInput" style="width:90%; height:400px;"></div>
- </div>
-</div>
+				  	
 	
 	
 <script>
@@ -543,6 +545,7 @@ function normalize(inputArray) {
   }
 
 	function fmdemodulation() {
+    plotImpulseResponses11();
         // Parameters
         const fs = 1000;
         const fc = 100;
@@ -647,6 +650,7 @@ function normalize(inputArray) {
         };
 
         Plotly.newPlot('plot2', [trace2], layout2, rr);
+        
 
         // Custom unwrap function
         function customUnwrap(phase) {
@@ -847,7 +851,7 @@ function normalize(inputArray) {
 
     function FMInput() {
     // Show modal
-    document.getElementById("fmModal").style.display = "flex";
+    //document.getElementById("fmModal").style.display = "flex";
 /*
     // Get input values
     const fm = parseFloat(document.getElementById("messageFrequency").value); // message frequency
@@ -913,15 +917,11 @@ function normalize(inputArray) {
         { x: x_values, y: message_signal, type: "line", name: "Message Signal" },
         { x: data.x, y: data.modulated, type: "line", name: "FM Signal" }
     ], layout, { responsive: true });
+
+    plotImpulseResponses00(fm, fc);
 }
 
 
-
-// Close modal
-function closeAMModal() {
-    document.getElementById("fmModal").style.display = "none";
-}
-closeAMModal();
 // Utility: linspace
 function linspace(start, stop, num) {
     const arr = [];
@@ -930,6 +930,105 @@ function linspace(start, stop, num) {
         arr.push(start + step * i);
     }
     return arr;
+}
+
+function plotImpulseResponses11() {
+    const fm = parseFloat(document.getElementById('messageFrequency').value);
+    const fc = parseFloat(document.getElementById('carrierFrequency').value);
+    const { xValues, impulseResponses } = generateImpulseResponse(fm, fc);
+
+    const messageTrace = {
+        x: [fm, fm],
+        y: [0, 1],
+        mode: 'lines',
+        name: 'Message Signal',
+        line: { color: 'red' }
+    };
+
+    const messageLayout = {
+        title: 'Message Signal',
+        xaxis: { title: 'Frequency (Hz)' },
+        yaxis: { title: 'Normalized PSD (dB/Hz) w.r.t. itself', zeroline: false }
+    };
+
+    Plotly.newPlot('message-signal', [messageTrace], messageLayout, rr);
+
+    const demodulatedTrace = {
+        x: [fm, fm],
+        y: [0, 1],
+        mode: 'lines',
+        name: 'Demodulated Signal',
+        line: { color: 'orange' }
+    };
+
+    const demodulatedLayout = {
+        title: 'Demodulated Signal',
+        xaxis: { title: 'Frequency (Hz)' },
+        yaxis: { title: 'Normalized Amplitude', zeroline: false }
+    };
+
+    Plotly.newPlot('demodulatedSpectrum', [demodulatedTrace], demodulatedLayout, rr);
+
+    // Scroll to the plot after it is generated
+    document.getElementById('demodulatedSpectrum').scrollIntoView({ behavior: 'smooth' });
+}
+
+
+    function plotImpulseResponses00(fm, fc) {
+      if (isNaN(fm) || isNaN(fc)) {
+        alert("Please perform FM modulation first!");
+        return;
+    }
+    const frequencies = [
+        fc - 2 * fm,
+        fc - fm,
+        fc,
+        fc + fm,
+        fc + 2 * fm
+    ];
+
+    const magnitudes0 = [
+        0.115,
+        0.440,
+        0.765,
+       0.440,
+        0.115
+    ];
+    const magnitudes = magnitudes0.map(m => m + 0);
+
+    const colors = ['blue', 'green', 'red', 'green', 'blue'];
+    const labels = [
+        'Second Sideband (lower)',
+        'First Sideband (lower)',
+        'Carrier Frequency',
+        'First Sideband (upper)',
+        'Second Sideband (upper)'
+    ];
+
+    const data = frequencies.map((freq, index) => ({
+        x: [freq, freq],
+        y: [0, magnitudes[index]],
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: colors[index], width: 2 },
+        name: labels[index]
+    }));
+
+    const layout = {
+        title: 'Spectra of FM',
+        xaxis: {
+            title: 'Frequency (Hz)',
+            range: [fc - 2 * fm - 1, fc + 2 * fm + 1],
+        },
+        yaxis: { title: 'Normalized Amplitude', zeroline: false },
+        legend: {
+            x: 1, y: 1,
+            bgcolor: 'rgba(255, 255, 255, 0.5)',
+            bordercolor: 'black', borderwidth: 1
+        }
+    };
+
+    Plotly.newPlot('spectrum', data, layout);
 }
 
 
