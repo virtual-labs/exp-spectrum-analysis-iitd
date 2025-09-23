@@ -226,8 +226,23 @@
               <div class="w-[700px] max-h-[350px]" id="messagePlot"></div>
               <div class="w-[700px] max-h-[350px]" id="carrierPlot"></div>
               <div class="w-[700px] max-h-[350px]" id="modulatedPlot"></div>
+              <!--
               <div class="w-[700px] max-h-[350px]" id="demodulatedPlot"></div>
+             
               <div class="w-[700px] max-h-[350px]" id="envelopePlot"></div>
+               -->
+              <div id="SSBSCInput1" class="flex gap-4">
+                <!-- Time-domain plot -->
+                <div id="PMInput" class="w-[100%] h-[100%]"></div>
+                <!-- Frequency-domain plot -->
+                <div id="spectrum" class="w-[100%] h-[100%]"></div>
+              </div>
+              <div id="hjkkk" class="flex gap-4">
+                <!-- Time-domain plot -->
+                <div id="envelopePlot" class="flex-1  w-[600px]"></div>
+                <!-- Frequency-domain plot -->
+                <div id="demodulatedSpectrum" class="flex-1  w-[600px]"></div>
+              </div>
             </div>
 
           </div>
@@ -240,15 +255,6 @@
   </div>
 
 
-  <div id="pmModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:1000;">
-<div style="background:white; padding:20px; border-radius:12px; width:80%; max-width:800px; box-shadow:0 6px 20px rgba(0,0,0,0.3); position:relative;">
- <button onclick="closeAMModal()" style="position:absolute; top:8px; right:8px; 
-         background:#ff4d4d; border:none; color:white; padding:4px 8px; 
-         border-radius:6px; font-size:12px; cursor:pointer;">Close</button>
- <div id="PMInput" style="width:90%; height:400px;"></div>
-</div>
-</div>
 	<!------------------->
 	
 <script>
@@ -580,6 +586,7 @@
 	
 <script>
   function performPhaseDemodulation() {
+    plotImpulseResponses11();
     let messageFrequency = 5;
     let carrierFrequency = 50;
     let windowSize = 50;
@@ -864,7 +871,7 @@
 
         function PMInput() {
     // Show modal
-    document.getElementById("pmModal").style.display = "flex";
+    //document.getElementById("pmModal").style.display = "flex";
 
     // Get input values
     var messageFrequency = parseInt(
@@ -926,14 +933,10 @@
             ],
         }, rr
     );
+    plotImpulseResponses00(messageFrequency, carrierFrequency);
 }
 
 
-// Close modal
-function closeAMModal() {
-    document.getElementById("pmModal").style.display = "none";
-}
-closeAMModal();
 // Utility: linspace
 function linspace(start, stop, num) {
     const arr = [];
@@ -944,7 +947,124 @@ function linspace(start, stop, num) {
     return arr;
 }
 
-		
+function plotImpulseResponses11() {
+    const messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+    const carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+    const { xValues, impulseResponses } = generateImpulseResponse(messageFrequency, carrierFrequency);
+
+    const messageTrace = {
+        x: [messageFrequency, messageFrequency],
+        y: [0, 1],
+        mode: 'lines',
+        name: 'Message Signal',
+        line: { color: 'red' }
+    };
+
+    const messageLayout = {
+        title: 'Message Signal',
+        xaxis: { title: 'Frequency (Hz)' },
+        yaxis: { title: 'Normalized PSD (dB/Hz) w.r.t. itself', zeroline: false }
+    };
+
+    //Plotly.newPlot('message-signal', [messageTrace], messageLayout, rr);
+
+    const demodulatedTrace = {
+        x: [messageFrequency, messageFrequency],
+        y: [0, 1],
+        mode: 'lines',
+        name: 'Demodulated Signal',
+        line: { color: 'orange' }
+    };
+
+    const demodulatedLayout = {
+        title: 'Demodulated Signal',
+        xaxis: { title: 'Frequency (Hz)' },
+        yaxis: { title: 'Normalized Amplitude', zeroline: false }
+    };
+
+    Plotly.newPlot('demodulatedSpectrum', [demodulatedTrace], demodulatedLayout, rr);
+
+    // Scroll to the plot after it is generated
+    document.getElementById('demodulatedSpectrum').scrollIntoView({ behavior: 'smooth' });
+}
+
+
+function plotImpulseResponses00(messageFrequency, carrierFrequency) {
+    if (isNaN(messageFrequency) || isNaN(carrierFrequency)) {
+        alert("Please perform FM modulation first!");
+        return;
+    }
+
+    const frequencies = [
+        carrierFrequency - 2 * messageFrequency,
+        carrierFrequency - messageFrequency,
+        carrierFrequency,
+        carrierFrequency + messageFrequency,
+        carrierFrequency + 2 * messageFrequency
+    ];
+
+    const magnitudes0 = [0.115, 0.440, 0.765, 0.440, 0.115];
+    const magnitudes = magnitudes0.map(m => m + 0);
+
+    const colors = ['blue', 'green', 'red', 'green', 'blue'];
+    const labels = [
+        'Second Sideband (lower)',
+        'First Sideband (lower)',
+        'Carrier Frequency',
+        'First Sideband (upper)',
+        'Second Sideband (upper)'
+    ];
+
+    const data = frequencies.map((freq, index) => ({
+        x: [freq, freq],
+        y: [0, magnitudes[index]],
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: colors[index], width: 2 },
+        name: labels[index]
+    }));
+
+    const layout = {
+        title: 'Spectra of PM',
+        xaxis: {
+            title: 'Frequency (Hz)',
+            range: [carrierFrequency - 2 * messageFrequency - 1, carrierFrequency + 2 * messageFrequency + 1],
+        },
+        yaxis: { title: 'Normalized Amplitude', zeroline: false },
+        legend: {
+            x: 1, y: 1,
+            bgcolor: 'rgba(255, 255, 255, 0.5)',
+            bordercolor: 'black', borderwidth: 1
+        }
+    };
+
+    Plotly.newPlot('spectrum', data, layout);
+}
+
+function generateImpulseResponse(messageFreq, carrierFreq, numPoints = 10000) {
+        const xValues = [];
+        const impulseResponses = {
+            message: new Array(numPoints).fill(0),
+            demodulated: new Array(numPoints).fill(0),
+        };
+
+        const ampMessage = 10*log10(0.5); //1;
+        const ampDemodulated = 10*log10(0.5); //0.5;
+
+        const maxFreq = carrierFreq + messageFreq + 1;
+        const freqResolution = maxFreq / numPoints;
+        const messageIndex = Math.round(messageFreq / freqResolution);
+
+        impulseResponses.message[messageIndex] = ampMessage;
+        impulseResponses.demodulated[messageIndex] = ampDemodulated;
+
+        for (let i = 0; i < numPoints; i++) {
+            xValues.push(i * freqResolution);
+        }
+
+        return { xValues, impulseResponses };
+    }
+
 function loadData() {
   const data = localStorage.getItem('sharedData');
   if (data) {
