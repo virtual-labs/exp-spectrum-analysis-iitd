@@ -1,0 +1,970 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Virtual Labs</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+<div id = "container">
+    <h1>Instructions for Amplitude Modulation (AM)</h1>
+    <ul>
+      <li class="step step4"><strong>Note:</strong> Use the sliders to input the message frequency, carrier frequency, message amplitude, and carrier amplitude.</li>
+    
+      <li class="step step1"><strong>Step 1:</strong> Click on the <em>"Generate Message"</em> button to create the input message signal based on the selected frequency and amplitude.</li>
+    
+      <li class="step step2"><strong>Step 2:</strong> Click on the <em>"Generate Carrier"</em> button to generate the carrier signal. The carrier frequency must be higher than the message frequency. You can adjust both using the sliders.</li>
+    
+      <li class="step step3"><strong>Step 3:</strong> Click on the <em>"Generate Amplitude Modulated Signal"</em> button to produce the AM signal.</li>
+    
+      <li class="step step4"><strong>Step 4:</strong> Click the <em>"Show Frequency Spectrums"</em> button to visualize the frequency spectrum of the AM signal.</li>
+    
+      <li class="step step1"><strong>Tip:</strong> The <strong>modulation index</strong> is defined as the ratio of message amplitude to carrier amplitude. Adjust them with the sliders to see its effect.</li>
+    </ul>
+<br/>
+</div>		  
+
+<div class="flex items-start gap-10">
+  <div>
+    <img src=".\AM_Modulation.png" class="w-[50em] h-[20em]"/>
+  </div>
+  
+      <div class="flex flex-col items-center">
+        <div class="leading-none messageFrequencyDiv">50<span class="ml-1">Hz</span></div>
+        <input
+        id="messageFrequency"
+        value="50"
+        type="range"
+        min="1"
+        max="200"
+        step = "1"
+        onchange="handleMessageFrequencyChange()"
+      />
+
+        <div class="inline-flex items-center">
+          <span><strong>Step 1:</strong></span>
+                  <button
+          onclick="generateMessageSignal()"
+          class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+        >
+          Generate Message
+        </button>
+      </div>
+
+      </div>
+
+          <div class="flex flex-col items-center">
+            <div class="leading-none carrierFrequencyDiv">500<span class="ml-1">Hz</span></div>
+            <input
+            id="carrierFrequency"
+            value="500"
+            type="range"
+            min="1"
+            max="1000"
+            step = "1"
+            onchange="handleCarrierFrequencyChange()"
+          />
+
+            <div class="inline-flex items-center gap-1">
+              <span><strong>Step 2:</strong></span>
+            <button
+              onclick="generateCarrierSignal()"
+              class="bg-blue-500 text-white py-1 px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+            >
+              Generate Carrier
+            </button>
+            </div>
+
+          </div>
+
+        <div>
+          <!-- carrier frequency -->
+          <div class="flex flex-col items-center">
+            <p class="text-[13px] pb-1 font-bold">Message Signal Amplitude</p>
+            <input
+              id="A"
+              value="1"
+              type="range"
+              min="1"
+              max="10"
+              onchange="handleGainChangeA()"
+            />
+            <div class="leading-none ADiv">1</div>
+            <p class="text-[13px] pb-1 font-bold">Carrier Signal Amplitude</p>
+            <input
+              id="B"
+              value="1"
+              type="range"
+              min="1"
+              max="10"
+              onchange="handleGainChangeB()"
+            />
+            <div class="leading-none BDiv">1</div>
+          </div>
+        </div>
+
+      <div class="flex justify-center gap-1 items-center">
+        <p class="text-nowrap font-medium"></p>
+        <input
+          class="border px-1 w-[142px] py-1 rounded-sm border-black"
+          min="1"
+          type="number"
+          id="samplingFrequency"
+          value="10000"
+          placeholder="sampling frequency in Hz"
+        />
+      </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <span><strong>Step 3:</strong></span>
+                    <button
+        class="bg-blue-500 text-white py-1 px-3 font-medium text-sm rounded-md hover:scale-105"
+        onclick="generateAmplitudeModulatedSignal()"
+      >
+      Generate Amplitude Modulated Signal
+      </button>
+      </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <span><strong>Step 4:</strong></span>
+      <button
+        class="bg-blue-500 text-white py-[6px] px-3 text-sm rounded-md hover:scale-105"
+        id="plotButton"
+      >
+        Show Frequency Spectrums
+      </button>
+      <button 
+      class="bg-green-500 text-white rounded-md px-3 py-1 hover:scale-105"
+      onclick="location.reload();"
+    >
+      Reset Simulator
+    </button>
+      </div>
+
+    </div>
+
+    <div class="flex flex-col items-center">
+    <div class="plotSection relative -top-[10em]">
+      <div id="recoveredUSBPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="modulatedPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="superimposed" class="w-[600px] max-h-[410px]"></div>
+      <div id="carrierPlot" class="w-[600px] max-h-[410px]"></div>
+      <div id="messagePlot" class="w-[600px] max-h-[410px]"></div>
+      <!-- <div id="recoveredLSBPlot" class="w-[600px] h-[450px]"></div> -->
+    </div>
+    <div>
+  </div>
+</div>
+
+<br />
+<br />
+
+<div class="plot-container">
+  <div id="message-signal" class="plot"></div>
+  <div id="sidebands" class="plot"></div>
+  <div id="demodulated-signal" class="hidden plot"></div>
+</div>
+<div align = "center">
+  <a href = ".\AM_Demod.html">
+  <button
+  class="bg-blue-500 text-white py-1 px-3  rounded-md hover:scale-105"
+>
+  Perform AM Demodulation
+</button>
+</a>
+</div>
+<br />
+<br />
+<hr />
+<br />
+<!----->
+<div id = "demodulation">
+<div id = "container">
+    <h1>Instructions for Amplitude Demodulation</h1>
+    <ul>
+        <li class="step step1">Step 1: Tunable LPF's Cutoff frequency works in accordance with the Message frequency</li>
+		<li class="step step2">Step 2: You can Demodulate the AM Signal clicking on the 'Perform AM Demodulation' button</li>
+		<li class="step step3">Step 3: Click on the 'Show Frequency Spectrums' button above to see spectrums of the message, AM modulated and demodulated signal. The frequency spectra is shown for a modulation index of 1.</li>
+    </ul>
+</div>	
+
+
+          <div class="flex flex-col grow-0 items-center">
+            <div class="w-full my-3">
+              <div class="flex justify-between m-2">
+                <div class="flex flex-1 items-center gap-3">
+                    <img src = "..\am_demod.png"/>
+                  <p class="font-medium">Cut-off Frequency</p>
+                  <input
+                    class="border px-1 w-[152px] py-1 rounded-sm border-black"
+                    type="number"
+                    id="cutoff"
+                    value="50"
+                  />
+                  <button
+                    class="bg-blue-500 text-white py-1 px-3  rounded-md hover:scale-105"
+                    onclick="createPlots()"
+                  >
+                    Perform AM Demodulation
+                  </button>
+
+                </div>
+              </div>
+            </div>
+            <div class="bg-red-50 plotSection">
+              <div id="demodulatedPlot" class="w-[600px] max-h-[450px]"></div>
+              <div id="modulatedPlot" class="w-[600px] max-h-[450px]"></div>
+              <div id="messagePlot" class="w-[600px] max-h-[450px]"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+<!----->
+
+	
+	
+	
+<script>
+    function updatem() {
+        // Get the values from the inputs
+        const input1Value = parseFloat(document.getElementById('A').value) || 1;
+        const input2Value = parseFloat(document.getElementById('B').value) || 1;
+
+        // Calculate new value based on the selected mode
+        let resultff = input1Value / input2Value;
+
+        // Update the result input field
+        document.getElementById('resultff').value = resultff;
+    }
+
+    function checkFrequencies() {
+        // Get values from input fields
+        let carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+        let messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+        
+        // Check the frequencies
+        if (carrierFrequency <= messageFrequency) {
+            alert("Carrier frequency should be greater than message frequency.");
+            
+            // Force a hard refresh after the alert is dismissed
+            setTimeout(() => {
+                window.location.href = window.location.href; // This forces a hard reload
+            }, 0); // Set a small delay to allow the alert to be dismissed first
+        } else {
+            console.log("Carrier frequency is greater than message frequency.");
+        }
+    }
+
+    // Function to attach event listeners to all buttons
+    function attachEventListeners() {
+        let buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('click', checkFrequencies);
+        });
+    }
+
+    // Attach event listeners when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', attachEventListeners);
+
+
+    function handleGainChangeA() {
+            const gainValue = parseFloat(
+                document.getElementById("A").value
+            );
+            document.querySelector(".ADiv").innerHTML = gainValue;
+        }
+    function handleGainChangeB() {
+            const gainValue = parseFloat(
+                document.getElementById("B").value
+            );
+            document.querySelector(".BDiv").innerHTML = gainValue;
+        }
+</script>
+
+	
+	
+	
+    <script>
+	        const rr = {
+            showLink: false,             
+            displaylogo: false,           
+            modeBarButtonsToRemove: ['sendDataToCloud'] 
+        };
+
+      function handleMessageFrequencyChange() {
+        const messageValue = parseFloat(
+          document.getElementById("messageFrequency").value
+        );
+        document.querySelector(".messageFrequencyDiv").innerHTML = messageValue;
+      }
+      function handleCarrierFrequencyChange() {
+        const messageValue = parseFloat(
+          document.getElementById("carrierFrequency").value
+        );
+        document.querySelector(".carrierFrequencyDiv").innerHTML = messageValue;
+      }
+          function handleBChange() {
+        const messageValue = parseFloat(document.getElementById("B").value);
+        document.querySelector(".BDiv").innerHTML = messageValue;
+
+        // Update the modulation index
+        updateModulationIndex();
+      }
+
+      function handleAChange() {
+        const messageValue = parseFloat(document.getElementById("A").value);
+        document.querySelector(".ADiv").innerHTML = messageValue;
+
+        // Update the modulation index
+        updateModulationIndex();
+      }
+
+
+      function updateModulationIndex() {
+        const aValue = parseFloat(document.getElementById("A").value) || 1;  // Default to 1 if empty
+        const bValue = parseFloat(document.getElementById("B").value) || 1;  // Default to 1 if empty
+        
+        // Prevent division by zero for B
+        if (bValue === 0) {
+          document.getElementById("modulationIndex").innerHTML = "Infinity";
+        } else {
+          // Calculate modulation index as A / B
+          const modulationIndex = (aValue / bValue).toFixed(3);
+
+          // Update the modulation index input field
+          document.getElementById("modulationIndex").innerHTML = modulationIndex;
+        }
+      }
+
+      function handleDCChange() {
+        const messageValue = parseFloat(document.getElementById("DC").value);
+        document.querySelector(".DCDiv").innerHTML = messageValue;
+
+      }
+
+      // Function to create an array of linearly spaced values
+      function linspace(start, stop, num_points) {
+        var step = (stop - start) / (num_points - 1);
+        var result = [];
+        for (var i = 0; i < num_points; i++) {
+          result.push(start + step * i);
+        }
+        return result;
+      }
+
+      let messageData, carrierData;
+  
+      function generateMessageSignal() {
+        let A = parseFloat(document.getElementById("A").value);
+        var frequencyMessage = parseFloat(
+          document.getElementById("messageFrequency").value
+        );
+        if (isNaN(frequencyMessage)) {
+          alert("Please enter a valid frequency for the message signal.");
+          return;
+        }
+        var num_points = 100000;
+        var x_values = linspace(0, 3 / frequencyMessage, num_points);
+        var message_signal = [];
+
+        // Execute code for generating message signal
+        for (var i = 0; i < num_points; i++) {
+          var x = x_values[i];
+          var message_value = A * Math.sin(2 * Math.PI * frequencyMessage * x);
+          message_signal.push(message_value);
+        }
+
+        // Plot the message signal
+        messageData = [{ x: x_values, y: message_signal, type: "line" }];
+        var messageLayout = {
+          title: "Message Signal",
+          xaxis: { title: "Time (s)" },
+          yaxis: { title: "Amplitude" },
+        };
+        Plotly.newPlot("messagePlot", messageData, messageLayout, rr);
+      }
+
+      // Function to generate the carrier signal
+      function generateCarrierSignal() {
+        let B = parseFloat(document.getElementById("B").value);
+        var frequencyMessage = parseFloat(
+          document.getElementById("messageFrequency").value
+        );
+        var frequencyCarrier = parseFloat(
+          document.getElementById("carrierFrequency").value
+        );
+        if (isNaN(frequencyCarrier)) {
+          alert("Please enter a valid frequency for the carrier signal.");
+          return;
+        }
+        var num_points = 100000;
+        var x_values = linspace(0, 3 / frequencyMessage, num_points);
+        var carrier_signal = x_values.map((x) =>
+        B * Math.sin(2 * Math.PI * frequencyCarrier * x)
+        );
+        carrierData = [{ x: x_values, y: carrier_signal, type: "line" }];
+        var carrierLayout = {
+          title: "Carrier Signal",
+          xaxis: { title: "Time (s)" },
+          yaxis: { title: "Amplitude" },
+        };
+        Plotly.newPlot("carrierPlot", carrierData, carrierLayout, rr);
+      }
+      
+      function superimposed() {
+  let superimposedLayout = {
+    title: "Superimposition of Message and Carrier Signals",
+    xaxis: { title: "Time (s)" },
+    yaxis: { title: "Amplitude" },
+    showlegend: false
+  };
+
+  // Spread the trace arrays into one array
+  Plotly.newPlot("superimposed", [...messageData, ...carrierData], superimposedLayout, { responsive: true });
+}
+      // Function to perform additional processing for amplitude modulation
+      function additional_processing_am(
+        frequencyMessage,
+        frequencyCarrier,
+        num_points = 100000
+      ) {
+        // Initialize arrays for x and y values
+        var x_values = linspace(0, 3 / frequencyMessage, num_points);
+        var message_signal = [];
+        var carrier_signal = [];
+        var modulated_signal = [];
+
+        // Calculate y values for message signal, carrier signal, and modulated signal
+        for (var i = 0; i < num_points; i++) {
+          var x = x_values[i];
+          var message_value = Math.sin(2 * Math.PI * frequencyMessage * x);
+          var carrier_value = Math.sin(2 * Math.PI * frequencyCarrier * x);
+          var modulated_value = message_value * carrier_value;
+          let B = parseFloat(document.getElementById("B").value);
+          let A = parseFloat(document.getElementById("A").value);
+          let DC = 1; //parseFloat(document.getElementById("DC").value);
+          var modulated_value = (DC*B + A * message_value) * carrier_value;
+
+          message_signal.push(message_value);
+          carrier_signal.push(carrier_value);
+          modulated_signal.push(modulated_value);
+        }
+
+        // Return x and y values as objects
+        return {
+          x: x_values,
+          message: message_signal,
+          carrier: carrier_signal,
+          modulated: modulated_signal,
+        };
+      }
+
+let modulatedData;
+      // Function to generate amplitude modulated signal
+      function generateAmplitudeModulatedSignal() {
+        superimposed();
+        // Get input values
+        var frequencyMessage = parseFloat(
+          document.getElementById("messageFrequency").value
+        );
+        var frequencyCarrier = parseFloat(
+          document.getElementById("carrierFrequency").value
+        );
+
+        // Check if input values are valid
+        if (isNaN(frequencyMessage) || isNaN(frequencyCarrier)) {
+          alert("Please enter valid frequencies.");
+          return;
+        }
+
+        // Perform additional processing for amplitude modulation
+        var result = additional_processing_am(
+          frequencyMessage,
+          frequencyCarrier
+        );
+
+        // Plot the signals
+        plotSignals(result);
+        saveData();
+      }
+
+      // Function to plot the signals
+      function plotSignals(result) {
+        // Create plot data for message signal
+        var messageData = [{ x: result.x, y: result.message, type: "line" }];
+        var messageLayout = {
+          title: "Message Signal",
+          xaxis: { title: "Time (s)" },
+          yaxis: { title: "Amplitude" },
+        };
+        Plotly.newPlot("messagePlot", messageData, messageLayout, rr);
+
+        // Create plot data for carrier signal
+        var carrierData = [{ x: result.x, y: result.carrier, type: "line" }];
+        var carrierLayout = {
+          title: "Carrier Signal",
+          xaxis: { title: "Time (s)" },
+          yaxis: { title: "Amplitude" },
+        };
+        Plotly.newPlot("carrierPlot", carrierData, carrierLayout);
+
+// Create plot data for modulated signal
+modulatedData = [
+  { x: result.x, y: result.modulated, type: "line" },
+];
+
+// Get modulation index (optional: dynamically calculate or get from input)
+const Am = parseFloat(document.getElementById("A").value) || 1;  // Default to 1 if empty
+        const Ac = parseFloat(document.getElementById("B").value) || 1;  // Default to 1 if empty
+var modulationIndex = (Am / Ac).toFixed(2); // Replace Am and Ac with your actual values or variables
+
+// Define layout with annotation
+var modulatedLayout = {
+  title: "Modulated Signal",
+  xaxis: { title: "Time (s)" },
+  yaxis: { title: "Amplitude" },
+  annotations: [
+    {
+      xref: "paper",
+      yref: "paper",
+      x: 0.95, // near top-right
+      y: 1.05,
+      text: `Modulation Index (Am / Ac) = ${modulationIndex}`,
+      showarrow: false,
+      font: {
+        size: 12,
+        color: "black",
+      },
+      align: "right",
+    },
+  ],
+};
+
+Plotly.newPlot("modulatedPlot", modulatedData, modulatedLayout, rr);
+
+      }
+    </script>
+	
+	
+<script>
+    /*
+        function handleMessageFrequencyChange() {
+        const messageValue = parseFloat(
+          document.getElementById("messageFrequency").value
+        );
+        document.querySelector(".messageFrequencyDiv").innerHTML = messageValue;
+      }
+      function handleCarrierFrequencyChange() {
+        const messageValue = parseFloat(
+          document.getElementById("amplitude").value
+        );
+        document.querySelector(".carrierFrequencyDiv").innerHTML = messageValue;
+      }
+    */
+
+    // JavaScript code for amplitude demodulation
+    function amplitudeDemodulation(frequency, amplitude, A1, B1, numPoints = 20000) {
+        const xValues = [];
+        const message = [];
+        const yValues = [];
+        const demodulatedSignal = [];
+
+        // Generate x values
+        for (let i = 0; i < numPoints; i++) {
+            xValues.push(i * (5 / (frequency * numPoints)));
+        }
+
+        // Generate y values
+        for (let i = 0; i < numPoints; i++) {
+            message.push(Math.sin(2 * Math.PI * frequency * xValues[i]));
+        }
+        
+        for (let i = 0; i < numPoints; i++) {
+            yValues.push((B1 + (A1 * Math.sin(2 * Math.PI * frequency * xValues[i]))) * Math.sin(2 * Math.PI * amplitude * xValues[i]));
+        }
+
+        // Amplitude Demodulation
+        for (let i = 0; i < numPoints; i++) {
+            demodulatedSignal.push(yValues[i] * Math.sin(2 * Math.PI * amplitude * xValues[i]));
+        }
+
+        // Low-pass filter to remove high-frequency components
+        const cutoffFrequency = parseFloat(document.getElementById('cutoff').value);
+        const filteredSignal = lowPassFilter(demodulatedSignal, cutoffFrequency);
+
+/*
+        // Add bias to the filtered signal
+        const bias = - 0.315 - 0.18 - 0.005;
+        const biasedSignal = filteredSignal.map(value => value + bias);
+*/
+        // Step 2: Reverse the signal
+        const filteredSignal1 = filteredSignal.slice().reverse();
+
+        // Step 3: Normalize the reversed signal to the range [-1, +1]
+        const minVal = Math.min(...filteredSignal1.slice(0, filteredSignal1.length / 2));
+        const maxVal = Math.max(...filteredSignal1.slice(0, filteredSignal1.length / 2));
+        const biasedSignal = filteredSignal1.map(value => (2 * (value - minVal) / (maxVal - minVal)) - 1);
+
+        // Step 4: Reverse the normalized signal again
+        const final_signal = biasedSignal.slice().reverse();
+		
+        return { "x": xValues, "demodulated": biasedSignal, "message": message, "modulated": yValues };
+    }
+
+    // Low-pass filter function
+    function lowPassFilter(signal, cutoffFrequency) {
+        const filteredSignal = [];
+        // Implement your low-pass filter logic here
+        // Example: Applying moving average filter
+        const filterLength = Math.floor(20000 / (2 * cutoffFrequency));
+        //const filterLength = 2000; // Filter length (adjust as needed)
+        for (let i = 0; i < signal.length; i++) {
+            let sum = 0;
+            const startIdx = Math.max(0, i - filterLength + 1);
+            for (let j = startIdx; j <= i; j++) {
+                sum += signal[j];
+            }
+            filteredSignal.push(sum / filterLength);
+        }
+        return filteredSignal;
+    }
+
+    // Function to create plots
+    function createPlots() {
+        var frequency = parseFloat(document.getElementById('messageFrequency').value);
+        var amplitude = parseFloat(document.getElementById('carrierFrequency').value);
+        var A1 = parseFloat(document.getElementById("A").value); //  parseFloat(document.getElementById('A1').value);
+        var B1 = parseFloat(document.getElementById("B").value); //  parseFloat(document.getElementById('B1').value);
+
+        var data = amplitudeDemodulation(frequency, amplitude, A1, B1);
+
+        // Plot demodulated signal
+        var demodulatedPlotDiv = document.getElementById('demodulatedPlot');
+        Plotly.newPlot(demodulatedPlotDiv, [{
+            x: data.x.slice(1,12000),
+            y: data.demodulated.slice(1,12000),
+            mode: 'lines',
+            name: 'Demodulated Signal',
+            line: {color: 'blue'}
+        }], {
+            title: 'Amplitude Demodulated Signal',
+            xaxis: {
+                title: 'Time'
+            },
+            yaxis: {
+                title: 'Amplitude'
+            }
+        }, rr);
+		            // Scroll to the plot area
+            document.getElementById('demodulatedPlot').scrollIntoView({ behavior: 'smooth' });
+        
+    }
+</script>
+
+	  
+    <script>
+			function log10(value) {
+    return Math.log(value) / Math.log(10);
+}
+        // Function to generate impulse response for message and demodulated signals
+        function generateImpulseResponse(messageFreq, carrierFreq, numPoints = 10000) {
+            const xValues = [];
+            const impulseResponses = {
+                message: new Array(numPoints).fill(0),
+                demodulated: new Array(numPoints).fill(0),
+            };
+
+            // Amplitudes
+            const ampMessage = 10*log10(0.5);
+            const ampDemodulated = 10*log10(0.5); // New amplitude for demodulated signal
+
+            // Determine frequency indices
+            const maxFreq = parseFloat(document.getElementById('carrierFrequency').value) + messageFreq + 1;
+            const freqResolution = maxFreq / numPoints;
+
+            const messageIndex = Math.round(messageFreq / freqResolution);
+
+            // Set impulse magnitudes
+            impulseResponses.message[messageIndex] = ampMessage;
+            impulseResponses.demodulated[messageIndex] = ampDemodulated; // Add demodulated impulse
+
+            // Generate frequency values
+            for (let i = 0; i < numPoints; i++) {
+                xValues.push(i * freqResolution);
+            }
+
+            return { xValues, impulseResponses };
+        }
+
+        // Function to generate impulse response for carrier and sidebands
+        function generateImpulseResponse1(messageFreq, carrierFreq, numPoints = 10000) {
+            const xValues = [];
+            const impulseResponses = {
+                carrier: new Array(numPoints).fill(0),
+                carrierMinusMessage: new Array(numPoints).fill(0),
+                carrierPlusMessage: new Array(numPoints).fill(0)
+            };
+
+            // Amplitudes
+            const ampCarrier = 10*log10(0.5);
+            const aa = parseFloat(document.getElementById("A").value);
+            const bb = parseFloat(document.getElementById("B").value);
+            const ampCarrierMinusMessage = 10*log10(0.125);
+            const ampCarrierPlusMessage = 10*log10(0.125);
+
+            // Determine frequency indices
+            const maxFreq = parseFloat(document.getElementById('carrierFrequency').value) + messageFreq + 1;
+            const freqResolution = maxFreq / numPoints;
+
+            const carrierIndex = Math.round(carrierFreq / freqResolution);
+            const carrierMinusMessageIndex = Math.round((carrierFreq - messageFreq) / freqResolution);
+            const carrierPlusMessageIndex = Math.round((carrierFreq + messageFreq) / freqResolution);
+
+            // Set impulse magnitudes
+            impulseResponses.carrier[carrierIndex] = ampCarrier;
+            impulseResponses.carrierMinusMessage[carrierMinusMessageIndex] = ampCarrierMinusMessage;
+            impulseResponses.carrierPlusMessage[carrierPlusMessageIndex] = ampCarrierPlusMessage;
+
+            // Generate frequency values
+            for (let i = 0; i < numPoints; i++) {
+                xValues.push(i * freqResolution);
+            }
+
+            return { xValues, impulseResponses };
+        }
+
+        // Function to plot all signals
+        function plotImpulseResponses() {
+            const messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+            const carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+
+            const { xValues: xValuesMessage, impulseResponses: impulseResponsesMessage } = generateImpulseResponse(messageFrequency, carrierFrequency);
+            const { xValues: xValuesSidebands, impulseResponses: impulseResponsesSidebands } = generateImpulseResponse1(messageFrequency, carrierFrequency);
+
+            // Message Signal Plot
+            const messageTrace = {
+                x: [messageFrequency, messageFrequency],
+                y: [-15, 0],
+                mode: 'lines',
+                name: 'Message Signal',
+                line: { color: 'red' }
+            };
+
+            const messageLayout = {
+                title: 'Message Signal',
+                xaxis: { title: 'Frequency (Hz)' },
+                yaxis: { title: 'Normalized PSD (dB/Hz) w.r.t. itself' , zeroline: false}
+            };
+
+            Plotly.newPlot('message-signal', [messageTrace], messageLayout, rr);
+
+// Sidebands and Carrier Plot
+const sidebandTraces = [
+    {
+        x: [carrierFrequency],
+        y: [0],
+        mode: 'lines',
+        name: 'Carrier Signal',
+        line: { color: 'blue' }
+    },
+    {
+        x: [carrierFrequency - messageFrequency],
+        y: [3.0103+10 * log10(0.125)],
+        mode: 'lines',
+        name: 'Lower Sideband',
+        line: { color: 'green' }
+    },
+    {
+        x: [carrierFrequency + messageFrequency],
+        y: [3.0103+10 * log10(0.125)],
+        mode: 'lines',
+        name: 'Upper Sideband',
+        line: { color: 'purple' }
+    }
+];
+
+// Define shapes for vertical lines
+const shapes = [
+    {
+        type: 'line',
+        x0: carrierFrequency,
+        y0: -15,
+        x1: carrierFrequency,
+        y1: 0,
+        line: { color: 'blue', width: 2 }
+    },
+    {
+        type: 'line',
+        x0: carrierFrequency - messageFrequency,
+        y0: -15,
+        x1: carrierFrequency - messageFrequency,
+        y1: 3.0103+10 * log10(0.125),
+        line: { color: 'green', width: 2 }
+    },
+    {
+        type: 'line',
+        x0: carrierFrequency + messageFrequency,
+        y0: -15,
+        x1: carrierFrequency + messageFrequency,
+        y1: 3.0103+10 * log10(0.125),
+        line: { color: 'purple', width: 2 }
+    }
+];
+
+const sidebandLayout = {
+    title: 'Amplitude Modulated Signal',
+    xaxis: { 
+        title: 'Frequency (Hz)',
+        range: [
+            carrierFrequency - 2 * messageFrequency - 5,
+            carrierFrequency + 2 * messageFrequency + 5
+        ]
+    },
+    yaxis: { 
+        title: 'Normalized PSD (dB/Hz) w.r.t. message',
+        range: [-15, 0],
+        zeroline: false
+    },
+    shapes: shapes // Add vertical lines to the layout
+};
+
+Plotly.newPlot('sidebands', sidebandTraces, sidebandLayout, rr);
+document.getElementById('message-signal').scrollIntoView({ behavior: 'smooth' });
+
+
+
+            // Demodulated Signal Plot
+            const demodulatedTrace = {
+                x: [messageFrequency, messageFrequency],
+                y: [-15, 0],
+                mode: 'lines',
+                name: 'Demodulated Signal',
+                line: { color: 'orange' }
+            };
+
+            const demodulatedLayout = {
+                title: 'Demodulated Signal',
+                xaxis: { title: 'Frequency (Hz)' },
+                yaxis: { title: 'Normalized PSD (dB/Hz) w.r.t. message' , zeroline: false}
+            };
+
+            Plotly.newPlot('demodulated-signal', [demodulatedTrace], demodulatedLayout, rr);
+        }
+
+        // Add event listener to the button
+        document.getElementById('plotButton').addEventListener('click', plotImpulseResponses);
+
+
+        function saveData() {
+  const frequency = parseFloat(document.getElementById("messageFrequency").value) || 0;
+  const amplitude = parseFloat(document.getElementById("carrierFrequency").value) || 0;
+
+  const myData = {
+    frequency,
+    amplitude
+  };
+
+  try {
+    localStorage.setItem("AM_Data", JSON.stringify(myData));
+  } catch (e) {
+    console.error("Storage quota exceeded!", e);
+    alert("Error: Could not save data (quota exceeded).");
+  }
+}
+
+ 
+    </script>
+
+
+
+<style>
+  #demodulation {
+    display: none;
+  }
+#samplingFrequency{
+        display: none;
+}
+#container {
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 25px 40px;
+  max-width: 100%;
+  margin: 20px auto;
+  text-align: left;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h1 {
+  color: #1e3a8a;
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: justify;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li.step {
+  margin: 12px 0;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+li.step::before {
+  content: "✔";
+  color: #10b981;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+li.step:hover {
+  transform: scale(1.02);
+  background-color: #f3f4f6;
+}
+
+/* Color code each step */
+.step1 {
+  background-color: #ffe0e0;
+  border-left: 5px solid #ef4444;
+}
+.step2 {
+  background-color: #e0f7ff;
+  border-left: 5px solid #0ea5e9;
+}
+.step3 {
+  background-color: #e0ffe5;
+  border-left: 5px solid #22c55e;
+}
+.step4 {
+  background-color: #f5e0ff;
+  border-left: 5px solid #a855f7;
+}
+
+.plot-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Add space between plots */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    margin-bottom: 20px; /* Add space below the plots */
+}
+
+.plot {
+    flex: 1 1 calc(33.33% - 20px); /* Responsive width for three plots side by side */
+    min-width: 300px; /* Minimum width to ensure responsiveness */
+    height: 400px;
+}
+
+</style>  
+	  
+  </body>
+</html>
