@@ -166,56 +166,59 @@
 	</ul>
 </div>	
 	    
-<div class="flex items-start"> 
-  <button
-  onclick="FMInput();"
-  class="bg-blue-500 text-white py-1 px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
->
-  FM Input
-</button>
-<div>
-  <img src = ".\fm_demod1.png"/>
-</div>        
-<div class="flex flex-col items-center">
-            <div class="w-full my-3">
-              <div class="flex justify-between m-2">
-                <div class="flex flex-1 items-center gap-3">
-                  <button
-                    class="bg-blue-500 text-white py-1 px-3 rounded-md hover:scale-105"
-                    onclick="fmdemodulation()"
-                  >
-                    Perform FM Demodulation
-                  </button>
-				  
+<div class="flex items-start space-x-4">
+  <!-- Left Section: FM Input + Image -->
+  <div class="flex-1">
+    <!-- FM Input Button -->
+    <button
+      onclick="FMInput();"
+      class="bg-blue-500 text-white py-1 px-3 mt-1 rounded-md hover:bg-[#0c9c0c] hover:scale-105"
+    >
+      FM Input
+    </button>
 
-				  
-                </div>
-              </div>
-            </div>
-            <div class="plotSection">
-              <div class="w-[100%] h-[100%]">
-                <div id="SSBSCInput1" class="flex gap-4">
-                  <!-- Time-domain plot -->
-                  <div id="FMInput" class="w-[100%] h-[100%]"></div>
-                  <!-- Frequency-domain plot -->
-                  <div id="spectrum" class="w-[100%] h-[100%]"></div>
-                </div>
-                <div id="hjkkk" class="flex gap-4">
-                  <!-- Time-domain plot -->
-                  <div id="plot2" class="flex-1  w-[600px]"></div>
-                  <!-- Frequency-domain plot -->
-                  <div id="demodulatedSpectrum" class="flex-1  w-[600px]"></div>
-                </div>
-              </div>
-			  
-            </div>
+    <!-- Image Section -->
+    <div>
+      <img src="./fm_demod1.png" alt="FM Input" />
+    </div>
+  </div>
 
-	
-          </div>
+  <!-- Right Section: FM Demodulation + Plots -->
+  <div class="flex-2 flex flex-col items-center">
+    <div class="w-full my-3">
+      <div class="flex justify-between m-2">
+        <div class="flex flex-1 items-center gap-3">
+          <button
+            class="bg-blue-500 text-white py-1 px-3 rounded-md hover:scale-105"
+            onclick="fmdemodulation()"
+          >
+            Perform FM Demodulation
+          </button>
         </div>
       </div>
-
     </div>
+
+    <!-- Plot Section (flex-2 applied here for more space) -->
+    <div class="flex-2 plotSection w-[1000px] h-full">
+      <div class="w-full h-full">
+        <div id="SSBSCInput1" class="flex gap-4">
+          <!-- Time-domain plot -->
+          <div id="FMInput" class="w-[500px] h-full"></div>
+          <!-- Frequency-domain plot -->
+          <div id="spectrum" class="w-[500px] h-full"></div>
+        </div>
+        <div id="hjkkk" class="flex gap-4">
+          <!-- Time-domain plot -->
+          <div id="plot2" class="flex-1 w-[500px]"></div>
+          <!-- Frequency-domain plot -->
+          <div id="demodulatedSpectrum" class="flex-1 w-[500px]"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 				  	
 	
 	
