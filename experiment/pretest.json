@@ -16,27 +16,10 @@
         "d": "Incorrect: AM only generates components related to the carrier and message."
       },
       "correctAnswer": "c",
-      "difficulty": "intermediate"
+      "difficulty": "beginner"
     },
     {
-      "question": "2. Which of the following statements best explains the spectral behavior of a frequency modulated (FM) signal when the amplitude of the modulating signal is increased?",
-      "answers": {
-        "a": "The bandwidth remains the same, as FM does not depend on amplitude.",
-        "b": "The number of significant sidebands increases, leading to a wider bandwidth.",
-        "c": "The carrier frequency shifts, but bandwidth remains fixed.",
-        "d": "The FM signal collapses into an AM signal at high modulation index."
-      },
-      "explanations": {
-        "a": "Incorrect: FM bandwidth is dependent on modulation index, which includes amplitude.",
-        "b": "Correct: As modulation index increases, more sidebands become significant, widening the bandwidth.",
-        "c": "Incorrect: Carrier stays centered; frequency deviation affects sidebands.",
-        "d": "Incorrect: FM does not convert to AM regardless of modulation index."
-      },
-      "correctAnswer": "b",
-      "difficulty": "intermediate"
-    },
-    {
-      "question": "3. What is the main advantage of using Phase Modulation (PM) over Amplitude Modulation (AM)?",
+      "question": "2. What is the main advantage of using Phase Modulation (PM) over Amplitude Modulation (AM)?",
       "answers": {
         "a": "PM is less susceptible to noise.",
         "b": "PM requires less bandwidth.",
@@ -50,6 +33,23 @@
         "d": "Incorrect: PM's demodulation process is not simpler."
       },
       "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "3. Which of the following statements best explains the spectral behavior of a frequency modulated (FM) signal when the amplitude of the modulating signal is increased?",
+      "answers": {
+        "a": "The bandwidth remains the same, as FM does not depend on amplitude.",
+        "b": "The number of significant sidebands increases, leading to a wider bandwidth.",
+        "c": "The carrier frequency shifts, but bandwidth remains fixed.",
+        "d": "The FM signal collapses into an AM signal at high modulation index."
+      },
+      "explanations": {
+        "a": "Incorrect: FM bandwidth is dependent on modulation index, which includes amplitude.",
+        "b": "Correct: As modulation index increases, more sidebands become significant, widening the bandwidth.",
+        "c": "Incorrect: Carrier stays centered; frequency deviation affects sidebands.",
+        "d": "Incorrect: FM does not convert to AM regardless of modulation index."
+      },
+      "correctAnswer": "b",
       "difficulty": "intermediate"
     },
     {
