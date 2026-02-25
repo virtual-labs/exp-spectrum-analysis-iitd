@@ -16,7 +16,7 @@
         "d": "Incorrect: There is no spectral compression with increasing modulation index; it causes more sidebands."
       },
       "correctAnswer": "b",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "2. In Frequency Modulation (FM), how does the Carson's Rule help in determining the required bandwidth, and what are the implications of violating this rule?",
@@ -33,7 +33,7 @@
         "d": "Incorrect: Carson's Rule does not determine the sampling rate."
       },
       "correctAnswer": "a",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "3. What is the effect of non-linear amplification on a Phase Modulated (PM) signal, and how can this be mitigated?",
@@ -50,7 +50,7 @@
         "d": "Incorrect: Non-linear amplification does affect PM signals."
       },
       "correctAnswer": "b",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "4. In advanced Amplitude Modulation (AM) techniques, such as Single Sideband Suppressed Carrier (SSB-SC), what is the primary benefit, and what challenge does it introduce?",
@@ -67,7 +67,7 @@
         "d": "Incorrect: SSB-SC does not inherently offer better noise resistance."
       },
       "correctAnswer": "a",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "5. How does the modulation index in Phase Modulation (PM) affect the spectral efficiency, and what trade-off does this introduce?",
@@ -84,7 +84,7 @@
         "d": "Incorrect: Modulation index affects spectral efficiency."
       },
       "correctAnswer": "c",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "6. In Frequency Modulation (FM), what is the relationship between modulation index and deviation ratio, and how does this impact the signal's resilience to noise?",
@@ -101,7 +101,7 @@
         "d": "Incorrect: There is a relationship between these parameters."
       },
       "correctAnswer": "a",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "7. In an Amplitude Modulated (AM) system, how does quadrature amplitude modulation (QAM) differ in complexity and performance compared to traditional AM, and what are the implications for signal transmission?",
@@ -118,7 +118,7 @@
         "d": "Incorrect: QAM offers significant performance benefits over traditional AM."
       },
       "correctAnswer": "a",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "8. In advanced Frequency Modulation (FM) systems, such as wideband FM (WBFM), what is the effect of increasing the peak deviation on the signal's bandwidth and signal-to-noise ratio (SNR)?",
@@ -135,7 +135,7 @@
         "d": "Incorrect: Peak deviation does not reduce bandwidth or SNR."
       },
       "correctAnswer": "a",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "9. What is the role of the Hilbert transform in the context of generating single sideband (SSB) signals, and how does it compare to traditional double sideband (DSB) AM?",
@@ -152,7 +152,7 @@
         "d": "Incorrect: The Hilbert transform plays a key role in SSB."
       },
       "correctAnswer": "a",
-      "difficulty": "hard"
+      "difficulty": "advanced"
     },
     {
       "question": "10. In Phase Modulation (PM), what challenges are introduced by high data rate transmission, and how can these be addressed to maintain signal integrity?",
@@ -169,7 +169,7 @@
         "d": "Incorrect: High data rates do affect PM signal integrity."
       },
       "correctAnswer": "a",
-      "difficulty": "hard"
+      "difficulty": "advanced"
     }
   ]
 }
