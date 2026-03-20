@@ -12,24 +12,23 @@
           style="font-family: Raleway, sans-serif"
         >
 <p>
-The purpose of a communication system is to transmit information-bearing signals through
-a communication channel separating the transmitter from the receiver. Information-bearing signals are also referred to as baseband signals. The term <b>baseband</b> is used to designate the band of frequencies representing the original signal as delivered by a source of information. 
+The purpose of a communication system is to transmit signals that carry information from a transmitter to a receiver through a communication channel. These signals, which represent the original message or information from the source, are sometimes referred to as <b>low-frequency or original signals</b>.
 </p>
 
 <p>
-The proper use of the communication channel requires a shift of the range of baseband frequencies into other frequency ranges suitable for transmission, and a corresponding shift back to the original frequency range after reception. For example, a radio system must operate with frequencies of 30 kHz and upward, whereas the baseband signal usually contains frequencies in the audio frequency range. Therefore, some form of frequency-band shifting must be used for the system to operate satisfactorily.
+To transmit these signals efficiently, their frequency range is shifted to higher frequencies suitable for the communication channel, and then shifted back to the original range at the receiver. For example, a radio system operates at frequencies above 30 kHz, whereas the original signal typically contains audio frequencies. This frequency shift is necessary for successful transmission.
 </p>
 
 <p>
-A shift of the range of frequencies in a signal is accomplished by using <b>modulation</b>, which is defined as the process by which some characteristic of a <b>carrier</b> is varied in accordance with a modulating wave (signal). A common form of the carrier is a sinusoidal wave, in which case we speak of a continuous-wave modulation process. The baseband signal is referred to as the modulating wave, and the result of the modulation process is referred to as the modulated wave. Modulation is performed at the transmitting end of the communication system. 
+This shift is achieved using <b>modulation</b>, which is the process of varying a characteristic of a <b>carrier signal</b> according to the original message signal. A common carrier is a sinusoidal wave, and such a process is called continuous-wave modulation. The output of this process is called the <b>modulated signal</b>. Modulation is performed at the transmitting end of the communication system.
 </p>
 
 <p>
-At the receiving end of the system, we usually require the original baseband signal to be restored. This is accomplished by using a process known as <b>demodulation</b>, which is the reverse of the modulation process.
+At the receiver, the original message signal is recovered using <b>demodulation</b>, which reverses the modulation process.
 </p>
 
 <p>
-<b>Amplitude Modulation (AM)</b>, in which the amplitude of the sinusoidal carrier is varied in accordance with an incoming message signal. <b>Frequency Modulation (FM) and Phase Modulation (PM)</b> involve varying the instantaneous frequency or phase of the sinusoidal carrier in accordance with the message signal.
+In <b>Amplitude Modulation (AM)</b>, the amplitude of the sinusoidal carrier is varied according to the message signal. <b>Frequency Modulation (FM)</b> and <b>Phase Modulation (PM)</b> involve varying the instantaneous frequency or phase of the carrier according to the message signal.
 </p>
         </div>
         </div>
