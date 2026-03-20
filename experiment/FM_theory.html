@@ -343,126 +343,151 @@ ANALYSIS">
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
       </script>
 
-    <div class="flex min-h-[380px]">
-      <div class="maincontent px-8 pb-6 flex-1">
-        <div
-          class="w-full text-[19.2px] text-[#313636]"
-          style="font-family: Raleway, sans-serif"
-        >
-          <h2
-            class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
-          >
-            Frequency Modulation (FM)
-          </h2>
-		  
-		  <h2>Theory :</h2>
-		  <p>
-        Frequency modulation (FM) is the process where the frequency of a carrier wave, denoted as \( c(t) \), 
+<div class="flex min-h-[380px]">
+  <div class="maincontent px-8 pb-6 flex-1">
+    <div
+      class="w-full text-[19.2px] text-[#313636]"
+      style="font-family: Raleway, sans-serif"
+    >
+      <h2
+        class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
+      >
+        Frequency Modulation (FM)
+      </h2>
+      
+      <h2>Theory :</h2>
+      <p>
+        Frequency modulation (FM) is the process where the frequency of a carrier wave, denoted as \( c(t) = \cos(2\pi f_c t) \), 
         is varied in accordance with the instantaneous amplitude of the modulating signal \( m(t) \). Unlike amplitude modulation, 
         where the amplitude of the carrier wave is varied, in FM, the amplitude remains constant while the frequency changes. 
         The modulated signal can be mathematically expressed as:
-    </p>
-    <p>
+      </p>
+      <p>
         \( S(t) = A_c \cos\left[ 2\pi f_c t + 2\pi K_f \int m(\tau) d\tau \right] \)
-    </p>
-    <p>Where:</p>
-    <ul>
+      </p>
+      <p>Where:</p>
+      <ul>
         <li>\( A_c \) is the amplitude of the carrier signal.</li>
         <li>\( f_c \) is the carrier frequency.</li>
         <li>\( K_f \) is the frequency sensitivity of the modulator, defining how much the frequency of the carrier varies with the modulating signal.</li>
-        <li>\( m(t) \) is the modulating (baseband) signal.</li>
+        <li>\( m(t) \) is the modulating signal.</li>
         <li>\( \int m(\tau) d\tau \) represents the integral of the modulating signal, which determines the frequency deviation.</li>
-    </ul>
-    <p>
+      </ul>
+      <p>
         This expression shows that the instantaneous frequency of the carrier wave is proportional to the amplitude of the modulating signal. 
         The carrier frequency \( f_c \) is shifted by an amount proportional to the modulating signal \( m(t) \), 
-        and this shift results in a frequency-modulated signal.
-    </p>
-    <h2>Block Diagram</h2>
-    <div class="flex justify-center ">
-      <img
-        src="./simulation/FM_Modulation.png"
-        alt="am_image2"
-      />
-    </div>
-    <p class="mb-4 text-center font-semibold text-black">
-      Fig: Frequency Modulation
-    </p>
-    <h2>Modulation Index (β) in Frequency Modulation</h2>
-
-    <p>
-        In Frequency Modulation, the <strong>modulation index</strong>, denoted by β, represents the relationship between the frequency deviation and the frequency of the modulating signal. Unlike in AM, it's not a simple ratio of amplitudes.
-    </p>
-
-    <p>
-        It is defined as the ratio of the peak frequency deviation to the modulating frequency:
-        <br>
-        <strong>β = Δf / f<sub>m</sub></strong>
-        <br>
-        where:
-        <ul>
-            <li><strong>Δf</strong> = Peak frequency deviation. This is the maximum shift in the carrier's frequency from its resting state (f<sub>c</sub>). It is determined by Δf = K<sub>f</sub> A<sub>m</sub>.</li>
-            <li><strong>f<sub>m</sub></strong> = The maximum frequency of the message signal m(t).</li>
-            <li><strong>K<sub>f</sub></strong> = The frequency sensitivity of the modulator (in Hz/Volt).</li>
-            <li><strong>A<sub>m</sub></strong> = The peak amplitude of the message signal.</li>
-        </ul>
-    </p>
-    <br/>
-    <p>
-        The value of β distinguishes between two main classes of FM:
-        <ul>
-            <li><strong>β << 1</strong> (typically β < 0.3): <strong>Narrowband FM (NBFM)</strong>. Its properties are similar to AM.</li>
-            <li><strong>β > 1</strong>: <strong>Wideband FM (WBFM)</strong>. This is used in broadcasting for high-fidelity audio, as it offers superior noise immunity.</li>
-        </ul>
-    </p>
-    <h2>Frequency Domain Description:</h2>
-
-<p>An FM signal produces an infinite number of sidebands spaced at intervals of <em>&omega;<sub>m</sub></em> from the carrier <em>&omega;<sub>c</sub></em>, both above and below.</p>
-
-<p>
-  S(j&omega;) = &sum;<sub>n=-∞</sub><sup>∞</sup> J<sub>n</sub>(β) &middot; δ(j&omega; - &omega;<sub>c</sub> - n &omega;<sub>m</sub>)
-</p>
-
-<h3>Where:</h3>
-<ul>
-  <li><strong>J<sub>n</sub>(β)</strong>: Bessel function of the first kind of order <em>n</em></li>
-  <li><strong>δ(·)</strong>: Dirac delta (impulse) at each spectral line</li>
-  <li><strong>&omega;<sub>c</sub></strong>: Carrier angular frequency (rad/s)</li>
-  <li><strong>&omega;<sub>m</sub></strong>: Message angular frequency (rad/s)</li>
-</ul>
-<h2
-class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
->
-Frequency Demodulation
-</h2>
-<div class="flex justify-center">
-<img src="./simulation/fm_demod1.png" alt="fm_demod_blockimg" />
-</div>
-<p class="mb-4 text-center font-semibold text-black">Fig: Frequency Demodulation using a PLL</p>
-<br/>
-
-<!-- Simplified Explanation -->
-<p>The diagram shows a <strong>Phase-Locked Loop (PLL)</strong>, a clever circuit for demodulating an FM signal. Think of it as a "tracking" system that tracks the frequency changes of the FM signal. The voltage used to control this tracking contains the original message.</p>
-
-
-<ul>
-<li>
-  <strong>Phase Detector (PD):</strong> This block acts like a comparator. It looks at the incoming FM signal and the signal from the VCO and produces a "difference" or "error" voltage. If the two signals are out of sync, this voltage tells the system how to correct itself.
-</li>
-<br/>
-<li>
-  <strong>Loop Filter:</strong> This cleans up the error voltage from the Phase Detector, smoothing it out and removing any unwanted noise or sudden jumps. This ensures the tracking process is stable and accurate.
-</li>
-<br/>
-<li>
-  <strong>Voltage Controlled Oscillator (VCO):</strong> This is a frequency generator that is controlled by voltage. It takes the smooth error voltage from the filter as its input. This voltage tells the VCO to either speed up or slow down its frequency to perfectly match the frequency of the incoming FM signal.
-</li>
-</ul>
-<br/>
-<p><strong>The Final Output:</strong> The signal that tells the VCO what to do is the message we want. By perfectly following the FM wave's frequency, the PLL automatically creates a copy of the original signal.</p>        
-        </div>
+        resulting in a frequency-modulated signal.
+      </p>
+      <h2>Block Diagram</h2>
+      <div class="flex justify-center ">
+        <img
+          src="./simulation/FM_Modulation.png"
+          alt="fm_modulation"
+        />
       </div>
+      <p class="mb-4 text-center font-semibold text-black">
+        Fig 1: Frequency Modulation
+      </p>
+      
+      <h2>Modulation Index (β) in Frequency Modulation</h2>
+      <p>
+        In FM, the <strong>modulation index</strong>, denoted by \( \beta \), represents the ratio of the peak frequency deviation to the frequency of the modulating signal:
+      </p>
+      <p>
+        <strong>\( \beta = \frac{\Delta f}{f_m} \)</strong>
+      </p>
+      <ul>
+        <li><strong>Δf</strong> = peak frequency deviation = \( K_f A_m \)</li>
+        <li><strong>f_m</strong> = maximum frequency of the message signal \( m(t) \)</li>
+        <li><strong>K_f</strong> = frequency sensitivity of the modulator (Hz/V)</li>
+        <li><strong>A_m</strong> = peak amplitude of the message signal</li>
+      </ul>
+      <p>
+        The value of \( \beta \) distinguishes between:
+        <ul>
+          <li><strong>β << 1</strong> (typically β < 0.3): Narrowband FM (NBFM), similar to AM in properties.</li>
+          <li><strong>β > 1</strong>: Wideband FM (WBFM), used for high-fidelity audio with better noise immunity.</li>
+        </ul>
+      </p>
+      
+      <h2>Frequency Domain Description:</h2>
+      <p>
+        An FM signal produces an infinite number of sidebands spaced at intervals of \( \omega_m \) from the carrier \( \omega_c \), both above and below.
+      </p>
+      <p>
+        \( S(j\omega) = \sum_{n=-\infty}^{\infty} J_n(\beta) \cdot \delta(\omega - \omega_c - n \omega_m) \)
+      </p>
+      <h3>Where:</h3>
+      <ul>
+        <li><strong>J_n(β)</strong>: Bessel function of the first kind of order n</li>
+        <li><strong>δ(·)</strong>: Dirac delta (impulse) at each spectral line</li>
+        <li><strong>ω_c</strong>: Carrier angular frequency (rad/s)</li>
+        <li><strong>ω_m</strong>: Message angular frequency (rad/s)</li>
+      </ul>
+
+      <h2>Bandwidth of an FM Signal</h2>
+      <p>
+        The bandwidth depends on the peak frequency deviation and the highest frequency in the message signal. 
+        Using <strong>Carson’s Rule</strong>, the approximate bandwidth is:
+      </p>
+      <p>
+        <strong>BW ≈ 2 (Δf + f_m)</strong>
+      </p>
+      <ul>
+        <li><strong>Δf</strong> = peak frequency deviation = K_f A_m</li>
+        <li><strong>f_m</strong> = maximum frequency of the message signal</li>
+      </ul>
+      <p>
+        For narrowband FM (β << 1), BW ≈ 2 f_m, similar to AM. Wideband FM (β > 1) requires more bandwidth to accommodate multiple sidebands.
+      </p>
+
+      <h2
+        class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
+      >
+        Frequency Demodulation
+      </h2>
+      <div class="flex justify-center">
+        <img src="./simulation/fm_demod1.png" alt="fm_demod_blockimg" />
+      </div>
+      <p class="mb-4 text-center font-semibold text-black">Fig 2: Frequency Demodulation using a PLL</p>
+      <br/>
+
+      <p>
+        The diagram illustrates the demodulation of an FM signal using a <strong>Phase-Locked Loop (PLL)</strong>. 
+        A PLL is an electronic system that locks the phase of a local oscillator to the phase of the incoming FM signal, effectively tracking its instantaneous frequency changes.
+      </p>
+      
+      <ul>
+        <li>
+          <strong>FM Signal Input:</strong> \( s(t) = A_c \cos\left[ 2\pi f_c t + 2\pi K_f \int m(\tau) d\tau \right] \). 
+          This is the received frequency-modulated signal, where:
+          <ul>
+            <li>\( A_c \) = carrier amplitude</li>
+            <li>\( f_c \) = carrier frequency</li>
+            <li>\( K_f \) = frequency sensitivity of the modulator</li>
+            <li>\( m(t) \) = message (modulating) signal</li>
+          </ul>
+        </li>
+        <br/>
+        <li>
+          <strong>Phase Detector (PD):</strong> Compares the incoming FM signal with the VCO output and produces an error voltage proportional to the phase difference. This error voltage is related to the instantaneous frequency deviation of the FM signal.
+        </li>
+        <br/>
+        <li>
+          <strong>Loop Filter:</strong> Smooths the PD output, removing high-frequency noise and ensuring stable operation of the PLL.
+        </li>
+        <br/>
+        <li>
+          <strong>Voltage-Controlled Oscillator (VCO):</strong> Adjusts its output frequency according to the filtered error voltage, following the instantaneous frequency changes of the FM input signal.
+        </li>
+      </ul>
+      
+      <p>
+        <strong>Demodulated FM Output:</strong> The filtered error voltage from the loop corresponds to the original message signal \( m(t) \), effectively reconstructing the baseband information from the FM wave.
+      </p>
     </div>
+  </div>
+</div>
 
 
 

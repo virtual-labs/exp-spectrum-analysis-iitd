@@ -343,132 +343,133 @@ ANALYSIS">
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
       </script>
 
-    <div class="flex min-h-[380px]">
-      <div class="maincontent px-8 pb-6 flex-1">
-        <div
-          class="w-full text-[19.2px] text-[#313636]"
-          style="font-family: Raleway, sans-serif"
-        >
-          <h2
-            class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
-          >
-            Phase Modulation (PM)
-          </h2>
-		  
-		  <h2>Theory :</h2>
-		  <p>
-        Phase modulation (PM) is a modulation technique where the phase of a carrier wave is varied according to 
-        the instantaneous amplitude of the modulating signal \( m(t) \). Unlike frequency modulation, where the frequency 
-        of the carrier is altered, in PM, the phase of the carrier signal is shifted. The modulated signal can be mathematically expressed as:
-    </p>
-    <p>
+<div class="flex min-h-[380px]">
+  <div class="maincontent px-8 pb-6 flex-1">
+    <div
+      class="w-full text-[19.2px] text-[#313636]"
+      style="font-family: Raleway, sans-serif"
+    >
+      <h2
+        class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
+      >
+        Phase Modulation (PM)
+      </h2>
+      
+      <h2>Theory :</h2>
+      <p>
+        Phase modulation (PM) is a technique in which the phase of a carrier wave is varied according to 
+        the instantaneous amplitude of the modulating signal \( m(t) \). Unlike frequency modulation, where the carrier frequency changes, in PM the carrier amplitude remains constant while its phase is shifted. The PM signal can be mathematically expressed as:
+      </p>
+      <p>
         \( S(t) = A_c \cos\left[ 2\pi f_c t + K_p m(t) \right] \)
-    </p>
-    <p>Where:</p>
-    <ul>
-        <li>\( A_c \) is the amplitude of the carrier signal.</li>
-        <li>\( f_c \) is the carrier frequency.</li>
-        <li>\( K_p \) is the phase sensitivity of the modulator, which determines how much the phase of the carrier is shifted in response to the modulating signal.</li>
-        <li>\( m(t) \) is the modulating (baseband) signal.</li>
-    </ul>
-    <p>
-        In phase modulation, the phase of the carrier signal \( \cos\left[ 2\pi f_c t \right] \) is shifted by an amount proportional to the modulating signal \( m(t) \), 
-        scaled by the phase sensitivity \( K_p \). The amount of phase shift is directly proportional to the amplitude of the modulating signal.
-    </p>
-    <h2>Block Diagram:</h2>
-    <div class="flex justify-center ">
-      <img
-        src="./simulation/PM_Modulation.png"
-        alt="am_image2"
-      />
-    </div>
-    <p class="mb-4 text-center font-semibold text-black">
-      Fig: Phase Modulation
-    </p>
-    <h2>Modulation Index (Δφ) in Phase Modulation</h2>
+      </p>
+      <p>Where:</p>
+      <ul>
+        <li>\( A_c \) = amplitude of the carrier signal.</li>
+        <li>\( f_c \) = carrier frequency.</li>
+        <li>\( K_p \) = phase sensitivity of the modulator, determining the phase shift in response to \( m(t) \).</li>
+        <li>\( m(t) \) = message (modulating) signal.</li>
+      </ul>
+      <p>
+        In PM, the carrier phase \( \cos(2\pi f_c t) \) is shifted by an amount proportional to the modulating signal \( m(t) \) scaled by \( K_p \). The phase deviation is directly proportional to the amplitude of the modulating signal.
+      </p>
 
-    <p>
-        In Phase Modulation (PM), the <strong>modulation index</strong>, denoted as Δφ (or sometimes m<sub>p</sub>), represents the maximum phase shift of the carrier wave in response to the modulating signal.
-    </p>
+      <h2>Block Diagram:</h2>
+      <div class="flex justify-center">
+        <img src="./simulation/PM_Modulation.png" alt="pm_image" />
+      </div>
+      <p class="mb-4 text-center font-semibold text-black">
+        Fig 1: Phase Modulation
+      </p>
 
-    <p>
-        It is defined by the peak phase deviation of the carrier:
+      <h2>Modulation Index (Δφ) in Phase Modulation</h2>
+      <p>
+        In PM, the <strong>modulation index</strong>, denoted Δφ (or sometimes m<sub>p</sub>), represents the maximum phase deviation of the carrier wave in response to the modulating signal.
+      </p>
+      <p>
+        It is defined as:
         <br>
         <strong>Δφ = K<sub>p</sub> A<sub>m</sub></strong>
         <br>
         where:
         <ul>
-            <li><strong>Δφ</strong> = Peak phase deviation, measured in radians.</li>
-            <li><strong>A<sub>m</sub></strong> = The peak amplitude of the message signal m(t).</li>
-            <li><strong>K<sub>p</sub></strong> = The phase sensitivity of the modulator (in radians per volt).</li>
+          <li><strong>Δφ</strong> = peak phase deviation in radians.</li>
+          <li><strong>A<sub>m</sub></strong> = peak amplitude of the modulating signal \( m(t) \).</li>
+          <li><strong>K<sub>p</sub></strong> = phase sensitivity of the modulator (radians per volt).</li>
         </ul>
-    </p>
-    <br/>
-    <p>
-        The value of Δφ determines the nature of the PM signal, similar to FM:
+      </p>
+      <p>
+        The modulation index determines the PM signal type:
         <ul>
-            <li><strong>Δφ << 1</strong> (typically Δφ < 0.3): <strong>Narrowband PM (NBPM)</strong>. Its characteristics are very similar to AM.</li>
-            <li><strong>Δφ ≥ 1</strong>: <strong>Wideband PM (WBPM)</strong>. This offers improved noise immunity over NBPM.</li>
+          <li><strong>Δφ << 1</strong> (typically Δφ < 0.3): <strong>Narrowband PM (NBPM)</strong>, similar to AM.</li>
+          <li><strong>Δφ ≥ 1</strong>: <strong>Wideband PM (WBPM)</strong>, which offers better noise immunity.</li>
         </ul>
-    </p>
-    <h2>Frequency Domain Description:</h2>
+      </p>
 
-    <p>
-      A Phase Modulated (PM) signal, when modulated by a single sinusoidal tone, generates a theoretically infinite number of sidebands. These sidebands are spaced at integer multiples of the modulating frequency (<em>ω<sub>m</sub></em>) symmetrically around the carrier frequency (<em>ω<sub>c</sub></em>).
-    </p>
-
-    <div>
+      <h2>Frequency Domain Description:</h2>
+      <p>
+        A PM signal modulated by a sinusoidal tone produces an infinite number of sidebands spaced at integer multiples of the modulating frequency \( \omega_m \) around the carrier frequency \( \omega_c \).
+      </p>
+      <div>
         S(jω) = ∑<sub>n=-∞</sub><sup>∞</sup> J<sub>n</sub>(Δφ) · δ(jω - ω<sub>c</sub> - n ω<sub>m</sub>)
-    </div>
-
-    <h3>Where:</h3>
-    <ul>
-        <li><strong>J<sub>n</sub>(Δφ)</strong>: This is the Bessel function of the first kind of order <em>n</em>. Its argument, <strong>Δφ</strong>, is the <strong>phase modulation index</strong>. The value of this function determines the amplitude of the <em>n</em>th sideband pair.</li>
-        <li><strong>δ(·)</strong>: The Dirac delta function, which represents the discrete spectral lines located at specific frequencies.</li>
-        <li><strong>ω<sub>c</sub></strong>: The angular frequency of the carrier signal (in rad/s).</li>
-        <li><strong>ω<sub>m</sub></strong>: The angular frequency of the modulating message signal (in rad/s).</li>
-        <li><strong>n</strong>: An integer (..., -2, -1, 0, 1, 2, ...) that denotes the order of the sideband.</li>
-    </ul>
-
-    <p>
-      The sidebands appear at frequencies of <strong>ω<sub>c</sub> ± nω<sub>m</sub></strong>. The spectral structure is very similar to that of a Frequency Modulated (FM) signal, with the key difference being how the modulation index is defined. In PM, the modulation index <code>Δφ</code> is directly proportional to the amplitude of the modulating signal.
-    </p>
-
-          <h2
-          class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
-        >
-          Phase Demodulation
-        </h2>
-          <br/>
-          <div class="flex justify-center">
-            <img src="./images/simulation/pm_demod1.png" alt="pm_image"  class="h-[300px]"/>
-          </div>
-          <div class="flex justify-center">
-            <img src="./images/simulation/pm_demod2.png" alt="pm_image"  class="h-[300px]"/>
-          </div>
-          <p class="mb-4 text-center font-semibold text-black">Fig : Phase Demodulation</p>
-          <p>The diagram shows a <strong>Phase-Locked Loop (PLL)</strong> used to demodulate a Phase Modulated (PM) signal. In PM, the message is encoded in the signal’s <strong>phase</strong>.</p>
-
-          <p>The PLL's job is to perfectly follow the phase of the PM signal. The voltage signal it creates to do this tracking is the original message.    </p>      <br/>
-          
-          <ul>
-            <li>
-              <strong>Phase Detector (PD):</strong> This block compares the phase of the incoming PM signal with the VCO's signal and produces an error voltage proportional to their phase difference. This phase difference varies in time according to the original message.
-            </li>
-            <br/>
-            <li>
-              <strong>Loop Filter and VCO:</strong> The loop filter smooths the error voltage, and the VCO uses it to track the phase of the incoming signal. This ensures a stable reference for accurate demodulation.
-            </li>
-          </ul>
-          <br/>
-          
-          <p><strong>The Final Output:</strong> The output of the loop filter represents the original message signal.</p>
-          
-          
-          <!--  -->
-        </div>
       </div>
+      <h3>Where:</h3>
+      <ul>
+        <li><strong>J<sub>n</sub>(Δφ)</strong>: Bessel function of the first kind, order n, with argument Δφ. Determines the amplitude of the nth sideband pair.</li>
+        <li><strong>δ(·)</strong>: Dirac delta function representing discrete spectral lines.</li>
+        <li><strong>ω<sub>c</sub></strong>: Carrier angular frequency (rad/s).</li>
+        <li><strong>ω<sub>m</sub></strong>: Message angular frequency (rad/s).</li>
+        <li><strong>n</strong>: Integer (..., -2, -1, 0, 1, 2, ...) indicating sideband order.</li>
+      </ul>
+      <p>
+        Sidebands occur at frequencies \( \omega_c ± n \omega_m \). The spectrum is similar to FM, but in PM the modulation index Δφ is directly proportional to the modulating signal amplitude.
+      </p>
+
+      <h2
+        class="text-center pt-6 border-b pb-2 mb-2 text-[#2C99CE] text-[32px]"
+      >
+        Phase Demodulation
+      </h2>
+      <div class="flex justify-center">
+        <img src="./images/simulation/pm_demod1.png" alt="pm_image" class="h-[300px]" />
+      </div>
+      <div class="flex justify-center">
+        <img src="./images/simulation/pm_demod2.png" alt="pm_image" class="h-[300px]" />
+      </div>
+      <p class="mb-4 text-center font-semibold text-black">Fig 2: Phase Demodulation</p>
+
+      <p>
+        Phase demodulation can be implemented using a circuit similar to an FM demodulator followed by an integrator. In PM, the message signal is encoded in the carrier’s phase. The FM demodulator converts phase variations into frequency variations, and the integrator recovers the original message signal.
+      </p>
+      
+      <ul>
+        <li>
+          <strong>Input Signal:</strong> The input to the demodulator is the PM signal \( a(t) s(t, \Phi) \), where the phase encodes the message.
+        </li>
+        <br/>
+        <li>
+          <strong>Phase Detector (PD):</strong> Compares the incoming PM signal with the local oscillator (VCO) output and produces an error voltage proportional to the instantaneous phase difference. This output contains information about the derivative of the phase.
+        </li>
+        <br/>
+        <li>
+          <strong>FM Demodulator / Derivative Stage (F(s)):</strong> The output of the PD is passed through a frequency-demodulation block, effectively producing the time derivative of the phase: \( \frac{d\theta_i(t)}{dt} \). This represents a frequency-like signal proportional to the original message derivative.
+        </li>
+        <br/>
+        <li>
+          <strong>Integrator:</strong> Since PM encodes information in phase, integrating the derivative recovers the original message signal: \( m(t) \sim \theta_i(t) \).
+        </li>
+        <br/>
+        <li>
+          <strong>Voltage-Controlled Oscillator (VCO) and Feedback:</strong> The VCO generates a reference carrier for the PD. Feedback ensures that the PD continuously tracks the incoming PM signal for accurate demodulation.
+        </li>
+      </ul>
+      
+      <p>
+        <strong>The Final Output:</strong> After the integrator, the recovered signal is a faithful representation of the original modulating message \( m(t) \). This method effectively converts the PM demodulation problem into an FM demodulation plus integration operation.
+      </p>
     </div>
+  </div>
+</div>
 
 
   </div>
