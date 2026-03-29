@@ -1,25 +1,25 @@
 {
   "version": "2.0",
   "questions": [
+{
+  "question": "In an AM signal, which frequencies are present in the transmitted spectrum?",
+  "answers": {
+    "a": "Only the carrier frequency",
+    "b": "Carrier frequency and one sideband",
+    "c": "Carrier frequency and two sidebands at fc ± fm",
+    "d": "Only sidebands without carrier"
+  },
+  "explanations": {
+    "a": "Incorrect: Sidebands are always present in AM.",
+    "b": "Incorrect: Standard AM has two sidebands.",
+    "c": "Correct: AM produces upper and lower sidebands at fc + fm and fc - fm.",
+    "d": "Incorrect: This corresponds to suppressed carrier systems, not standard AM."
+  },
+  "correctAnswer": "c",
+  "difficulty": "beginner"
+},
     {
-      "question": "1. In a standard Amplitude Modulation (AM) system with a single-tone message signal, which of the following correctly describes the frequency components present in the modulated signal?",
-      "answers": {
-        "a": "Only the carrier frequency and the lower sideband are present.",
-        "b": "Only the upper sideband and baseband frequencies are present.",
-        "c": "The carrier, upper sideband, and lower sideband frequencies are present.",
-        "d": "The modulated signal contains frequencies unrelated to the message or carrier."
-      },
-      "explanations": {
-        "a": "Incorrect: This describes Single Sideband (SSB) modulation.",
-        "b": "Incorrect: AM does not remove the carrier unless suppressed.",
-        "c": "Correct: Standard AM results in a carrier and two symmetrical sidebands.",
-        "d": "Incorrect: AM only generates components related to the carrier and message."
-      },
-      "correctAnswer": "c",
-      "difficulty": "beginner"
-    },
-    {
-      "question": "2. What is the main advantage of using Phase Modulation (PM) over Amplitude Modulation (AM)?",
+      "question": "What is the main advantage of using Phase Modulation (PM) over Amplitude Modulation (AM)?",
       "answers": {
         "a": "PM is less susceptible to noise.",
         "b": "PM requires less bandwidth.",
@@ -36,24 +36,7 @@
       "difficulty": "beginner"
     },
     {
-      "question": "3. Which of the following statements best explains the spectral behavior of a frequency modulated (FM) signal when the amplitude of the modulating signal is increased?",
-      "answers": {
-        "a": "The bandwidth remains the same, as FM does not depend on amplitude.",
-        "b": "The number of significant sidebands increases, leading to a wider bandwidth.",
-        "c": "The carrier frequency shifts, but bandwidth remains fixed.",
-        "d": "The FM signal collapses into an AM signal at high modulation index."
-      },
-      "explanations": {
-        "a": "Incorrect: FM bandwidth is dependent on modulation index, which includes amplitude.",
-        "b": "Correct: As modulation index increases, more sidebands become significant, widening the bandwidth.",
-        "c": "Incorrect: Carrier stays centered; frequency deviation affects sidebands.",
-        "d": "Incorrect: FM does not convert to AM regardless of modulation index."
-      },
-      "correctAnswer": "b",
-      "difficulty": "intermediate"
-    },
-    {
-      "question": "4. In which modulation technique does the bandwidth of the signal depend on the amplitude of the modulating signal?",
+      "question": "In which modulation technique does the bandwidth of the signal depend on the amplitude of the modulating signal?",
       "answers": {
         "a": "Amplitude Modulation (AM)",
         "b": "Frequency Modulation (FM)",
@@ -70,7 +53,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "5. Which of the following correctly describes the relationship between carrier frequency and modulating signal in Amplitude Modulation (AM)?",
+      "question": "Which of the following correctly describes the relationship between carrier frequency and modulating signal in Amplitude Modulation (AM)?",
       "answers": {
         "a": "The carrier frequency remains constant.",
         "b": "The carrier frequency varies with the modulating signal.",
@@ -87,7 +70,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "6. In Phase Modulation (PM), how is the modulating signal encoded?",
+      "question": "In Phase Modulation (PM), how is the modulating signal encoded?",
       "answers": {
         "a": "By varying the amplitude of the carrier signal.",
         "b": "By varying the frequency of the carrier signal.",
@@ -103,25 +86,25 @@
       "correctAnswer": "c",
       "difficulty": "intermediate"
     },
+	{
+  "question": "What is the primary cause of distortion in an Amplitude Modulated (AM) signal?",
+  "answers": {
+    "a": "Noise interference",
+    "b": "Non-linearities in the modulating signal",
+    "c": "Overmodulation (modulation index greater than 1)",
+    "d": "Low carrier frequency"
+  },
+  "explanations": {
+    "a": "Incorrect: Noise interference can cause errors but is not intrinsic distortion.",
+    "b": "Incorrect: Non-linearities in the modulating signal are generally small; hardware non-linearities are more significant, but the main distortion comes from overmodulation.",
+    "c": "Correct: If the modulation index μ > 1, the carrier envelope crosses zero, causing clipping and distortion.",
+    "d": "Incorrect: Low carrier frequency does not cause distortion in AM."
+  },
+  "correctAnswer": "c",
+  "difficulty": "intermediate"
+},
     {
-      "question": "7. What is the primary cause of distortion in an Amplitude Modulated (AM) signal?",
-      "answers": {
-        "a": "Noise interference",
-        "b": "Non-linearities in the modulating signal",
-        "c": "High modulation index",
-        "d": "Low carrier frequency"
-      },
-      "explanations": {
-        "a": "Incorrect: Noise interference is common, but not the primary cause.",
-        "b": "Correct: Non-linearities in the modulating signal cause distortion.",
-        "c": "Incorrect: High modulation index can cause overmodulation but not necessarily distortion.",
-        "d": "Incorrect: Low carrier frequency does not cause distortion."
-      },
-      "correctAnswer": "b",
-      "difficulty": "intermediate"
-    },
-    {
-      "question": "8. What happens to the carrier signal's frequency in Frequency Modulation (FM) when the modulating signal increases in amplitude?",
+      "question": "What happens to the carrier signal's frequency in Frequency Modulation (FM) when the modulating signal increases in amplitude?",
       "answers": {
         "a": "It increases in frequency.",
         "b": "It decreases in frequency.",
@@ -138,7 +121,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "9. In a Phase Modulated (PM) system, if the frequency of the modulating signal increases, what effect does this have on the phase of the carrier signal?",
+      "question": "In a Phase Modulated (PM) system, if the frequency of the modulating signal increases, what effect does this have on the phase of the carrier signal?",
       "answers": {
         "a": "The phase changes more rapidly.",
         "b": "The phase changes more slowly.",
@@ -154,22 +137,22 @@
       "correctAnswer": "a",
       "difficulty": "intermediate"
     },
-    {
-      "question": "10. What is the significance of the modulation index in Amplitude Modulation (AM)?",
-      "answers": {
-        "a": "It determines the efficiency of the AM signal.",
-        "b": "It determines the bandwidth of the AM signal.",
-        "c": "It determines the power of the AM signal.",
-        "d": "It determines the distortion in the AM signal."
-      },
-      "explanations": {
-        "a": "Incorrect: Modulation index does not determine efficiency.",
-        "b": "Correct: Modulation index directly affects the bandwidth.",
-        "c": "Incorrect: Modulation index does not determine power.",
-        "d": "Incorrect: Modulation index is not directly related to distortion."
-      },
-      "correctAnswer": "b",
-      "difficulty": "intermediate"
-    }
+{
+  "question": "An AM signal has a carrier amplitude A_c = 5 V and a modulating signal with peak amplitude A_m = 6 V. What is the modulation index, and what effect does this have on the AM signal?",
+  "answers": {
+    "a": "μ = 0.8 → Undermodulated, no distortion",
+    "b": "μ = 1.2 → Overmodulated, signal distorted",
+    "c": "μ = 1 → 100% modulation, no distortion",
+    "d": "μ = 0 → No modulation"
+  },
+  "explanations": {
+    "a": "Incorrect: μ = A_m / A_c = 6 / 5 = 1.2, not 0.8",
+    "b": "Correct: μ = 6 / 5 = 1.2 → overmodulation → envelope crosses zero → distortion",
+    "c": "Incorrect: μ = 1 only if A_m = A_c",
+    "d": "Incorrect: μ = 0 means no modulation at all"
+  },
+  "correctAnswer": "b",
+  "difficulty": "intermediate"
+}
   ]
 }
