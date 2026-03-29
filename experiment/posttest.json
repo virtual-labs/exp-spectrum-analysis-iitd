@@ -2,7 +2,7 @@
   "version": "2.0",
   "questions": [
     {
-      "question": "1. How does the modulation index affect the bandwidth requirement differently in Amplitude Modulation (AM), Frequency Modulation (FM), and Phase Modulation (PM)?",
+      "question": "How does the modulation index affect the bandwidth requirement differently in Amplitude Modulation (AM), Frequency Modulation (FM), and Phase Modulation (PM)?",
       "answers": {
         "a": "In AM, bandwidth increases linearly with the modulation index, while in FM and PM, bandwidth is independent of it.",
         "b": "In FM and PM, bandwidth increases nonlinearly with modulation index, whereas AM bandwidth remains constant for a given message frequency.",
@@ -19,7 +19,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "2. In Frequency Modulation (FM), how does the Carson's Rule help in determining the required bandwidth, and what are the implications of violating this rule?",
+      "question": "In Frequency Modulation (FM), how does the Carson's Rule help in determining the required bandwidth, and what are the implications of violating this rule?",
       "answers": {
         "a": "Carson's Rule predicts the bandwidth as twice the sum of the peak frequency deviation and modulating signal frequency. Violating it causes spectral overlap and interference.",
         "b": "Carson's Rule predicts the bandwidth as the product of the carrier frequency and modulation index. Violating it leads to signal clipping.",
@@ -35,25 +35,25 @@
       "correctAnswer": "a",
       "difficulty": "intermediate"
     },
+{
+  "question": "In Phase Modulation (PM), how does increasing the frequency of the modulating signal affect the phase of the carrier?",
+  "answers": {
+    "a": "The phase changes more rapidly as the modulating frequency increases.",
+    "b": "The phase changes more slowly as the modulating frequency increases.",
+    "c": "The phase remains constant regardless of the modulating frequency.",
+    "d": "The phase change becomes unpredictable at higher modulating frequencies."
+  },
+  "explanations": {
+    "a": "Correct: Higher modulating frequency causes the phase to vary faster over time, increasing phase deviation rate.",
+    "b": "Incorrect: Higher modulating frequency does not slow down the phase changes.",
+    "c": "Incorrect: The carrier phase does change according to the modulating signal.",
+    "d": "Incorrect: Phase changes remain predictable and are directly related to the modulating signal."
+  },
+  "correctAnswer": "a",
+  "difficulty": "intermediate"
+},
     {
-      "question": "3. What is the effect of non-linear amplification on a Phase Modulated (PM) signal, and how can this be mitigated?",
-      "answers": {
-        "a": "Non-linear amplification causes amplitude distortion, which can be mitigated by using a limiter circuit.",
-        "b": "Non-linear amplification causes phase distortion, which can be mitigated by pre-distortion techniques.",
-        "c": "Non-linear amplification increases the carrier frequency, which can be mitigated by filtering.",
-        "d": "Non-linear amplification has no significant effect on PM signals."
-      },
-      "explanations": {
-        "a": "Incorrect: Amplitude distortion is not the main issue with PM.",
-        "b": "Correct: Non-linear amplification causes phase distortion, mitigated by pre-distortion.",
-        "c": "Incorrect: Non-linear amplification does not increase carrier frequency.",
-        "d": "Incorrect: Non-linear amplification does affect PM signals."
-      },
-      "correctAnswer": "b",
-      "difficulty": "intermediate"
-    },
-    {
-      "question": "4. In advanced Amplitude Modulation (AM) techniques, such as Single Sideband Suppressed Carrier (SSB-SC), what is the primary benefit, and what challenge does it introduce?",
+      "question": "In advanced Amplitude Modulation (AM) techniques, such as Single Sideband Suppressed Carrier (SSB-SC), what is the primary benefit, and what challenge does it introduce?",
       "answers": {
         "a": "The primary benefit is reduced bandwidth usage, but it introduces the challenge of carrier recovery at the receiver.",
         "b": "The primary benefit is increased power efficiency, but it introduces the challenge of signal distortion.",
@@ -69,59 +69,42 @@
       "correctAnswer": "a",
       "difficulty": "intermediate"
     },
+{
+  "question": "In Phase Modulation (PM), if the modulating signal is a sinusoid of frequency f_m, what is the resulting spectrum of the PM signal?",
+  "answers": {
+    "a": "The spectrum consists of a single carrier frequency with no sidebands.",
+    "b": "The spectrum contains the carrier and an infinite number of sidebands spaced at multiples of f_m.",
+    "c": "The spectrum contains only the carrier and the first harmonic of f_m.",
+    "d": "The spectrum is continuous with no distinct carrier or sidebands."
+  },
+  "explanations": {
+    "a": "Incorrect: PM introduces sidebands; it is not a pure carrier.",
+    "b": "Correct: A sinusoidal modulating signal produces the carrier and an infinite number of sidebands at integer multiples of f_m, with amplitudes determined by Bessel functions.",
+    "c": "Incorrect: There are more than just the first harmonic; many sidebands exist.",
+    "d": "Incorrect: The spectrum is discrete, not continuous, around the carrier."
+  },
+  "correctAnswer": "b",
+  "difficulty": "intermediate"
+},
+{
+  "question": "Using Carson's Rule for Frequency Modulation (FM), what is the approximate bandwidth of an FM signal with peak frequency deviation Δf and maximum modulating frequency f_m?",
+  "answers": {
+    "a": "B ≈ Δf + f_m",
+    "b": "B ≈ 2(Δf + f_m)",
+    "c": "B ≈ Δf × f_m",
+    "d": "B ≈ Δf / f_m"
+  },
+  "explanations": {
+    "a": "Incorrect: Carson's Rule doubles the sum of frequency deviation and modulating frequency.",
+    "b": "Correct: Carson's Rule states B ≈ 2(Δf + f_m), accounting for the significant sidebands of the FM signal.",
+    "c": "Incorrect: Bandwidth is not the product of Δf and f_m.",
+    "d": "Incorrect: Bandwidth is not the ratio of Δf to f_m."
+  },
+  "correctAnswer": "b",
+  "difficulty": "intermediate"
+},
     {
-      "question": "5. How does the modulation index in Phase Modulation (PM) affect the spectral efficiency, and what trade-off does this introduce?",
-      "answers": {
-        "a": "Increasing the modulation index improves spectral efficiency but increases the required signal power.",
-        "b": "Increasing the modulation index reduces spectral efficiency but increases the system's robustness to noise.",
-        "c": "Increasing the modulation index improves spectral efficiency but increases the bandwidth required.",
-        "d": "Increasing the modulation index has no effect on spectral efficiency."
-      },
-      "explanations": {
-        "a": "Incorrect: Spectral efficiency is not improved by increasing the modulation index.",
-        "b": "Incorrect: Reducing spectral efficiency is not directly linked to noise robustness.",
-        "c": "Correct: Higher modulation index improves spectral efficiency but requires more bandwidth.",
-        "d": "Incorrect: Modulation index affects spectral efficiency."
-      },
-      "correctAnswer": "c",
-      "difficulty": "intermediate"
-    },
-    {
-      "question": "6. In Frequency Modulation (FM), what is the relationship between modulation index and deviation ratio, and how does this impact the signal's resilience to noise?",
-      "answers": {
-        "a": "A higher modulation index and deviation ratio increase the signal's resilience to noise but require more bandwidth.",
-        "b": "A higher modulation index decreases the deviation ratio, reducing the signal's resilience to noise.",
-        "c": "A higher modulation index and deviation ratio decrease resilience to noise but reduce bandwidth.",
-        "d": "There is no direct relationship between modulation index, deviation ratio, and noise resilience."
-      },
-      "explanations": {
-        "a": "Correct: Higher modulation index and deviation ratio improve noise resilience at the cost of bandwidth.",
-        "b": "Incorrect: A higher modulation index does not decrease the deviation ratio.",
-        "c": "Incorrect: Higher modulation index and deviation ratio do not decrease noise resilience.",
-        "d": "Incorrect: There is a relationship between these parameters."
-      },
-      "correctAnswer": "a",
-      "difficulty": "intermediate"
-    },
-    {
-      "question": "7. In an Amplitude Modulated (AM) system, how does quadrature amplitude modulation (QAM) differ in complexity and performance compared to traditional AM, and what are the implications for signal transmission?",
-      "answers": {
-        "a": "QAM increases complexity but improves spectral efficiency, allowing more data to be transmitted within the same bandwidth.",
-        "b": "QAM reduces complexity but decreases spectral efficiency, requiring more bandwidth for the same data rate.",
-        "c": "QAM is simpler to implement and provides better noise immunity compared to traditional AM.",
-        "d": "QAM offers no significant performance benefits over traditional AM but is used due to easier implementation."
-      },
-      "explanations": {
-        "a": "Correct: QAM is more complex but allows more efficient use of bandwidth.",
-        "b": "Incorrect: QAM does not reduce complexity or decrease spectral efficiency.",
-        "c": "Incorrect: QAM is not simpler and does not necessarily provide better noise immunity.",
-        "d": "Incorrect: QAM offers significant performance benefits over traditional AM."
-      },
-      "correctAnswer": "a",
-      "difficulty": "intermediate"
-    },
-    {
-      "question": "8. In advanced Frequency Modulation (FM) systems, such as wideband FM (WBFM), what is the effect of increasing the peak deviation on the signal's bandwidth and signal-to-noise ratio (SNR)?",
+      "question": "In advanced Frequency Modulation (FM) systems, such as wideband FM (WBFM), what is the effect of increasing the peak deviation on the signal's bandwidth and signal-to-noise ratio (SNR)?",
       "answers": {
         "a": "Increasing peak deviation increases bandwidth and improves SNR, but it may cause adjacent channel interference.",
         "b": "Increasing peak deviation reduces bandwidth but decreases SNR, leading to poor signal quality.",
@@ -138,24 +121,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "9. What is the role of the Hilbert transform in the context of generating single sideband (SSB) signals, and how does it compare to traditional double sideband (DSB) AM?",
-      "answers": {
-        "a": "The Hilbert transform is used to create the analytic signal, allowing the elimination of one sideband, making SSB more bandwidth-efficient than DSB.",
-        "b": "The Hilbert transform is used to modulate the carrier signal directly, providing a more stable signal compared to DSB.",
-        "c": "The Hilbert transform eliminates carrier frequency, which is not possible in DSB.",
-        "d": "The Hilbert transform has no role in SSB and is primarily used for noise reduction."
-      },
-      "explanations": {
-        "a": "Correct: The Hilbert transform is crucial for SSB, making it more bandwidth-efficient.",
-        "b": "Incorrect: The Hilbert transform is not used for direct modulation.",
-        "c": "Incorrect: The Hilbert transform does not eliminate the carrier frequency.",
-        "d": "Incorrect: The Hilbert transform plays a key role in SSB."
-      },
-      "correctAnswer": "a",
-      "difficulty": "advanced"
-    },
-    {
-      "question": "10. In Phase Modulation (PM), what challenges are introduced by high data rate transmission, and how can these be addressed to maintain signal integrity?",
+      "question": "In Phase Modulation (PM), what challenges are introduced by high data rate transmission, and how can these be addressed to maintain signal integrity?",
       "answers": {
         "a": "High data rates increase phase jitter, which can be mitigated by using advanced error correction codes.",
         "b": "High data rates reduce phase noise, making the system more robust to interference.",
@@ -170,6 +136,40 @@
       },
       "correctAnswer": "a",
       "difficulty": "advanced"
-    }
+    },
+{
+  "question": "In wideband Frequency Modulation (WBFM), how does increasing the modulation index β = Δf / f_m affect the power distribution among sidebands, and what is the implication for receiver design?",
+  "answers": {
+    "a": "Increasing β concentrates power in the carrier only, simplifying receiver filtering.",
+    "b": "Increasing β distributes power among more significant sidebands, requiring the receiver to accommodate a wider bandwidth.",
+    "c": "Increasing β reduces the number of sidebands, allowing narrower receiver bandwidth.",
+    "d": "Increasing β does not affect sideband power distribution or receiver design."
+  },
+  "explanations": {
+    "a": "Incorrect: Higher modulation index spreads power into more sidebands, not just the carrier.",
+    "b": "Correct: According to Bessel function analysis, higher β shifts more power into additional sidebands, widening the signal spectrum and requiring the receiver to handle the increased bandwidth.",
+    "c": "Incorrect: Sidebands increase with higher modulation index, not decrease.",
+    "d": "Incorrect: Sideband distribution directly depends on modulation index."
+  },
+  "correctAnswer": "b",
+  "difficulty": "advanced"
+},
+{
+  "question": "In wideband Phase Modulation (PM), if the amplitude of the modulating signal is doubled while keeping its frequency constant, what is the effect on the instantaneous phase deviation and the signal's bandwidth?",
+  "answers": {
+    "a": "Doubling the modulating amplitude halves the phase deviation and narrows the bandwidth.",
+    "b": "Doubling the modulating amplitude doubles the phase deviation, which increases the number of significant sidebands and widens the bandwidth.",
+    "c": "Doubling the modulating amplitude shifts the carrier frequency but does not affect bandwidth.",
+    "d": "Doubling the modulating amplitude has no effect on phase deviation or bandwidth."
+  },
+  "explanations": {
+    "a": "Incorrect: Phase deviation is directly proportional to modulating amplitude; it does not decrease.",
+    "b": "Correct: In PM, phase deviation θ(t) = k_p × A_m × sin(2πf_mt). Doubling A_m doubles θ(t), which increases the number of significant sidebands and widens the spectrum according to Carson’s Rule.",
+    "c": "Incorrect: Carrier frequency center does not shift; only phase variation affects sidebands.",
+    "d": "Incorrect: Modulating amplitude directly affects phase deviation and bandwidth."
+  },
+  "correctAnswer": "b",
+  "difficulty": "advanced"
+}
   ]
 }
