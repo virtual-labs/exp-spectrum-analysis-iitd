@@ -217,6 +217,12 @@
                   >
                     Perform AM Demodulation
                   </button>
+                  <button
+                    class="bg-blue-500 text-white py-1 px-3  rounded-md hover:scale-105"
+                    onclick="performEnvelopeDetection()"
+                  >
+                    Show Envelope Detector Output
+                  </button>
 
                 </div>
               </div>
@@ -233,6 +239,10 @@
                 <div id="demodulatedPlot" class="flex-1  w-[600px]"></div>
                 <!-- Frequency-domain plot -->
                 <div id="demodulatedSpectrum" class="flex-1  w-[600px]"></div>
+              </div>
+              <div id="envelopeDetectorSection" class="flex flex-col items-center">
+                <div id="overModulationWarning" class="font-medium text-red-600"></div>
+                <div id="envelopeDetectorPlot" class="w-[600px] max-h-[450px]"></div>
               </div>
               <div id="demodulatedPlot" class="w-[600px] max-h-[450px]"></div>
               <div id="modulatedPlot" class="w-[600px] max-h-[450px]"></div>
@@ -669,6 +679,68 @@ Plotly.newPlot("modulatedPlot", modulatedData, modulatedLayout, rr);
             document.getElementById('demodulatedPlot').scrollIntoView({ behavior: 'smooth' });
             demodulatedSpectrum();
         
+    }
+
+    // Envelope detector: rectify the modulated AM signal, then low-pass
+    // filter to trace its envelope. Unlike coherent demodulation above,
+    // this method visibly distorts when the modulation index (Am/Ac) > 1
+    // -- that over-modulation failure is the whole point of this demo.
+    function performEnvelopeDetection() {
+        var frequency = parseFloat(document.getElementById('messageFrequency').value);
+        var amplitude = parseFloat(document.getElementById('carrierFrequency').value);
+        if (!frequency || !amplitude) {
+            alert("Perform AM Modulation first!");
+            return;
+        }
+
+        var A1 = parseFloat(document.getElementById("A").value); // Am
+        var B1 = parseFloat(document.getElementById("B").value); // Ac
+        var modulationIndex = A1 / B1;
+
+        var data = amplitudeDemodulation(frequency, amplitude, A1, B1);
+
+        // Full-wave rectify the modulated carrier, then low-pass filter
+        // (same filter already used for coherent demod) to trace the
+        // envelope -- this is what a real diode + RC envelope detector does.
+        var rectified = data.modulated.map(function (v) { return Math.abs(v); });
+        var cutoffFrequency = parseFloat(document.getElementById('cutoff').value);
+        var envelope = lowPassFilter(rectified, cutoffFrequency);
+
+        var warningDiv = document.getElementById('overModulationWarning');
+        if (modulationIndex > 1) {
+            warningDiv.innerHTML =
+                'Modulation index = ' + modulationIndex.toFixed(2) +
+                ' (> 1): over-modulation -- the envelope detector output ' +
+                'is distorted and no longer follows the true message shape.';
+        } else {
+            warningDiv.innerHTML =
+                'Modulation index = ' + modulationIndex.toFixed(2) +
+                ' (\u2264 1): envelope follows the message signal correctly.';
+        }
+
+        var envelopeDiv = document.getElementById('envelopeDetectorPlot');
+        Plotly.newPlot(envelopeDiv, [
+            {
+                x: data.x.slice(1, 12000),
+                y: data.modulated.slice(1, 12000),
+                mode: 'lines',
+                name: 'Modulated (AM) signal',
+                line: { color: 'lightgray', width: 1 }
+            },
+            {
+                x: data.x.slice(1, 12000),
+                y: envelope.slice(1, 12000),
+                mode: 'lines',
+                name: 'Envelope detector output',
+                line: { color: 'green', width: 2 }
+            }
+        ], {
+            title: 'Envelope Detector Output',
+            xaxis: { title: 'Time' },
+            yaxis: { title: 'Amplitude' }
+        }, rr);
+
+        document.getElementById('envelopeDetectorPlot').scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
