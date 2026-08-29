@@ -1,0 +1,124 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Virtual Labs</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+  <div id="container">
+    <h1>Instructions for FM / PM Side-by-Side Comparison</h1>
+    <ul>
+      <li class="step step4"><strong>Note:</strong> This page generates one message signal and modulates it with both FM and PM, so you can directly compare how each responds to the same input.</li>
+      <li class="step step1"><strong>Step 1:</strong> Use the sliders to set message frequency, carrier frequency, Kf (FM frequency sensitivity), and Kp (PM phase sensitivity).</li>
+      <li class="step step2"><strong>Step 2:</strong> Click <em>"Generate Comparison"</em> to plot the FM and PM signals side by side, both from the same message and carrier.</li>
+      <li class="step step1"><strong>Tip:</strong> Watch how a higher Kf makes the FM signal's instantaneous frequency swing more, while a higher Kp makes the PM signal's phase jumps more abrupt at each message zero-crossing.</li>
+    </ul>
+  </div>
+  <br/>
+
+  <div class="flex items-start gap-10 flex-wrap">
+    <div class="flex flex-col items-center">
+      <p class="font-medium">Message Frequency (Hz)</p>
+      <div class="leading-none messageFrequencyDiv">5</div>
+      <input id="messageFrequency" value="5" type="range" min="1" max="50" onchange="updateLabels()" />
+    </div>
+    <div class="flex flex-col items-center">
+      <p class="font-medium">Carrier Frequency (Hz)</p>
+      <div class="leading-none carrierFrequencyDiv">200</div>
+      <input id="carrierFrequency" value="200" type="range" min="100" max="500" onchange="updateLabels()" />
+    </div>
+    <div class="flex flex-col items-center">
+      <p class="font-medium">Kf (FM frequency sensitivity)</p>
+      <div class="leading-none kfDiv">50</div>
+      <input id="kf" value="50" type="range" min="1" max="200" onchange="updateLabels()" />
+    </div>
+    <div class="flex flex-col items-center">
+      <p class="font-medium">Kp (PM phase sensitivity)</p>
+      <div class="leading-none kpDiv">2</div>
+      <input id="kp" value="2" type="range" min="1" max="10" onchange="updateLabels()" />
+    </div>
+  </div>
+  <br/>
+
+  <button
+    class="bg-blue-500 text-white py-1 px-3 rounded-md hover:scale-105"
+    onclick="generateComparison()"
+  >
+    Generate Comparison
+  </button>
+
+  <div id="messagePlotSection" class="flex gap-4 mt-4">
+    <div id="messagePlot" class="flex-1 w-[600px]"></div>
+  </div>
+
+  <div id="comparisonSection" class="flex gap-4 mt-4">
+    <div id="fmPlot" class="flex-1 w-[600px]"></div>
+    <div id="pmPlot" class="flex-1 w-[600px]"></div>
+  </div>
+
+  <script>
+    function updateLabels() {
+      document.querySelector('.messageFrequencyDiv').innerHTML = document.getElementById('messageFrequency').value;
+      document.querySelector('.carrierFrequencyDiv').innerHTML = document.getElementById('carrierFrequency').value;
+      document.querySelector('.kfDiv').innerHTML = document.getElementById('kf').value;
+      document.querySelector('.kpDiv').innerHTML = document.getElementById('kp').value;
+    }
+
+    // Generates ONE message signal, then produces FM and PM from it using
+    // the same formulas as FM.html and PM.html, so the comparison is a fair
+    // like-for-like: same message, same carrier, only the modulation type
+    // differs -- which is exactly what the reviewer asked to see side by side.
+    function generateComparison() {
+      var messageFrequency = parseFloat(document.getElementById('messageFrequency').value);
+      var carrierFrequency = parseFloat(document.getElementById('carrierFrequency').value);
+      var kf = parseFloat(document.getElementById('kf').value);
+      var kp = parseFloat(document.getElementById('kp').value);
+      var numPoints = 2000;
+
+      var duration = 3 / messageFrequency;
+      var x_values = Array.from({ length: numPoints }, (_, i) => (i / (numPoints - 1)) * duration);
+      var fs = numPoints / duration;
+
+      var message_signal = x_values.map((t) => Math.cos(2 * Math.PI * messageFrequency * t));
+
+      // FM: instantaneous phase is the running integral of the message,
+      // approximated here as a cumulative sum (same method as FM.html).
+      var phase_deviation = new Array(numPoints).fill(0);
+      for (var i = 1; i < numPoints; i++) {
+        phase_deviation[i] = phase_deviation[i - 1] + message_signal[i] * (kf / fs) * 2 * Math.PI;
+      }
+      var fm_signal = x_values.map((x, i) => Math.sin(2 * Math.PI * carrierFrequency * x + phase_deviation[i]));
+
+      // PM: instantaneous phase is directly proportional to the message
+      // itself, not its integral (same formula as PM.html).
+      var phasedev = Math.PI * kp;
+      var pm_signal = x_values.map((x, i) => Math.cos(2 * Math.PI * carrierFrequency * x + phasedev * message_signal[i]));
+
+      Plotly.newPlot('messagePlot', [{
+        x: x_values, y: message_signal, mode: 'lines', name: 'Message signal', line: { color: 'green' }
+      }], {
+        title: 'Shared message signal m(t)',
+        xaxis: { title: 'Time' }, yaxis: { title: 'Amplitude' }
+      });
+
+      Plotly.newPlot('fmPlot', [{
+        x: x_values, y: fm_signal, mode: 'lines', name: 'FM signal', line: { color: 'blue' }
+      }], {
+        title: 'FM output (same message, same carrier)',
+        xaxis: { title: 'Time' }, yaxis: { title: 'Amplitude' }
+      });
+
+      Plotly.newPlot('pmPlot', [{
+        x: x_values, y: pm_signal, mode: 'lines', name: 'PM signal', line: { color: 'red' }
+      }], {
+        title: 'PM output (same message, same carrier)',
+        xaxis: { title: 'Time' }, yaxis: { title: 'Amplitude' }
+      });
+
+      document.getElementById('messagePlotSection').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+  </body>
+</html>
