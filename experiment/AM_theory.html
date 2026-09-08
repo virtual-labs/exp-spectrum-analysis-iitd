@@ -491,6 +491,23 @@
                   After DC removal and optional amplification, the original message signal \( m(t) \) is recovered.
                 </p>
           
+                <h3>Envelope Detector</h3>
+                <p>
+                  Coherent demodulation above requires a locally generated carrier that is perfectly synchronized in frequency and phase with the transmitter -- an added cost and complexity. AM's key practical advantage over DSB-SC is that it can instead be demodulated with a much simpler and cheaper <b>envelope detector</b>: a diode rectifier followed by a low-pass RC filter, with no local oscillator needed at all.
+                </p>
+                <p>
+                  This works because a full-carrier AM signal's amplitude envelope directly follows the message, as long as the envelope never crosses zero:
+                </p>
+                <p>
+                  \( s(t) = A_c \left[ 1 + K_a m(t) \right] \cos(2\pi f_c t) \)
+                </p>
+                <p>
+                  The diode passes only the positive half-cycles (half-wave rectification), and the RC filter then smooths this rectified signal to trace out its envelope, \( A_c [1 + K_a m(t)] \) -- which is exactly the message signal riding on a DC offset.
+                </p>
+                <p>
+                  This only works correctly when the <b>modulation index</b> \( \mu = K_a \cdot \max|m(t)| \le 1 \). If \( \mu > 1 \), the AM signal is said to be <b>over-modulated</b>: \( 1 + K_a m(t) \) goes negative for part of the cycle, the envelope no longer follows \( m(t) \) faithfully, and the envelope detector output becomes visibly distorted. This is why AM transmitters are designed to keep \( \mu \le 1 \) at all times.
+                </p>
+          
               </div>
             </div>
           </div>
